@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="366.0" prefWidth="592.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="slikaDogadjaja" fitHeight="266.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="nazivDogadjaja" layoutX="14.0" layoutY="277.0" prefHeight="44.0" prefWidth="288.0" textFill="WHITE" />
+      <Label fx:id="datumDogadjaja" layoutX="14.0" layoutY="336.0" prefHeight="24.0" prefWidth="133.0" textFill="#0377e4" />
+   </children>
+</AnchorPane>

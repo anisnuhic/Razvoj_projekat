@@ -17,7 +17,23 @@
     -fx-border-radius: 30;
 }
 
+.button:hover{
+    -fx-background-color: linear-gradient(to right, #5158b4, #91ced6);
+    -fx-cursor: pointer;
+}
+
 .category_butons{
     -fx-background-color: #333333;
     -fx-font-size: 12px;
+}
+
+.category_butons:hover{
+    -fx-background-color: linear-gradient(to right, #333333, #ffffff);
+}
+
+.search_field{
+    -fx-background-color: #333333;
+    -fx-background-radius: 20;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 2, 2);
 }
