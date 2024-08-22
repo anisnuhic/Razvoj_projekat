@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -13,7 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 public class PrimaryController {
-
+    @FXML
+    private GridPane resetka;
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -49,21 +52,38 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
-
-      public static void main(String[] args) {
+        @FXML
+        public void initialize() {
         // Kreiraj listu za Dogadjaj objekte
         List<Dogadjaj> listaDogadjaja = new ArrayList<>();
         
         // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new Dogadjaj("Koncert u parku", "http://example.com/koncert", new Date())); // 15. avgust 2024
-        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "http://example.com/izlozba", new Date())); // 20. septembar 2024
-        listaDogadjaja.add(new Dogadjaj("Sportsko takmičenje", "http://example.com/sport", new Date())); // 10. oktobar 2024
-        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "http://example.com/pozoriste", new Date())); // 5. novembar 2024
-        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "http://example.com/konferencija", new Date())); // 25. decembar 2024
-
+        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", new Date())); // 15. avgust 2024
+        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", new Date())); // 20. septembar 2024
+        listaDogadjaja.add(new Dogadjaj("Sportsko takmičenje", "/grupa8/assets/slikeDogadjaja/brena.png", new Date())); // 10. oktobar 2024
+        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", new Date())); // 5. novembar 2024
+        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", new Date())); // 25. decembar 2024
+        resetka.getChildren().clear();
+        int row = 0;
+        int col = 0;
         // Ispis liste Dogadjaj objekata
-        //for (Dogadjaj d : listaDogadjaja) {
-            //System.out.println("Naziv: " + d.nazivDogadjaja + ", URL: " + d.urlDogadjaja + ", Datum: " + d.datumDogadjaja);
-        //}
+        for (Dogadjaj d : listaDogadjaja) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("kartica.fxml"));
+                AnchorPane eventCard = loader.load();
+                KarticaController controller = loader.getController();
+                controller.setDogadjaj(d);
+                controller.setPrimaryController(this);
+    
+                resetka.add(eventCard, col, row);
+                col++;
+                if (col == 2) {
+                    col = 0;
+                    row++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
