@@ -62,8 +62,8 @@ public class PrimaryController {
         listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "http://example.com/konferencija", new Date())); // 25. decembar 2024
 
         // Ispis liste Dogadjaj objekata
-        for (Dogadjaj d : listaDogadjaja) {
-            System.out.println("Naziv: " + d.nazivDogadjaja + ", URL: " + d.urlDogadjaja + ", Datum: " + d.datumDogadjaja);
-        }
+        //for (Dogadjaj d : listaDogadjaja) {
+            //System.out.println("Naziv: " + d.nazivDogadjaja + ", URL: " + d.urlDogadjaja + ", Datum: " + d.datumDogadjaja);
+        //}
     }
 }
