@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -7,11 +8,34 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#eventCardClicked" prefHeight="180.0" prefWidth="370.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.KarticaController">
    <children>
-      <ImageView fx:id="slikaDogadjaja" fitHeight="114.0" fitWidth="370.0" layoutX="4.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="slikaDogadjaja" fitHeight="114.0" fitWidth="370.0" layoutX="4.0" pickOnBounds="true" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@assets/slikeDogadjaja/brena.png" />
-         </image></ImageView>
+         </image>
+         <viewport>
+            <Rectangle2D width="500.0" />
+         </viewport></ImageView>
       <Label fx:id="nazivDogadjaja" layoutX="4.0" layoutY="114.0" prefHeight="44.0" prefWidth="288.0" text="Bilo sta da napisem" textFill="WHITE" />
       <Label fx:id="datumDogadjaja" layoutX="4.0" layoutY="154.0" prefHeight="24.0" prefWidth="134.0" text="10.10.2010" textFill="#0377e4" />
+      <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="347.0" layoutY="6.0" pickOnBounds="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@assets/right_round.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="347.0" layoutY="158.0" pickOnBounds="true" rotate="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-1.0">
+         <image>
+            <Image url="@assets/right_round.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" rotate="-90.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@assets/right_round.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="8.0" layoutY="158.0" pickOnBounds="true" rotate="180.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@assets/right_round.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -1,13 +1,14 @@
 package grupa8;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Dogadjaj {
     String nazivDogadjaja;
     String urlDogadjaja;
-    Date datumDogadjaja;
+    LocalDate datumDogadjaja;
 
-    public Dogadjaj(String x, String y, Date z){
+    public Dogadjaj(String x, String y, LocalDate z){
         nazivDogadjaja = x;
         urlDogadjaja = y;
         datumDogadjaja = z;

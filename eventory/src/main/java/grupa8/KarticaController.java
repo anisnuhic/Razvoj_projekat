@@ -41,7 +41,7 @@ public class KarticaController {
             controller.setKarticaController(this);
             Stage stage = new Stage();
             stage.setTitle("Dogadjaj");
-            stage.setScene(new Scene(prijavaRoot));
+            stage.setScene(new Scene(prijavaRoot, 860, 700));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow()));
             stage.showAndWait();

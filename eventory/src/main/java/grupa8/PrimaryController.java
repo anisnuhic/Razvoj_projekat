@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,11 +59,11 @@ public class PrimaryController {
         List<Dogadjaj> listaDogadjaja = new ArrayList<>();
         
         // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", new Date())); // 15. avgust 2024
-        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", new Date())); // 20. septembar 2024
-        listaDogadjaja.add(new Dogadjaj("Sportsko takmičenje", "/grupa8/assets/slikeDogadjaja/brena.png", new Date())); // 10. oktobar 2024
-        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", new Date())); // 5. novembar 2024
-        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", new Date())); // 25. decembar 2024
+        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
+        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
+        listaDogadjaja.add(new Dogadjaj("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
+        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
+        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png",LocalDate.of(2024, 8, 23) )); // 25. decembar 2024
         resetka.getChildren().clear();
         int row = 0;
         int col = 0;
