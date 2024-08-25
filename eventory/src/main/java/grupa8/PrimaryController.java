@@ -87,4 +87,55 @@ public class PrimaryController {
             }
         }
     }
+    @FXML
+    private void handleCijenaButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cijena.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Filter Cijena");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleDatumButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("datum.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Filter Datum");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleLokacijaButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lokacija.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Filter Lokacija");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.DatumController">
+   <children>
+      <TextField layoutX="76.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" />
+      <TextField layoutX="346.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" />
+      <Label alignment="CENTER" layoutX="242.0" layoutY="54.0" prefHeight="50.0" prefWidth="116.0" text="DATUM">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="235.0" layoutY="287.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="146.0" styleClass="buttoni" stylesheets="@css/datum.css" text="Potvrdi" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="222.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="492.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="76.0" layoutY="135.0" prefHeight="32.0" prefWidth="162.0" text="Početni datum">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="346.0" layoutY="135.0" prefHeight="32.0" prefWidth="162.0" text="Krajnji datum">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

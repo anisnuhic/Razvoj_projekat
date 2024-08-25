@@ -99,7 +99,7 @@
             </ImageView>
             <VBox layoutX="35.0" layoutY="517.0" prefHeight="118.0" prefWidth="265.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" text="Cijena" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleCijenaButtonAction" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" text="Cijena" textFill="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -107,7 +107,7 @@
                         <Insets left="25.0" top="5.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" text="Lokacija" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleLokacijaButtonAction" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" text="Lokacija" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -115,7 +115,7 @@
                         <Insets left="25.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="20.0" prefWidth="267.0" styleClass="category_butons" text="Datum" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleDatumButtonAction" prefHeight="20.0" prefWidth="267.0" styleClass="category_butons" text="Datum" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="17.0" />
                      </VBox.margin>
