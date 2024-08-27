@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.LokacijaController">
    <children>
       <TextField layoutX="76.0" layoutY="59.0" prefHeight="40.0" prefWidth="436.0" />
@@ -29,7 +28,7 @@
             <VBox fx:id="lokacije" prefHeight="321.0" prefWidth="419.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="217.0" layoutY="444.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="165.0" styleClass="buttoni" stylesheets="@css/lokacija.css" text="Potvrdi" textFill="WHITE">
+      <Button layoutX="217.0" layoutY="444.0" mnemonicParsing="false" onAction="#prikaziOdabranaMjesta" prefHeight="48.0" prefWidth="165.0" styleClass="buttoni" stylesheets="@css/lokacija.css" text="Potvrdi" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>

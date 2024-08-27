@@ -6,16 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.CijenaController">
    <children>
-      <Button layoutX="219.0" layoutY="284.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="154.0" styleClass="buttoni" stylesheets="@css/cijena.css" text="Potvrdi" textFill="WHITE">
+      <Button layoutX="219.0" layoutY="284.0" mnemonicParsing="false" onAction="#potvrdiCijene" prefHeight="51.0" prefWidth="154.0" styleClass="buttoni" stylesheets="@css/cijena.css" text="Potvrdi" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <TextField alignment="CENTER_RIGHT" layoutX="87.0" layoutY="188.0" prefHeight="51.0" prefWidth="184.0" promptText="KM" />
-      <TextField alignment="CENTER_RIGHT" layoutX="300.0" layoutY="188.0" prefHeight="51.0" prefWidth="184.0" promptText="KM" />
+      <TextField fx:id="odCijenaTextField" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="188.0" prefHeight="51.0" prefWidth="184.0" promptText="KM" />
+      <TextField fx:id="doCijenaTextField" alignment="CENTER_RIGHT" layoutX="300.0" layoutY="188.0" prefHeight="51.0" prefWidth="184.0" promptText="KM" />
       <Label alignment="CENTER" layoutX="219.0" layoutY="86.0" prefHeight="51.0" prefWidth="140.0" text="Cijena">
          <font>
             <Font name="System Bold" size="20.0" />

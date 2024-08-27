@@ -8,17 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.DatumController">
    <children>
-      <TextField layoutX="76.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" />
-      <TextField layoutX="346.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" />
+      <TextField fx:id="odDatumTextField" layoutX="76.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" promptText="DD-MM-YYYY" />
+      <TextField fx:id="doDatumTextField" layoutX="346.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" promptText="DD-MM-YYYY" />
       <Label alignment="CENTER" layoutX="242.0" layoutY="54.0" prefHeight="50.0" prefWidth="116.0" text="DATUM">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button layoutX="235.0" layoutY="287.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="146.0" styleClass="buttoni" stylesheets="@css/datum.css" text="Potvrdi" textFill="WHITE">
+      <Button layoutX="235.0" layoutY="287.0" mnemonicParsing="false" onAction="#potvrdiDatum" prefHeight="50.0" prefWidth="146.0" styleClass="buttoni" stylesheets="@css/datum.css" text="Potvrdi" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>

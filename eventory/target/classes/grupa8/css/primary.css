@@ -37,3 +37,15 @@
     -fx-border-radius: 5;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 2, 2);
 }
+
+.filter-button{
+    -fx-background-color: #333333;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-text-fill: white;
+}
+
+.filter-button:hover{
+    -fx-background-color: linear-gradient(to right, #333333, #333444);
+    -fx-cursor: pointer;
+}

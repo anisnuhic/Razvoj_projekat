@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -18,6 +21,8 @@ import java.util.List;
 public class PrimaryController {
     @FXML
     private GridPane resetka;
+    @FXML 
+    private HBox cijenaContainer;
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -86,13 +91,21 @@ public class PrimaryController {
                 e.printStackTrace();
             }
         }
-    }
+       }
+       @FXML
+        void updatePrice(String x, String y){
+        //cijenaContainer.getChildren().clear();
+        Button button = new Button(x + " -"  + y + " KM " + "  x");
+        button.getStyleClass().add("filter-button"); 
+        cijenaContainer.getChildren().addAll(button);
+       }
     @FXML
     private void handleCijenaButtonAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cijena.fxml"));
             Parent prijavaRoot = fxmlLoader.load();
-
+            CijenaController kontroler = fxmlLoader.getController();
+            kontroler.setPrimaryController(this);
             Stage stage = new Stage();
             stage.setTitle("Filter Cijena");
             stage.setScene(new Scene(prijavaRoot));
@@ -105,11 +118,19 @@ public class PrimaryController {
         }
     }
     @FXML
+        void updateDate(String x, String y){
+        //cijenaContainer.getChildren().clear();
+        Button button = new Button(x + " -"  + y + "  x");
+        button.getStyleClass().add("filter-button"); 
+        cijenaContainer.getChildren().addAll(button);
+       }
+    @FXML
     private void handleDatumButtonAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("datum.fxml"));
             Parent prijavaRoot = fxmlLoader.load();
-
+            DatumController kontroler = fxmlLoader.getController();
+            kontroler.setPrimaryController(this);
             Stage stage = new Stage();
             stage.setTitle("Filter Datum");
             stage.setScene(new Scene(prijavaRoot));
@@ -127,6 +148,9 @@ public class PrimaryController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lokacija.fxml"));
             Parent prijavaRoot = fxmlLoader.load();
 
+            LokacijaController lokacijaController = fxmlLoader.getController();
+            lokacijaController.setPrimaryController(this);
+
             Stage stage = new Stage();
             stage.setTitle("Filter Lokacija");
             stage.setScene(new Scene(prijavaRoot));
@@ -136,6 +160,15 @@ public class PrimaryController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void updateLocations(List<String> locations) {
+        for (String location : locations) {
+            Button button = new Button(location + "  x");
+            button.getStyleClass().add("filter-button");
+            cijenaContainer.getChildren().add(button);
         }
     }
 }

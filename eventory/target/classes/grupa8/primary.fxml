@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -159,7 +160,7 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="139.20000000000002" layoutY="237.0" prefHeight="502.0" prefWidth="802.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="130.0">
+            <ScrollPane layoutX="139.20000000000002" layoutY="237.0" prefHeight="502.0" prefWidth="802.0" stylesheets="@css/primary.css" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="130.0">
                <content>
                   <GridPane fx:id="resetka" gridLinesVisible="true" hgap="10.0" prefHeight="516.0" prefWidth="643.0" vgap="10.0">
                     <columnConstraints>
@@ -174,6 +175,10 @@
                   </GridPane>
                </content>
             </ScrollPane>
+            <HBox fx:id="cijenaContainer" layoutX="274.0" layoutY="110.0" prefHeight="83.0" prefWidth="484.0" style="-fx-spacing: 5;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></HBox>
          </children></AnchorPane>
    </children>
 </AnchorPane>
