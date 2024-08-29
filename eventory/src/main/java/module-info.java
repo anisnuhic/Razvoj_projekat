@@ -4,6 +4,7 @@ module grupa8 {
     requires javafx.graphics;
     requires javafx.base;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core;
     
    
 
