@@ -2,6 +2,7 @@ package grupa8;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
 public class KupovinaController {
@@ -10,11 +11,18 @@ public class KupovinaController {
     StackPane stek;
 
     @FXML
+    private Button akcijskiButton;
+
+    @FXML
     private void vratiSeNazad(ActionEvent event) {
         try {
-            stek.getChildren().remove(stek.getChildren().size()-1);  
+            stek.getChildren().remove(stek.getChildren().size() - 1);  
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setAkcijskiButtonText(String text) {
+        akcijskiButton.setText(text);
     }
 }

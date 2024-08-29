@@ -3,6 +3,9 @@ module grupa8 {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.base;
+    requires jakarta.persistence;
+    
+   
 
     opens grupa8 to javafx.fxml;
     exports grupa8;

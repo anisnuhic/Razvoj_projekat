@@ -42,12 +42,26 @@ public class DogadjajController {
             
             KupovinaController kupovinaController = fxmlLoader.getController();
             kupovinaController.stek = this.stek; // Postavi StackPane
-            
-           // stek.getChildren().clear();
+            //kupovinaController.setAkcijskiButtonText("Kupi");
+            kupovinaController.setAkcijskiButtonText("Rezerviši");
             stek.getChildren().add(parent);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+    @FXML
+    private void kupovinaClicked(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("kupovina.fxml"));
+            Parent parent = fxmlLoader.load();
+            
+            KupovinaController kupovinaController = fxmlLoader.getController();
+            kupovinaController.stek = this.stek; // Postavi StackPane
+            kupovinaController.setAkcijskiButtonText("Kupi");
+           // kupovinaController.setAkcijskiButtonText("Rezerviši");
+            stek.getChildren().add(parent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

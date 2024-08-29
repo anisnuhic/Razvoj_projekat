@@ -48,7 +48,7 @@
                </children>
             </AnchorPane>
             <Button layoutX="436.0" layoutY="516.0" mnemonicParsing="false" onAction="#rezervacijaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Rezerviši kartu" textFill="WHITE" />
-            <Button layoutX="436.0" layoutY="560.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Kupi kartu" textFill="WHITE" />
+            <Button layoutX="436.0" layoutY="560.0" mnemonicParsing="false" onAction="#kupovinaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Kupi kartu" textFill="WHITE" />
             <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="124.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/map_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />

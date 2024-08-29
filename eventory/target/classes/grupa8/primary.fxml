@@ -155,12 +155,12 @@
                   <Image url="@assets/icons/search_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
-            <Label layoutX="122.0" layoutY="203.0" prefHeight="24.0" prefWidth="223.0" text="Popularni događaji ">
+            <Label layoutX="124.0" layoutY="181.0" prefHeight="24.0" prefWidth="223.0" text="Popularni događaji ">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="139.20000000000002" layoutY="237.0" prefHeight="502.0" prefWidth="802.0" stylesheets="@css/primary.css" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="130.0">
+            <ScrollPane fx:id="scroll_pane" layoutX="148.0" layoutY="237.0" prefHeight="502.0" prefWidth="755.0" styleClass="scroll_pane" stylesheets="@css/primary.css" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="139.0">
                <content>
                   <GridPane fx:id="resetka" gridLinesVisible="true" hgap="10.0" prefHeight="516.0" prefWidth="643.0" vgap="10.0">
                     <columnConstraints>

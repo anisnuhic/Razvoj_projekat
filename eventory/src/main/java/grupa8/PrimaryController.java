@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+//import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 public class PrimaryController {
@@ -97,6 +97,7 @@ public class PrimaryController {
         //cijenaContainer.getChildren().clear();
         Button button = new Button(x + " -"  + y + " KM " + "  x");
         button.getStyleClass().add("filter-button"); 
+        button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
         cijenaContainer.getChildren().addAll(button);
        }
     @FXML
@@ -122,6 +123,7 @@ public class PrimaryController {
         //cijenaContainer.getChildren().clear();
         Button button = new Button(x + " -"  + y + "  x");
         button.getStyleClass().add("filter-button"); 
+        button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
         cijenaContainer.getChildren().addAll(button);
        }
     @FXML
@@ -168,6 +170,7 @@ public class PrimaryController {
         for (String location : locations) {
             Button button = new Button(location + "  x");
             button.getStyleClass().add("filter-button");
+            button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
             cijenaContainer.getChildren().add(button);
         }
     }

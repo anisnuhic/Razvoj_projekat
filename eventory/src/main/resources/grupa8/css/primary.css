@@ -49,3 +49,12 @@
     -fx-background-color: linear-gradient(to right, #333333, #333444);
     -fx-cursor: pointer;
 }
+
+.scroll_pane{
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+    -fx-background-color: transparent; 
+    -fx-border-color: transparent;
+    -fx-background-insets: 0; 
+    -fx-background-color: white;
+}

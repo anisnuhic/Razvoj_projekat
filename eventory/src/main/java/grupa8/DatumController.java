@@ -2,7 +2,9 @@ package grupa8;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class DatumController {
      @FXML
@@ -31,6 +33,7 @@ public class DatumController {
         String krajnjiDatum = doDatumTextField.getText();
 
         primarycontroller.updateDate(pocetniDatum, krajnjiDatum);
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

@@ -1,8 +1,11 @@
 package grupa8;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class LokacijaController {
     }
 
     @FXML
-    private void prikaziOdabranaMjesta() {
+    private void prikaziOdabranaMjesta(ActionEvent event) {
         List<String> odabranaMjesta = new ArrayList<>();
     
         for (var node : lokacije.getChildren()) {
@@ -49,6 +52,8 @@ public class LokacijaController {
     
         // Poziv metode u PrimaryController za ažuriranje prikaza odabranih mjesta
         primaryController.updateLocations(odabranaMjesta);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
     
 
