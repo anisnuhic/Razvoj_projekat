@@ -20,12 +20,12 @@ public class KarticaController {
     private ImageView slikaDogadjaja;
     @FXML
     private Label nazivDogadjaja, datumDogadjaja;
-    private Dogadjaj dogadjaj;
+    private DogadjajStari dogadjaj;
    private PrimaryController primaryController;
     public void setPrimaryController(PrimaryController x){
         this.primaryController = x;
     } 
-    public void setDogadjaj(Dogadjaj x){
+    public void setDogadjaj(DogadjajStari x){
         nazivDogadjaja.setText(x.nazivDogadjaja);
         datumDogadjaja.setText(x.datumDogadjaja.toString());
         Image slika = new Image(getClass().getResourceAsStream(x.urlDogadjaja));

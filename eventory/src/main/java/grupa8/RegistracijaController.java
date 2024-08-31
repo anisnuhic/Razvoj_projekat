@@ -1,8 +1,6 @@
 package grupa8;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -42,22 +40,27 @@ public class RegistracijaController {
     public void initialize() {
         // Kreirajte ToggleGroup
         roleToggleGroup = new ToggleGroup();
-
+    
         // Dodajte RadioButton dugmad u grupu
         korisnikRadioButton.setToggleGroup(roleToggleGroup);
         organizatorRadioButton.setToggleGroup(roleToggleGroup);
+
+        roleToggleGroup.selectToggle(korisnikRadioButton);
     }
 
-
-
-    public RegistracijaController() {
+    public void RegistracijaController(){
         emf = Persistence.createEntityManagerFactory("eventoryPU");
     }
 
+    
 
 
      @FXML
     private void handleRegistracija() {
+        System.out.println("prije");
+        emf = Persistence.createEntityManagerFactory("eventoryPU");
+        EntityManager em = emf.createEntityManager();
+        System.out.println("poslije");
         String ime = imeField.getText();
         String prezime = prezimeField.getText();
         String korisnickoIme = korisnickoImeField.getText();
@@ -91,11 +94,12 @@ public class RegistracijaController {
         korisnik.setTipKorisnika(tipKorisnika);
 
         // Spremanje korisnika u bazu
-        try (EntityManager em = emf.createEntityManager()) {
+        try {
             em.getTransaction().begin();
             em.persist(korisnik);
             em.getTransaction().commit();
         } catch (Exception e) {
+            System.out.println("Failed to persist");
             // Handle any exceptions that may occur during database interaction
             // For example, log the exception or display an error message to the user
             e.printStackTrace();

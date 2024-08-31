@@ -44,6 +44,7 @@ public class PrimaryController {
     @FXML
     private void handleRegistracijaButtonAction(ActionEvent event) {
         try {
+            System.out.println("izvrsava se try blok za otvaranje registracije");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registracija.fxml"));
             Parent registracijaRoot = fxmlLoader.load();
 
@@ -61,19 +62,19 @@ public class PrimaryController {
         @FXML
         public void initialize() {
         // Kreiraj listu za Dogadjaj objekte
-        List<Dogadjaj> listaDogadjaja = new ArrayList<>();
+        List<DogadjajStari> listaDogadjaja = new ArrayList<>();
         
         // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
-        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
-        listaDogadjaja.add(new Dogadjaj("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
-        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
-        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png",LocalDate.of(2024, 8, 23) )); // 25. decembar 2024
+        listaDogadjaja.add(new DogadjajStari("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
+        listaDogadjaja.add(new DogadjajStari("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
+        listaDogadjaja.add(new DogadjajStari("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
+        listaDogadjaja.add(new DogadjajStari("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
+        listaDogadjaja.add(new DogadjajStari("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png",LocalDate.of(2024, 8, 23) )); // 25. decembar 2024
         resetka.getChildren().clear();
         int row = 0;
         int col = 0;
         // Ispis liste Dogadjaj objekata
-        for (Dogadjaj d : listaDogadjaja) {
+        for (DogadjajStari d : listaDogadjaja) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("kartica.fxml"));
                 AnchorPane eventCard = loader.load();

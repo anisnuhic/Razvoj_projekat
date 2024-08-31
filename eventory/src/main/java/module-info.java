@@ -8,6 +8,6 @@ module grupa8 {
     
    
 
-    opens grupa8 to javafx.fxml;
+    opens grupa8 to javafx.fxml, org.hibernate.orm.core;
     exports grupa8;
 }

@@ -37,17 +37,17 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="358.0" layoutY="182.0" />
-      <TextField layoutX="538.0" layoutY="182.0" />
+      <TextField fx:id="imeField" layoutX="358.0" layoutY="182.0" />
+      <TextField fx:id="prezimeField" layoutX="538.0" layoutY="182.0" />
       <Label layoutX="359.0" layoutY="160.0" prefHeight="16.0" prefWidth="82.0" text="Ime" />
       <Label layoutX="538.0" layoutY="160.0" prefHeight="16.0" prefWidth="82.0" text="Prezime" />
-      <TextField layoutX="358.0" layoutY="250.0" prefHeight="24.0" prefWidth="258.0" />
+      <TextField fx:id="emailField" layoutX="358.0" layoutY="250.0" prefHeight="24.0" prefWidth="258.0" />
       <Label layoutX="359.0" layoutY="225.0" prefHeight="16.0" prefWidth="82.0" text="E-mail" />
-      <TextField layoutX="358.0" layoutY="305.0" prefHeight="24.0" prefWidth="234.0" />
+      <TextField fx:id="korisnickoImeField" layoutX="358.0" layoutY="305.0" prefHeight="24.0" prefWidth="234.0" />
       <Label layoutX="359.0" layoutY="283.0" prefHeight="16.0" prefWidth="99.0" text="Korisničko ime" />
       <Label layoutX="359.0" layoutY="340.0" prefHeight="16.0" prefWidth="99.0" text="Lozinka" />
-      <PasswordField layoutX="358.0" layoutY="365.0" prefHeight="24.0" prefWidth="249.0" />
-      <PasswordField layoutX="358.0" layoutY="422.0" prefHeight="24.0" prefWidth="249.0" />
+      <PasswordField fx:id="lozinkaField" layoutX="358.0" layoutY="365.0" prefHeight="24.0" prefWidth="249.0" />
+      <PasswordField fx:id="potvrdaLozinkeField" layoutX="358.0" layoutY="422.0" prefHeight="24.0" prefWidth="249.0" />
       <Label layoutX="359.0" layoutY="399.0" prefHeight="16.0" prefWidth="99.0" text="Potvrdi lozinku" />
       <Button layoutX="452.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleRegistracija" prefHeight="31.0" prefWidth="112.0" stylesheets="@css/registracija.css" text="Registruj se" textFill="WHITE" />
       <RadioButton fx:id="korisnikRadioButton" layoutX="362.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" styleClass="button" stylesheets="@css/registracija.css" text="Korisnik" textFill="WHITE">

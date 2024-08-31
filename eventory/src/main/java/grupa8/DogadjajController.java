@@ -26,7 +26,7 @@ public class DogadjajController {
     public void setKarticaController(KarticaController x){
         this.karticaController = x;
     }
-    public void setDogadjaj(Dogadjaj x){
+    public void setDogadjaj(DogadjajStari x){
         nazivDogadjaja.setText(x.nazivDogadjaja);
         datumDogadjaja.setText(x.datumDogadjaja.toString());
         Image slika = new Image(getClass().getResourceAsStream(x.urlDogadjaja));
