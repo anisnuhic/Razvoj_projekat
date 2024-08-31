@@ -48,19 +48,17 @@ public class RegistracijaController {
         roleToggleGroup.selectToggle(korisnikRadioButton);
     }
 
-    public void RegistracijaController(){
-        emf = Persistence.createEntityManagerFactory("eventoryPU");
-    }
+    // public void RegistracijaController(){
+    //     emf = Persistence.createEntityManagerFactory("eventoryPU");
+    // }
 
     
 
 
      @FXML
     private void handleRegistracija() {
-        System.out.println("prije");
         emf = Persistence.createEntityManagerFactory("eventoryPU");
         EntityManager em = emf.createEntityManager();
-        System.out.println("poslije");
         String ime = imeField.getText();
         String prezime = prezimeField.getText();
         String korisnickoIme = korisnickoImeField.getText();

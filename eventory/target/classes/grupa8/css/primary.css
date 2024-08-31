@@ -1,0 +1,60 @@
+.menu{
+    -fx-background-color: white;
+}
+
+.left_fixed{
+    -fx-background-color: #333333;
+    
+}
+
+.kategorije{
+    -fx-background-color: red;
+}
+
+.button{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #6A6FB3, #80CDD7);
+    -fx-background-radius: 15; 
+    -fx-border-radius: 30;
+}
+
+.button:hover{
+    -fx-background-color: linear-gradient(to right, #5158b4, #91ced6);
+    -fx-cursor: pointer;
+}
+
+.category_butons{
+    -fx-background-color: #333333;
+    -fx-font-size: 12px;
+}
+
+.category_butons:hover{
+    -fx-background-color: linear-gradient(to right, #333333, #ffffff);
+}
+
+.search_field{
+    -fx-background-color: #333333;
+    -fx-background-radius: 20;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 2, 2);
+}
+
+.filter-button{
+    -fx-background-color: #333333;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-text-fill: white;
+}
+
+.filter-button:hover{
+    -fx-background-color: linear-gradient(to right, #333333, #333444);
+    -fx-cursor: pointer;
+}
+
+.scroll_pane{
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+    -fx-background-color: transparent; 
+    -fx-border-color: transparent;
+    -fx-background-insets: 0; 
+    -fx-background-color: white;
+}

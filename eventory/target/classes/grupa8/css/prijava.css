@@ -1,0 +1,9 @@
+.pozadina{
+    -fx-background-color: #333333;  
+}
+
+.button{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #6A6FB3, #80CDD7);
+    -fx-background-radius: 15; 
+    -fx-border-radius: 30;
+}
