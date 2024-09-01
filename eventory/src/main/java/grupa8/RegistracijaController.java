@@ -1,12 +1,17 @@
 package grupa8;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
+
 import java.util.Date;
+
 
 public class RegistracijaController {
     @FXML
@@ -35,12 +40,11 @@ public class RegistracijaController {
 
     private ToggleGroup roleToggleGroup;
 
-    private EntityManagerFactory emf;
     @FXML
     public void initialize() {
         // Kreirajte ToggleGroup
         roleToggleGroup = new ToggleGroup();
-    
+
         // Dodajte RadioButton dugmad u grupu
         korisnikRadioButton.setToggleGroup(roleToggleGroup);
         organizatorRadioButton.setToggleGroup(roleToggleGroup);
@@ -48,17 +52,10 @@ public class RegistracijaController {
         roleToggleGroup.selectToggle(korisnikRadioButton);
     }
 
-    // public void RegistracijaController(){
-    //     emf = Persistence.createEntityManagerFactory("eventoryPU");
-    // }
+    @FXML
+    private void handleRegistracija(ActionEvent event) {
+        EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
-    
-
-
-     @FXML
-    private void handleRegistracija() {
-        emf = Persistence.createEntityManagerFactory("eventoryPU");
-        EntityManager em = emf.createEntityManager();
         String ime = imeField.getText();
         String prezime = prezimeField.getText();
         String korisnickoIme = korisnickoImeField.getText();
@@ -96,11 +93,19 @@ public class RegistracijaController {
             em.getTransaction().begin();
             em.persist(korisnik);
             em.getTransaction().commit();
+
+            closeWindow(event);
+
         } catch (Exception e) {
             System.out.println("Failed to persist");
             // Handle any exceptions that may occur during database interaction
             // For example, log the exception or display an error message to the user
             e.printStackTrace();
         }
+    }
+
+    private void closeWindow(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

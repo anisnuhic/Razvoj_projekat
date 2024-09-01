@@ -6,23 +6,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-//import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-//import java.util.Date;
 import java.util.List;
 
 public class PrimaryController {
     @FXML
     private GridPane resetka;
-    @FXML 
+    @FXML
     private HBox cijenaContainer;
+
+    private FilterDefinition filterDefinition;
+
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -59,17 +61,18 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
-        @FXML
-        public void initialize() {
+
+    @FXML
+    public void initialize() {
         // Kreiraj listu za Dogadjaj objekte
         List<DogadjajStari> listaDogadjaja = new ArrayList<>();
-        
+
         // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
         listaDogadjaja.add(new DogadjajStari("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
         listaDogadjaja.add(new DogadjajStari("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
         listaDogadjaja.add(new DogadjajStari("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
         listaDogadjaja.add(new DogadjajStari("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
-        listaDogadjaja.add(new DogadjajStari("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png",LocalDate.of(2024, 8, 23) )); // 25. decembar 2024
+        listaDogadjaja.add(new DogadjajStari("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", LocalDate.of(2024, 8, 23))); // 25. decembar 2024
         resetka.getChildren().clear();
         int row = 0;
         int col = 0;
@@ -81,7 +84,7 @@ public class PrimaryController {
                 KarticaController controller = loader.getController();
                 controller.setDogadjaj(d);
                 controller.setPrimaryController(this);
-    
+
                 resetka.add(eventCard, col, row);
                 col++;
                 if (col == 2) {
@@ -92,15 +95,31 @@ public class PrimaryController {
                 e.printStackTrace();
             }
         }
-       }
-       @FXML
-        void updatePrice(String x, String y){
-        //cijenaContainer.getChildren().clear();
-        Button button = new Button(x + " -"  + y + " KM " + "  x");
-        button.getStyleClass().add("filter-button"); 
-        button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
-        cijenaContainer.getChildren().addAll(button);
-       }
+
+        EntityManagerFactoryInstance.init();
+        this.filterDefinition = new FilterDefinition();
+    }
+
+    @FXML
+    void updatePrice(String x, String y) {
+        if (x.isEmpty() && y.isEmpty()) {
+            cijenaContainer.getChildren().removeIf(node -> node.getStyleClass().contains("price"));
+        } else {
+            Button button = new Button(x + " -" + y + " KM " + "  x");
+            button.getStyleClass().add("filter-button");
+            button.getStyleClass().add("price");
+            button.setOnAction(event -> {
+                cijenaContainer.getChildren().remove(button);
+                filterDefinition.setPrice("", "");
+                filter();
+            });
+            cijenaContainer.getChildren().removeIf(node -> node.getStyleClass().contains("price"));
+            cijenaContainer.getChildren().add(button);
+        }
+        filterDefinition.setPrice(x, y);
+        filter();
+    }
+
     @FXML
     private void handleCijenaButtonAction(ActionEvent event) {
         try {
@@ -119,14 +138,16 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
+
     @FXML
-        void updateDate(String x, String y){
+    void updateDate(String x, String y) {
         //cijenaContainer.getChildren().clear();
-        Button button = new Button(x + " -"  + y + "  x");
-        button.getStyleClass().add("filter-button"); 
+        Button button = new Button(x + " -" + y + "  x");
+        button.getStyleClass().add("filter-button");
         button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
         cijenaContainer.getChildren().addAll(button);
-       }
+    }
+
     @FXML
     private void handleDatumButtonAction(ActionEvent event) {
         try {
@@ -145,6 +166,7 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleLokacijaButtonAction(ActionEvent event) {
         try {
@@ -168,11 +190,49 @@ public class PrimaryController {
 
     @FXML
     void updateLocations(List<String> locations) {
+        cijenaContainer.getChildren().removeIf(node -> node.getStyleClass().contains("location"));
         for (String location : locations) {
             Button button = new Button(location + "  x");
             button.getStyleClass().add("filter-button");
-            button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
+            button.getStyleClass().add("location");
+            button.setOnAction(event -> {
+                cijenaContainer.getChildren().remove(button);
+                filterDefinition.removeLocation(button.getText().substring(0, button.getText().length() - 3));
+                filter();
+            });
             cijenaContainer.getChildren().add(button);
         }
+        filterDefinition.setLocationNames(locations);
+        filter();
+    }
+
+    @FXML
+    void filter() {
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("eventoryPU");
+//        EntityManager em = emf.createEntityManager();
+//        Connection connection = em.unwrap(Connection.class);
+//
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<Dogadjaj> cq = cb.createQuery(Dogadjaj.class);
+//        Root<Dogadjaj> root = cq.from(Dogadjaj.class);
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//        if (name != null) {
+//            predicates.add(cb.equal(root.get("name"), name));
+//        }
+//
+//        if (age != null) {
+//            predicates.add(cb.equal(root.get("age"), age));
+//        }
+//
+//        cq.where(predicates.toArray(new Predicate[0]));
+//
+//        return em.createQuery(cq).getResultList();
+        System.out.println(filterDefinition);
+    }
+
+    public void resetFilters(){
+        this.filterDefinition = new FilterDefinition();
     }
 }

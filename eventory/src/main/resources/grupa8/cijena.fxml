@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.CijenaController">
    <children>
-      <Button layoutX="219.0" layoutY="284.0" mnemonicParsing="false" onAction="#potvrdiCijene" prefHeight="51.0" prefWidth="154.0" styleClass="buttoni" stylesheets="@css/cijena.css" text="Potvrdi" textFill="WHITE">
+      <Button fx:id="potvrdiButton" layoutX="219.0" layoutY="284.0" mnemonicParsing="false" onAction="#potvrdiCijene" prefHeight="51.0" prefWidth="154.0" styleClass="buttoni" stylesheets="@css/cijena.css" text="Potvrdi" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
