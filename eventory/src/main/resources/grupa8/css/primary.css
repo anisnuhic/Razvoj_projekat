@@ -58,3 +58,11 @@
     -fx-background-insets: 0; 
     -fx-background-color: white;
 }
+
+.search_button{
+    -fx-background-color: transparent;
+}
+
+.search_button:hover{
+    -fx-background-color: transparent;
+}

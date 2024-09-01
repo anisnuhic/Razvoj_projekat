@@ -62,12 +62,12 @@
                   <Font size="7.0" />
                </font>
             </Label>
-            <Button layoutX="41.0" layoutY="121.0" mnemonicParsing="false" onAction="#handlePrijavaButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Prijava" textFill="WHITE" AnchorPane.leftAnchor="35.0">
+            <Button fx:id="prijavaButton" layoutX="41.0" layoutY="121.0" mnemonicParsing="false" onAction="#handlePrijavaButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Prijava" textFill="WHITE" AnchorPane.leftAnchor="35.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="35.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleRegistracijaButtonAction" prefHeight="38.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Registracija" textFill="WHITE" AnchorPane.leftAnchor="35.0" />
+            <Button fx:id="registracijaButton" layoutX="35.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleRegistracijaButtonAction" prefHeight="38.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Registracija" textFill="WHITE" AnchorPane.leftAnchor="35.0" />
             <Label layoutX="35.0" layoutY="248.0" prefHeight="16.0" prefWidth="88.0" text="Kategorija" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -141,6 +141,16 @@
                   <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
+            <Button fx:id="napraviButton" layoutX="40.0" layoutY="635.0" mnemonicParsing="false" onAction="#handlePrijavaButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Novi događaj" textFill="WHITE" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="odjavaButton" layoutX="40.0" layoutY="688.0" mnemonicParsing="false" onAction="#handlePrijavaButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Odjava" textFill="WHITE" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="388.0" prefHeight="760.0" prefWidth="1060.0" styleClass="menu" stylesheets="@css/primary.css" AnchorPane.leftAnchor="291.0">
@@ -179,6 +189,7 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></HBox>
+            <Button layoutX="713.0" layoutY="70.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="14.0" styleClass="search_button" stylesheets="@css/primary.css" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

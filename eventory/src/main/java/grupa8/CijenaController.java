@@ -28,7 +28,7 @@ public class CijenaController {
         });
         doCijenaTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                odCijenaTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                doCijenaTextField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 

@@ -26,6 +26,21 @@ public class PrimaryController {
     private FilterDefinition filterDefinition;
 
     @FXML
+    private Button prijavaButton;
+    @FXML
+    private Button odjavaButton;
+    @FXML
+    private Button napraviButton;
+    @FXML
+    private Button registracijaButton;
+    @FXML 
+    public void hideButton(){
+        registracijaButton.setVisible(false);
+        prijavaButton.setVisible(false);
+        odjavaButton.setVisible(true);
+        napraviButton.setVisible(true);
+    }
+    @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prijava.fxml"));
@@ -49,6 +64,8 @@ public class PrimaryController {
             System.out.println("izvrsava se try blok za otvaranje registracije");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registracija.fxml"));
             Parent registracijaRoot = fxmlLoader.load();
+            RegistracijaController registracijaController = fxmlLoader.getController();
+            registracijaController.setPrimaryController(this);
 
             Stage stage = new Stage();
             stage.setTitle("Registracija");
