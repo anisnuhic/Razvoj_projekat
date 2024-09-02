@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,11 +39,40 @@ public class PrimaryController {
     private Button urediProfil;
     @FXML
     private ImageView icon1;
+    @FXML
+    private Button muzikaButton, kulturaButton, sportButton, ostaloButton;
 
     private FilterDefinition filterDefinition;
-
     @FXML
-    public void hideButton() {
+    private void muzikaClicked(ActionEvent event){
+        muzikaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
+    @FXML
+    private void kulturaClicked(ActionEvent event){
+        kulturaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
+    @FXML
+    private void sportClicked(ActionEvent event){
+        sportButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
+    @FXML
+    private void ostaloClicked(ActionEvent event){
+        ostaloButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
+    @FXML
+    public void hideButton(){
         registracijaButton.setVisible(false);
         prijavaButton.setVisible(false);
         odjavaButton.setVisible(true);
@@ -54,10 +82,9 @@ public class PrimaryController {
         urediProfil.setVisible(true);
         icon1.setVisible(true);
         resetFilters();
-    }
-
+        }
     @FXML
-    private void odjavaAction() {
+    private void odjavaAction(){
         registracijaButton.setVisible(true);
         prijavaButton.setVisible(true);
         odjavaButton.setVisible(false);
@@ -68,12 +95,10 @@ public class PrimaryController {
         icon1.setVisible(false);
         resetFilters();
     }
-
     public void setKorisnickoIme(String korisnickoIme, String tip) {
         imeKorisnika.setText(korisnickoIme);
         tipKorisnika.setText(tip);
     }
-
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -91,7 +116,6 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void handleRegistracijaButtonAction(ActionEvent event) {
         try {
@@ -146,7 +170,6 @@ public class PrimaryController {
         EntityManagerFactoryInstance.init();
         this.filterDefinition = new FilterDefinition();
     }
-
     @FXML
     void updatePrice(String x, String y) {
         if (x.isEmpty() && y.isEmpty()) {
@@ -290,7 +313,7 @@ public class PrimaryController {
         System.out.println(filterDefinition);
     }
 
-    public void resetFilters() {
+    public void resetFilters(){
         cijenaContainer.getChildren().clear();
         this.filterDefinition = new FilterDefinition();
         filter();
