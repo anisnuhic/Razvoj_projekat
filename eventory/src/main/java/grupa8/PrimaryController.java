@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class PrimaryController {
     private FilterDefinition filterDefinition;
 
     @FXML
-    public void hideButton(){
+    public void hideButton() {
         registracijaButton.setVisible(false);
         prijavaButton.setVisible(false);
         odjavaButton.setVisible(true);
@@ -52,9 +53,11 @@ public class PrimaryController {
         tipKorisnika.setVisible(true);
         urediProfil.setVisible(true);
         icon1.setVisible(true);
-        }
+        resetFilters();
+    }
+
     @FXML
-    private void odjavaAction(){
+    private void odjavaAction() {
         registracijaButton.setVisible(true);
         prijavaButton.setVisible(true);
         odjavaButton.setVisible(false);
@@ -63,11 +66,14 @@ public class PrimaryController {
         tipKorisnika.setVisible(false);
         urediProfil.setVisible(false);
         icon1.setVisible(false);
+        resetFilters();
     }
+
     public void setKorisnickoIme(String korisnickoIme, String tip) {
         imeKorisnika.setText(korisnickoIme);
         tipKorisnika.setText(tip);
     }
+
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -85,6 +91,7 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleRegistracijaButtonAction(ActionEvent event) {
         try {
@@ -139,6 +146,7 @@ public class PrimaryController {
         EntityManagerFactoryInstance.init();
         this.filterDefinition = new FilterDefinition();
     }
+
     @FXML
     void updatePrice(String x, String y) {
         if (x.isEmpty() && y.isEmpty()) {
@@ -282,7 +290,9 @@ public class PrimaryController {
         System.out.println(filterDefinition);
     }
 
-    public void resetFilters(){
+    public void resetFilters() {
+        cijenaContainer.getChildren().clear();
         this.filterDefinition = new FilterDefinition();
+        filter();
     }
 }
