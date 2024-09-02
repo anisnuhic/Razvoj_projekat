@@ -28,7 +28,7 @@
 }
 
 .category_butons:hover{
-    -fx-background-color: linear-gradient(to right, #333333, #ffffff);
+    -fx-background-color: linear-gradient(to right, #333333, #ffffff) !important;
 }
 
 .search_field{
