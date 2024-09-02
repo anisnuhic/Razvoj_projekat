@@ -101,12 +101,15 @@ import java.util.Date;
         e.printStackTrace();
         return;
     }
-
+            
             Korisnik.TipKorisnika tipKorisnika;
+            String a = "ADMIN";
             if (korisnikRadioButton.isSelected()) {
                 tipKorisnika = Korisnik.TipKorisnika.REGULAR;
+                a = "KORISNIK";
             } else if (organizatorRadioButton.isSelected()) {
                 tipKorisnika = Korisnik.TipKorisnika.ORGANIZATOR;
+                a = "ORGANIZATOR";
             } else {
                 // Prikazati grešku korisniku - nije odabran tip korisnika
                 return;
@@ -129,6 +132,7 @@ import java.util.Date;
                 em.getTransaction().commit();
                 if (primaryController != null) {
                     primaryController.hideButton();
+                    primaryController.setKorisnickoIme(korisnickoImeField.getText(), a );
                 }
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.close();

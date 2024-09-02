@@ -6,12 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,9 +22,7 @@ public class PrimaryController {
     private GridPane resetka;
     @FXML
     private HBox cijenaContainer;
-
     private FilterDefinition filterDefinition;
-
     @FXML
     private Button prijavaButton;
     @FXML
@@ -33,47 +31,66 @@ public class PrimaryController {
     private Button napraviButton;
     @FXML
     private Button registracijaButton;
+    @FXML
+    private Label imeKorisnika;
+    @FXML
+    private Label tipKorisnika;
+    @FXML
+    private Button urediProfil;
     @FXML 
     public void hideButton(){
         registracijaButton.setVisible(false);
         prijavaButton.setVisible(false);
         odjavaButton.setVisible(true);
         napraviButton.setVisible(true);
+        imeKorisnika.setVisible(true);
+        tipKorisnika.setVisible(true);
+        urediProfil.setVisible(true);
+    }
+    @FXML
+    private void odjavaAction(){
+        registracijaButton.setVisible(true);
+        prijavaButton.setVisible(true);
+        odjavaButton.setVisible(false);
+        napraviButton.setVisible(false);
+        imeKorisnika.setVisible(false);
+        tipKorisnika.setVisible(false);
+        urediProfil.setVisible(false);
+    }
+    public void setKorisnickoIme(String korisnickoIme, String tip) {
+        imeKorisnika.setText(korisnickoIme);
+        tipKorisnika.setText(tip);
     }
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prijava.fxml"));
             Parent prijavaRoot = fxmlLoader.load();
-
+            PrijavaController prijavaController = fxmlLoader.getController();
+            prijavaController.setPrimaryController(this);
             Stage stage = new Stage();
             stage.setTitle("Prijava");
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
             stage.showAndWait();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void handleRegistracijaButtonAction(ActionEvent event) {
         try {
-            System.out.println("izvrsava se try blok za otvaranje registracije");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registracija.fxml"));
             Parent registracijaRoot = fxmlLoader.load();
             RegistracijaController registracijaController = fxmlLoader.getController();
             registracijaController.setPrimaryController(this);
-
             Stage stage = new Stage();
             stage.setTitle("Registracija");
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
             stage.showAndWait();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,7 +118,6 @@ public class PrimaryController {
                 KarticaController controller = loader.getController();
                 controller.setDogadjaj(d);
                 controller.setPrimaryController(this);
-
                 resetka.add(eventCard, col, row);
                 col++;
                 if (col == 2) {
@@ -116,7 +132,6 @@ public class PrimaryController {
         EntityManagerFactoryInstance.init();
         this.filterDefinition = new FilterDefinition();
     }
-
     @FXML
     void updatePrice(String x, String y) {
         if (x.isEmpty() && y.isEmpty()) {
