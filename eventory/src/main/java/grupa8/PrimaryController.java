@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -37,6 +38,8 @@ public class PrimaryController {
     private Label tipKorisnika;
     @FXML
     private Button urediProfil;
+    @FXML
+    private ImageView icon1;
     @FXML 
     public void hideButton(){
         registracijaButton.setVisible(false);
@@ -46,7 +49,8 @@ public class PrimaryController {
         imeKorisnika.setVisible(true);
         tipKorisnika.setVisible(true);
         urediProfil.setVisible(true);
-    }
+        icon1.setVisible(true);
+        }
     @FXML
     private void odjavaAction(){
         registracijaButton.setVisible(true);
@@ -56,6 +60,7 @@ public class PrimaryController {
         imeKorisnika.setVisible(false);
         tipKorisnika.setVisible(false);
         urediProfil.setVisible(false);
+        icon1.setVisible(false);
     }
     public void setKorisnickoIme(String korisnickoIme, String tip) {
         imeKorisnika.setText(korisnickoIme);
