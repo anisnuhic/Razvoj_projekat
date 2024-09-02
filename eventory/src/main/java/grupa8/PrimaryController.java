@@ -82,6 +82,10 @@ public class PrimaryController {
         urediProfil.setVisible(true);
         icon1.setVisible(true);
         resetFilters();
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         }
     @FXML
     private void odjavaAction(){
@@ -94,6 +98,11 @@ public class PrimaryController {
         urediProfil.setVisible(false);
         icon1.setVisible(false);
         resetFilters();
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+
     }
     public void setKorisnickoIme(String korisnickoIme, String tip) {
         imeKorisnika.setText(korisnickoIme);
