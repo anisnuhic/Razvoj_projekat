@@ -1,5 +1,9 @@
 package grupa8;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class FilterDefinition {
@@ -13,6 +17,10 @@ public class FilterDefinition {
     private List<String> locationNames;
 
     private String category;
+
+    private LocalDateTime fromDate;
+
+    private LocalDateTime toDate;
 
     public String getSearchText() {
         return searchText;
@@ -47,6 +55,21 @@ public class FilterDefinition {
         }
     }
 
+    public void setDate(String fromDate, String toDate) {
+        if (fromDate.isEmpty()) {
+            this.fromDate = null;
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            this.fromDate = LocalDate.parse(fromDate, formatter).atStartOfDay();
+        }
+        if (toDate.isEmpty()) {
+            this.toDate = null;
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            this.toDate = LocalDate.parse(toDate, formatter).atTime(LocalTime.MAX);
+        }
+    }
+
     public void setToPrice(Integer toPrice) {
         this.toPrice = toPrice;
     }
@@ -72,5 +95,21 @@ public class FilterDefinition {
             return;
         }
         this.locationNames.remove(locationName);
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDateTime fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public LocalDateTime getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(LocalDateTime toDate) {
+        this.toDate = toDate;
     }
 }

@@ -17,7 +17,7 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button layoutX="235.0" layoutY="287.0" mnemonicParsing="false" onAction="#potvrdiDatum" prefHeight="50.0" prefWidth="146.0" styleClass="buttoni" stylesheets="@css/datum.css" text="Potvrdi" textFill="WHITE">
+      <Button fx:id="potvrdiDatumButton" layoutX="235.0" layoutY="287.0" mnemonicParsing="false" onAction="#potvrdiDatum" prefHeight="50.0" prefWidth="146.0" styleClass="buttoni" stylesheets="@css/datum.css" text="Potvrdi" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>

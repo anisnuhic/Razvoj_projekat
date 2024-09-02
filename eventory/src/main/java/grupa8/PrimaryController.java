@@ -23,7 +23,6 @@ public class PrimaryController {
     private GridPane resetka;
     @FXML
     private HBox cijenaContainer;
-    private FilterDefinition filterDefinition;
     @FXML
     private Button prijavaButton;
     @FXML
@@ -40,7 +39,10 @@ public class PrimaryController {
     private Button urediProfil;
     @FXML
     private ImageView icon1;
-    @FXML 
+
+    private FilterDefinition filterDefinition;
+
+    @FXML
     public void hideButton(){
         registracijaButton.setVisible(false);
         prijavaButton.setVisible(false);
@@ -178,11 +180,22 @@ public class PrimaryController {
 
     @FXML
     void updateDate(String x, String y) {
-        //cijenaContainer.getChildren().clear();
-        Button button = new Button(x + " -" + y + "  x");
-        button.getStyleClass().add("filter-button");
-        button.setOnAction(event -> cijenaContainer.getChildren().remove(button));
-        cijenaContainer.getChildren().addAll(button);
+        if (x.isEmpty() && y.isEmpty()) {
+            cijenaContainer.getChildren().removeIf(node -> node.getStyleClass().contains("date"));
+        } else {
+            Button button = new Button(x + " -" + y + "  x");
+            button.getStyleClass().add("filter-button");
+            button.getStyleClass().add("date");
+            button.setOnAction(event -> {
+                cijenaContainer.getChildren().remove(button);
+                filterDefinition.setDate("", "");
+                filter();
+            });
+            cijenaContainer.getChildren().removeIf(node -> node.getStyleClass().contains("date"));
+            cijenaContainer.getChildren().add(button);
+        }
+        filterDefinition.setDate(x, y);
+        filter();
     }
 
     @FXML
