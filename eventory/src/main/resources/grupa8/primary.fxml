@@ -175,7 +175,7 @@
       </AnchorPane>
       <AnchorPane layoutX="388.0" prefHeight="760.0" prefWidth="1060.0" styleClass="menu" stylesheets="@css/primary.css" AnchorPane.leftAnchor="291.0">
          <children>
-            <TextField layoutX="274.0" layoutY="63.0" prefHeight="38.0" prefWidth="484.0" promptText="Pretraži događaje" styleClass="search_field" stylesheets="@css/primary.css">
+            <TextField fx:id="searchText" layoutX="274.0" layoutY="63.0" prefHeight="38.0" prefWidth="484.0" promptText="Pretraži događaje" styleClass="search_field" stylesheets="@css/primary.css">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
@@ -209,7 +209,7 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></HBox>
-            <Button layoutX="715.0" layoutY="70.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="26.0" styleClass="search_button" stylesheets="@css/primary.css" />
+            <Button fx:id="searchButton" layoutX="715.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="24.0" prefWidth="26.0" styleClass="search_button" stylesheets="@css/primary.css" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

@@ -29,10 +29,14 @@ public class LokacijaController {
     private void prikaziMjesta(List<String> mjesta) {
         lokacije.getChildren().clear();
 
+        List<String> selectedLocationNames = FilterDefinition.getInstance().getLocationNames();
         for (String mjesto : mjesta) {
             CheckBox checkBox = new CheckBox(mjesto);
             checkBox.getStyleClass().add("custom-checkbox");
             checkBox.setUserData(mjesto);
+            if (selectedLocationNames.contains(mjesto)) {
+                checkBox.setSelected(true);
+            }
             lokacije.getChildren().add(checkBox);
         }
     }
@@ -40,7 +44,7 @@ public class LokacijaController {
     @FXML
     private void prikaziOdabranaMjesta(ActionEvent event) {
         List<String> odabranaMjesta = new ArrayList<>();
-    
+
         for (var node : lokacije.getChildren()) {
             if (node instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) node;
@@ -49,13 +53,13 @@ public class LokacijaController {
                 }
             }
         }
-    
+
         // Poziv metode u PrimaryController za ažuriranje prikaza odabranih mjesta
         primaryController.updateLocations(odabranaMjesta);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
-    
+
 
     public void setPrimaryController(PrimaryController primaryController) {
         this.primaryController = primaryController;

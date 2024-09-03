@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
+import java.time.format.DateTimeFormatter;
+
 public class DogadjajController {
 
     @FXML
@@ -31,11 +33,14 @@ public class DogadjajController {
         this.karticaController = x;
     }
 
-    public void setDogadjaj(DogadjajStari x) {
-        nazivDogadjaja.setText(x.nazivDogadjaja);
-        datumDogadjaja.setText(x.datumDogadjaja.toString());
-        Image slika = new Image(getClass().getResourceAsStream(x.urlDogadjaja));
-        slikaDogadjaja.setImage(slika);
+    public void setDogadjaj(Dogadjaj x) {
+        nazivDogadjaja.setText(x.getNaziv());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        datumDogadjaja.setText(x.getDatumVrijeme().format(formatter));
+        if (x.getSlikaUrl() != null) {
+            Image slika = new Image(getClass().getResourceAsStream(x.getSlikaUrl()));
+            slikaDogadjaja.setImage(slika);
+        }
         Rectangle2D viewport = new Rectangle2D(0, 0, 480, 330);
         slikaDogadjaja.setViewport(viewport);
     }

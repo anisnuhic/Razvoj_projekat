@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterDefinition {
+
+    private static FilterDefinition single_instance = null;
 
     private String searchText;
 
@@ -14,13 +17,23 @@ public class FilterDefinition {
 
     private Integer toPrice;
 
-    private List<String> locationNames;
+    private List<String> locationNames = new ArrayList<>();
 
     private String category;
 
     private LocalDateTime fromDate;
 
     private LocalDateTime toDate;
+
+    private FilterDefinition() {
+    }
+
+    public static synchronized FilterDefinition getInstance() {
+        if (single_instance == null) {
+            single_instance = new FilterDefinition();
+        }
+        return single_instance;
+    }
 
     public String getSearchText() {
         return searchText;
@@ -112,4 +125,51 @@ public class FilterDefinition {
     public void setToDate(LocalDateTime toDate) {
         this.toDate = toDate;
     }
+
+    public boolean filterPriceBetweenOn() {
+        return fromPrice != null && toPrice != null;
+    }
+
+    public boolean filterPriceFromOn() {
+        return fromPrice != null && toPrice == null;
+    }
+
+    public boolean filterPriceToOn() {
+        return fromPrice == null && toPrice != null;
+    }
+
+    public boolean filterCategoryOn() {
+        return category != null;
+    }
+
+    public boolean searchTextOn() {
+        return searchText != null;
+    }
+
+    public boolean filterLocationsOn() {
+        return locationNames != null && !locationNames.isEmpty();
+    }
+
+    public boolean filterDateBetweenOn() {
+        return fromDate != null && toDate != null;
+    }
+
+    public boolean filterDateFromOn() {
+        return fromDate != null && toDate == null;
+    }
+
+    public boolean filterDateToOn() {
+        return fromDate == null && toDate != null;
+    }
+
+    public void resetFilters() {
+        fromPrice = null;
+        toPrice = null;
+        locationNames = new ArrayList<>();
+        category = null;
+        fromDate = null;
+        toDate = null;
+        searchText = null;
+    }
+
 }

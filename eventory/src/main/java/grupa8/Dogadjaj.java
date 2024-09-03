@@ -1,14 +1,10 @@
 package grupa8;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "dogadjaji")
@@ -51,9 +47,20 @@ public class Dogadjaj {
     @Column(name = "odobreno")
     private Boolean odobreno = false;
 
+    @OneToMany
+    private List<Karta> karte;
+
     // Getters and Setters
 
-    public Dogadjaj(){super();}
+    public Dogadjaj() {
+        super();
+    }
+
+    public Dogadjaj(String x, String y, LocalDate z) {
+        naziv = x;
+        slikaUrl = y;
+        datumVrijeme = z.atStartOfDay();
+    }
 
     public Integer getDogadjajId() {
         return dogadjajId;
@@ -141,5 +148,13 @@ public class Dogadjaj {
 
     public void setOdobreno(Boolean odobreno) {
         this.odobreno = odobreno;
+    }
+
+    public List<Karta> getKarte() {
+        return karte;
+    }
+
+    public void setKarte(List<Karta> karte) {
+        this.karte = karte;
     }
 }

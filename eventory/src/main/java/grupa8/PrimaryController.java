@@ -7,12 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,38 +43,51 @@ public class PrimaryController {
     private ImageView icon1;
     @FXML
     private Button muzikaButton, kulturaButton, sportButton, ostaloButton;
+    @FXML
+    private TextField searchText;
 
     private FilterDefinition filterDefinition;
+
     @FXML
-    private void muzikaClicked(ActionEvent event){
-        muzikaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    private void handleSearchAction() {
+        System.out.println("Search action called");
+        deselectCategoryButtons(kulturaButton, sportButton, ostaloButton, muzikaButton);
+        cijenaContainer.getChildren().clear();
+        filterDefinition.resetFilters();
+        filterDefinition.setSearchText(searchText.getText());
+        filter();
     }
+
     @FXML
-    private void kulturaClicked(ActionEvent event){
-        kulturaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    private void muzikaClicked(ActionEvent event) {
+        selectCategoryButton(muzikaButton);
+        deselectCategoryButtons(kulturaButton, sportButton, ostaloButton);
+        handleCategoryChanged(CategoryEnum.MUZIKA);
     }
+
     @FXML
-    private void sportClicked(ActionEvent event){
-        sportButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    private void kulturaClicked(ActionEvent event) {
+        selectCategoryButton(kulturaButton);
+        deselectCategoryButtons(sportButton, ostaloButton, muzikaButton);
+        handleCategoryChanged(CategoryEnum.KULTURA);
     }
+
     @FXML
-    private void ostaloClicked(ActionEvent event){
-        ostaloButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    private void sportClicked(ActionEvent event) {
+        selectCategoryButton(sportButton);
+        deselectCategoryButtons(kulturaButton, ostaloButton, muzikaButton);
+        handleCategoryChanged(CategoryEnum.SPORT);
     }
+
     @FXML
-    public void hideButton(){
+    private void ostaloClicked(ActionEvent event) {
+        selectCategoryButton(ostaloButton);
+        deselectCategoryButtons(kulturaButton, sportButton, muzikaButton);
+        handleCategoryChanged(CategoryEnum.OSTALO);
+    }
+
+    @FXML
+    public void hideButton() {
         registracijaButton.setVisible(false);
         prijavaButton.setVisible(false);
         odjavaButton.setVisible(true);
@@ -86,9 +101,10 @@ public class PrimaryController {
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
-        }
+    }
+
     @FXML
-    private void odjavaAction(){
+    private void odjavaAction() {
         registracijaButton.setVisible(true);
         prijavaButton.setVisible(true);
         odjavaButton.setVisible(false);
@@ -104,10 +120,7 @@ public class PrimaryController {
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
 
     }
-    public void setKorisnickoIme(String korisnickoIme, String tip) {
-        imeKorisnika.setText(korisnickoIme);
-        tipKorisnika.setText(tip);
-    }
+
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -125,6 +138,7 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleRegistracijaButtonAction(ActionEvent event) {
         try {
@@ -145,40 +159,11 @@ public class PrimaryController {
 
     @FXML
     public void initialize() {
-        // Kreiraj listu za Dogadjaj objekte
-        List<DogadjajStari> listaDogadjaja = new ArrayList<>();
-
-        // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new DogadjajStari("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
-        listaDogadjaja.add(new DogadjajStari("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
-        listaDogadjaja.add(new DogadjajStari("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
-        listaDogadjaja.add(new DogadjajStari("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
-        listaDogadjaja.add(new DogadjajStari("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", LocalDate.of(2024, 8, 23))); // 25. decembar 2024
-        resetka.getChildren().clear();
-        int row = 0;
-        int col = 0;
-        // Ispis liste Dogadjaj objekata
-        for (DogadjajStari d : listaDogadjaja) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("kartica.fxml"));
-                AnchorPane eventCard = loader.load();
-                KarticaController controller = loader.getController();
-                controller.setDogadjaj(d);
-                controller.setPrimaryController(this);
-                resetka.add(eventCard, col, row);
-                col++;
-                if (col == 2) {
-                    col = 0;
-                    row++;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        addDogadjajListToResetka(getInitDogadjajList());
         EntityManagerFactoryInstance.init();
-        this.filterDefinition = new FilterDefinition();
+        this.filterDefinition = FilterDefinition.getInstance();
     }
+
     @FXML
     void updatePrice(String x, String y) {
         if (x.isEmpty() && y.isEmpty()) {
@@ -298,33 +283,72 @@ public class PrimaryController {
 
     @FXML
     void filter() {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("eventoryPU");
-//        EntityManager em = emf.createEntityManager();
-//        Connection connection = em.unwrap(Connection.class);
-//
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Dogadjaj> cq = cb.createQuery(Dogadjaj.class);
-//        Root<Dogadjaj> root = cq.from(Dogadjaj.class);
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if (name != null) {
-//            predicates.add(cb.equal(root.get("name"), name));
-//        }
-//
-//        if (age != null) {
-//            predicates.add(cb.equal(root.get("age"), age));
-//        }
-//
-//        cq.where(predicates.toArray(new Predicate[0]));
-//
-//        return em.createQuery(cq).getResultList();
+        addDogadjajListToResetka(FilterUtil.filterDogadjaj());
         System.out.println(filterDefinition);
     }
 
-    public void resetFilters(){
+    public void setKorisnickoIme(String korisnickoIme, String tip) {
+        imeKorisnika.setText(korisnickoIme);
+        tipKorisnika.setText(tip);
+    }
+
+    private void handleCategoryChanged(CategoryEnum categoryEnum) {
         cijenaContainer.getChildren().clear();
-        this.filterDefinition = new FilterDefinition();
+        filterDefinition.resetFilters();
+        filterDefinition.setCategory(categoryEnum.name());
         filter();
+    }
+
+    private void deselectCategoryButtons(Button... buttons) {
+        for (Button button : buttons) {
+            button.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        }
+    }
+
+    private void selectCategoryButton(Button button) {
+        button.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+    }
+
+    private List<Dogadjaj> getInitDogadjajList() {
+        // Kreiraj listu za Dogadjaj objekte
+        List<Dogadjaj> listaDogadjaja = new ArrayList<>();
+
+        // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
+        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
+        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
+        listaDogadjaja.add(new Dogadjaj("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
+        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
+        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", LocalDate.of(2024, 8, 23))); // 25. decembar 2024
+        return listaDogadjaja;
+    }
+
+    public void resetFilters() {
+        cijenaContainer.getChildren().clear();
+        this.filterDefinition.resetFilters();
+        filter();
+    }
+
+    private void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
+        resetka.getChildren().clear();
+        int row = 0;
+        int col = 0;
+        // Ispis liste Dogadjaj objekata
+        for (Dogadjaj d : listaDogadjaja) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("kartica.fxml"));
+                AnchorPane eventCard = loader.load();
+                KarticaController controller = loader.getController();
+                controller.setDogadjaj(d);
+                controller.setPrimaryController(this);
+                resetka.add(eventCard, col, row);
+                col++;
+                if (col == 2) {
+                    col = 0;
+                    row++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

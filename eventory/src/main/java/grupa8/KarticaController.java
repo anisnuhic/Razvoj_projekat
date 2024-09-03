@@ -1,9 +1,9 @@
 
 
 package grupa8;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,26 +14,35 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class KarticaController {
-    @FXML 
+    @FXML
     private ImageView slikaDogadjaja;
     @FXML
     private Label nazivDogadjaja, datumDogadjaja;
-    private DogadjajStari dogadjaj;
-   private PrimaryController primaryController;
-    public void setPrimaryController(PrimaryController x){
+    private Dogadjaj dogadjaj;
+    private PrimaryController primaryController;
+
+    public void setPrimaryController(PrimaryController x) {
         this.primaryController = x;
-    } 
-    public void setDogadjaj(DogadjajStari x){
-        nazivDogadjaja.setText(x.nazivDogadjaja);
-        datumDogadjaja.setText(x.datumDogadjaja.toString());
-        Image slika = new Image(getClass().getResourceAsStream(x.urlDogadjaja));
-        slikaDogadjaja.setImage(slika);
+    }
+
+    public void setDogadjaj(Dogadjaj x) {
+        nazivDogadjaja.setText(x.getNaziv());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        datumDogadjaja.setText(x.getDatumVrijeme().format(formatter));
+        if (x.getSlikaUrl() != null) {
+            Image slika = new Image(getClass().getResourceAsStream(x.getSlikaUrl()));
+            slikaDogadjaja.setImage(slika);
+        } else {
+            slikaDogadjaja.setImage(null);
+        }
         this.dogadjaj = x;
     }
-    public void eventCardClicked(MouseEvent e){
-         try {
+
+    public void eventCardClicked(MouseEvent e) {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dogadjaj.fxml"));
             Parent prijavaRoot = loader.load();
             DogadjajController controller = loader.getController();
@@ -50,6 +59,8 @@ public class KarticaController {
             em.printStackTrace();
         }
     }
+
     @FXML
-    public void initialize(){}
+    public void initialize() {
+    }
 }
