@@ -26,25 +26,16 @@ public class PrimaryController {
     @FXML
     private HBox cijenaContainer;
     @FXML
-    private Button prijavaButton;
+    private Button registracijaButton,napraviButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
     @FXML
-    private Button odjavaButton;
-    @FXML
-    private Button napraviButton;
-    @FXML
-    private Button registracijaButton;
-    @FXML
-    private Label imeKorisnika;
-    @FXML
-    private Label tipKorisnika;
-    @FXML
-    private Button urediProfil;
+    private Label tipKorisnika, imeKorisnika;
     @FXML
     private ImageView icon1;
     @FXML
     private Button muzikaButton, kulturaButton, sportButton, ostaloButton;
     @FXML
     private TextField searchText;
+    
 
     private FilterDefinition filterDefinition;
 
@@ -102,6 +93,22 @@ public class PrimaryController {
         ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
     }
+    public void hideButtonAdmin() {
+        registracijaButton.setVisible(false);
+        prijavaButton.setVisible(false);
+        odjavaButton.setVisible(true);
+        imeKorisnika.setVisible(true);
+        uredi_lokacije.setVisible(true);
+        zahtjevi.setVisible(true);
+        tipKorisnika.setVisible(true);
+        urediProfil.setVisible(false);
+        icon1.setVisible(true);
+        resetFilters();
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
 
     @FXML
     private void odjavaAction() {
@@ -120,7 +127,11 @@ public class PrimaryController {
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
 
     }
-
+    
+    @FXML
+    private void zahtjeviButton(ActionEvent event){}
+    @FXML
+    private void lokacijeButton(ActionEvent event){}
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -148,6 +159,23 @@ public class PrimaryController {
             registracijaController.setPrimaryController(this);
             Stage stage = new Stage();
             stage.setTitle("Registracija");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void noviDogadjajButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("informacije.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            InformacijeController informacijaController = fxmlLoader.getController();
+            informacijaController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Napravi dogadjaj");
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));

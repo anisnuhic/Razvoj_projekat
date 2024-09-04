@@ -141,7 +141,7 @@
                   <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
-            <Button fx:id="napraviButton" layoutX="40.0" layoutY="635.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Novi događaj" textFill="WHITE" visible="false">
+            <Button fx:id="napraviButton" layoutX="40.0" layoutY="635.0" mnemonicParsing="false" onAction="#noviDogadjajButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Novi događaj" textFill="WHITE" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -210,6 +210,8 @@
                   <Insets />
                </opaqueInsets></HBox>
             <Button fx:id="searchButton" layoutX="715.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="24.0" prefWidth="26.0" styleClass="search_button" stylesheets="@css/primary.css" />
+            <Button fx:id="zahtjevi" layoutX="758.0" layoutY="14.0" mnemonicParsing="false" onAction="#zahtjeviButton" prefHeight="38.0" prefWidth="128.0" text="Zahtjevi" textFill="WHITE" visible="false" />
+            <Button fx:id="uredi_lokacije" layoutX="903.0" layoutY="14.0" mnemonicParsing="false" onAction="#lokacijeButton" prefHeight="38.0" prefWidth="128.0" text="Uredi Lokacije" textFill="WHITE" visible="false" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
