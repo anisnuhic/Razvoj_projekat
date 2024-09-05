@@ -129,6 +129,8 @@ public class PrimaryController {
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        uredi_lokacije.setVisible(false);
+        zahtjevi.setVisible(false);
 
     }
     
