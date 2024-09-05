@@ -27,13 +27,19 @@
                   <Insets />
                </opaqueInsets>
             </Label>
-            <Label fx:id="datumDogadjaja" alignment="CENTER" layoutX="664.0" layoutY="303.0" prefHeight="46.0" prefWidth="171.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" textFill="WHITE" />
-            <Label alignment="TOP_LEFT" layoutX="298.0" layoutY="96.0" prefHeight="182.0" prefWidth="538.0" styleClass="opis" stylesheets="@css/dogadjaj.css" text="Opis " textFill="WHITE" wrapText="true" />
-            <Label alignment="CENTER" layoutX="362.0" layoutY="303.0" prefHeight="46.0" prefWidth="274.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="Odrzavanje" textFill="WHITE" />
-            <Label alignment="CENTER" layoutX="28.0" layoutY="303.0" prefHeight="46.0" prefWidth="310.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="Lokacija" textFill="WHITE" />
+            <Label fx:id="datumDogadjaja" alignment="CENTER_RIGHT" layoutX="664.0" layoutY="303.0" prefHeight="46.0" prefWidth="171.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="anis" textAlignment="RIGHT" textFill="WHITE">
+               <padding>
+                  <Insets right="10.0" />
+               </padding></Label>
+            <Label fx:id="opisDogadjaja" alignment="TOP_LEFT" layoutX="298.0" layoutY="96.0" prefHeight="182.0" prefWidth="538.0" styleClass="opis" stylesheets="@css/dogadjaj.css" text="Opis " textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="gradDogadjaja" alignment="CENTER" layoutX="362.0" layoutY="303.0" prefHeight="46.0" prefWidth="274.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="Odrzavanje" textFill="WHITE" />
+            <Label fx:id="mjestoDogadjaja" alignment="CENTER" layoutX="28.0" layoutY="303.0" prefHeight="46.0" prefWidth="310.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="Lokacija" textFill="WHITE" />
             <AnchorPane layoutX="28.0" layoutY="363.0" prefHeight="230.0" prefWidth="386.0" styleClass="dodatno" stylesheets="@css/dogadjaj.css">
                <children>
-                  <ImageView fitHeight="166.0" fitWidth="215.0" layoutX="86.0" layoutY="27.0" pickOnBounds="true">
+                  <ImageView fx:id="slikaLokacije" fitHeight="166.0" fitWidth="215.0" layoutX="86.0" layoutY="27.0" pickOnBounds="true">
                      <image>
                         <Image url="@assets/stadion.png" />
                      </image>

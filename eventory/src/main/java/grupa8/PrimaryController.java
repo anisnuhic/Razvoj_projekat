@@ -20,31 +20,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 public class PrimaryController {
     @FXML
     private GridPane resetka;
     @FXML
     private HBox cijenaContainer;
     @FXML
-    private Button prijavaButton;
+    private Button registracijaButton,napraviButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
     @FXML
-    private Button odjavaButton;
-    @FXML
-    private Button napraviButton;
-    @FXML
-    private Button registracijaButton;
-    @FXML
-    private Label imeKorisnika;
-    @FXML
-    private Label tipKorisnika;
-    @FXML
-    private Button urediProfil;
+    private Label tipKorisnika, imeKorisnika;
     @FXML
     private ImageView icon1;
     @FXML
     private Button muzikaButton, kulturaButton, sportButton, ostaloButton;
     @FXML
     private TextField searchText;
+    
 
     private FilterDefinition filterDefinition;
 
@@ -102,6 +97,22 @@ public class PrimaryController {
         ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
     }
+    public void hideButtonAdmin() {
+        registracijaButton.setVisible(false);
+        prijavaButton.setVisible(false);
+        odjavaButton.setVisible(true);
+        imeKorisnika.setVisible(true);
+        uredi_lokacije.setVisible(true);
+        zahtjevi.setVisible(true);
+        tipKorisnika.setVisible(true);
+        urediProfil.setVisible(false);
+        icon1.setVisible(true);
+        resetFilters();
+        muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+    }
 
     @FXML
     private void odjavaAction() {
@@ -118,9 +129,30 @@ public class PrimaryController {
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         ostaloButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
+        uredi_lokacije.setVisible(false);
+        zahtjevi.setVisible(false);
 
     }
-
+    
+    @FXML
+    private void zahtjeviButton(ActionEvent event){}
+    @FXML
+    private void lokacijeButton(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("adminLokacija.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            AdminLokacijaController adminController = fxmlLoader.getController();
+            adminController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Uredi Lokacije");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -148,6 +180,23 @@ public class PrimaryController {
             registracijaController.setPrimaryController(this);
             Stage stage = new Stage();
             stage.setTitle("Registracija");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void noviDogadjajButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("informacije.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            InformacijeController informacijaController = fxmlLoader.getController();
+            informacijaController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Napravi dogadjaj");
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
@@ -310,17 +359,16 @@ public class PrimaryController {
     }
 
     private List<Dogadjaj> getInitDogadjajList() {
-        // Kreiraj listu za Dogadjaj objekte
-        List<Dogadjaj> listaDogadjaja = new ArrayList<>();
+    // Kreiraj EntityManager
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
-        // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
-        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
-        listaDogadjaja.add(new Dogadjaj("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
-        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
-        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", LocalDate.of(2024, 8, 23))); // 25. decembar 2024
-        return listaDogadjaja;
-    }
+    // Kreiraj upit za dohvaćanje svih Dogadjaj objekata iz baze podataka
+    List<Dogadjaj> listaDogadjaja = em.createQuery("SELECT d FROM Dogadjaj d", Dogadjaj.class).getResultList();
+
+    // Vrati listu dogadjaja
+    return listaDogadjaja;
+}
+
 
     public void resetFilters() {
         cijenaContainer.getChildren().clear();

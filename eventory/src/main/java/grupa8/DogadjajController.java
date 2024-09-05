@@ -16,10 +16,10 @@ import java.time.format.DateTimeFormatter;
 public class DogadjajController {
 
     @FXML
-    private ImageView slikaDogadjaja;
+    private ImageView slikaDogadjaja, slikaLokacije;
 
     @FXML
-    private Label nazivDogadjaja, datumDogadjaja;
+    private Label nazivDogadjaja, datumDogadjaja, gradDogadjaja, mjestoDogadjaja, opisDogadjaja;
 
     @FXML
     private Button openNewViewButton;
@@ -34,14 +34,29 @@ public class DogadjajController {
     }
 
     public void setDogadjaj(Dogadjaj x) {
+        Lokacija lokacija = x.getLokacija();
+        if (lokacija != null) {
+            mjestoDogadjaja.setText(lokacija.getNaziv());
+            gradDogadjaja.setText(lokacija.getGrad());
+        }
+        else {
+            mjestoDogadjaja.setText("N/A");
+            gradDogadjaja.setText("N/A");
+        }
         nazivDogadjaja.setText(x.getNaziv());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        opisDogadjaja.setText(x.getOpis());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm");
         datumDogadjaja.setText(x.getDatumVrijeme().format(formatter));
         if (x.getSlikaUrl() != null) {
             Image slika = new Image(getClass().getResourceAsStream(x.getSlikaUrl()));
             slikaDogadjaja.setImage(slika);
         }
-        Rectangle2D viewport = new Rectangle2D(0, 0, 480, 330);
+        //ovo otkomentarisati kada dodamo slike lokacijama
+        //  if(lokacija.getSlikaUrl() != null){
+        //      Image slika2 = new Image (getClass().getResourceAsStream(lokacija.getSlikaUrl()));
+        //      slikaLokacije.setImage(slika2);
+        //  }
+        Rectangle2D viewport = new Rectangle2D(0, 0, 700, 330);
         slikaDogadjaja.setViewport(viewport);
     }
 

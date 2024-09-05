@@ -37,7 +37,17 @@ public class PrijavaController {
 
         String korisnickoIme = korisnickoImeField.getText();
         String lozinka = lozinkaField.getText();
-
+         // Hardkodirane provjere
+         if ("anisnuhic".equals(korisnickoIme) && "11111".equals(lozinka)) {
+            // Prijava uspješna, postavi tip korisnika na ORGANIZATOR
+            if (primaryController != null) {
+                primaryController.setKorisnickoIme(korisnickoIme, "ADMIN");
+                primaryController.hideButtonAdmin(); // ili metoda za prikaz ili ažuriranje primarnog prozora
+            }
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+            return;
+        }
         // Provjera da li korisnik postoji u bazi i da li se lozinka poklapa
         try {
             TypedQuery<Long> query = em.createQuery(
@@ -57,10 +67,6 @@ public class PrijavaController {
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(), "KORISNIK" );
                     else if (a.toString().equals("ORGANIZATOR"))
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(),  "ORGANIZATOR");
-                    else 
-                        primaryController.setKorisnickoIme(korisnickoImeField.getText(), "ADMINISTRATOR" );
-
-
                     primaryController.hideButton(); // or whatever method to show or update primary stage
                 }
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -1,0 +1,21 @@
+.slika {
+    -fx-background-color: #333333;
+    -fx-opacity: 0.7;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.dodaj_sliku_button {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-background-color: #333333;
+}
+
+.organizuj_button {
+
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #6A6FB3, #80CDD7);
+    -fx-background-radius: 15;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+}
