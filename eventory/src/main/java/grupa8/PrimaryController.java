@@ -20,6 +20,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 public class PrimaryController {
     @FXML
     private GridPane resetka;
@@ -131,7 +135,22 @@ public class PrimaryController {
     @FXML
     private void zahtjeviButton(ActionEvent event){}
     @FXML
-    private void lokacijeButton(ActionEvent event){}
+    private void lokacijeButton(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("adminLokacija.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            AdminLokacijaController adminController = fxmlLoader.getController();
+            adminController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Uredi Lokacije");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handlePrijavaButtonAction(ActionEvent event) {
         try {
@@ -338,17 +357,16 @@ public class PrimaryController {
     }
 
     private List<Dogadjaj> getInitDogadjajList() {
-        // Kreiraj listu za Dogadjaj objekte
-        List<Dogadjaj> listaDogadjaja = new ArrayList<>();
+    // Kreiraj EntityManager
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
-        // Kreiraj 5 objekata Dogadjaj sa hardkodiranim vrijednostima
-        listaDogadjaja.add(new Dogadjaj("Aleksandra Prijovic", "/grupa8/assets/slikeDogadjaja/aleksandra.png", LocalDate.of(2024, 8, 23))); // 15. avgust 2024
-        listaDogadjaja.add(new Dogadjaj("Izložba umetnosti", "/grupa8/assets/slikeDogadjaja/boks_mec.png", LocalDate.of(2024, 8, 23))); // 20. septembar 2024
-        listaDogadjaja.add(new Dogadjaj("Lepa Brena koncert", "/grupa8/assets/slikeDogadjaja/brena.png", LocalDate.of(2024, 8, 23))); // 10. oktobar 2024
-        listaDogadjaja.add(new Dogadjaj("Pozorišna predstava", "/grupa8/assets/slikeDogadjaja/heni.png", LocalDate.of(2024, 8, 23))); // 5. novembar 2024
-        listaDogadjaja.add(new Dogadjaj("Tehnička konferencija", "/grupa8/assets/slikeDogadjaja/folk_fest.png", LocalDate.of(2024, 8, 23))); // 25. decembar 2024
-        return listaDogadjaja;
-    }
+    // Kreiraj upit za dohvaćanje svih Dogadjaj objekata iz baze podataka
+    List<Dogadjaj> listaDogadjaja = em.createQuery("SELECT d FROM Dogadjaj d", Dogadjaj.class).getResultList();
+
+    // Vrati listu dogadjaja
+    return listaDogadjaja;
+}
+
 
     public void resetFilters() {
         cijenaContainer.getChildren().clear();
