@@ -25,7 +25,8 @@ public class AdminLokacijaController {
     }
 
       void displayLocations() {
-            EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();        try {
+            EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();       
+         try {
             // Load locations from database
             List<Lokacija> lokacije = em.createQuery("SELECT l FROM Lokacija l ORDER BY l.grad ASC", Lokacija.class).getResultList();
 
@@ -33,7 +34,7 @@ public class AdminLokacijaController {
             VBox vbox = new VBox(5);  // 5 is the spacing between labels
             
             currentLocationsPane.getChildren().clear();
-            
+
             for (Lokacija lokacija : lokacije) {
                 // Create a label for each location
                 Label label = new Label(lokacija.getGrad()  + ", " + lokacija.getNaziv());
