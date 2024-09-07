@@ -75,17 +75,23 @@ public class InformacijeController {
         if (selectedFile != null) {
             try {
                 // Definiraj putanju do assets foldera
-                Path assetsPath = Paths.get("src/main/resources/grupa8/assets/" + selectedFile.getName());
+                Path assetsPath = Paths.get("Razvoj_projekat/eventory/src/main/resources/grupa8/assets/slikeDogadjaja/" + selectedFile.getName());
+                Path parentDir = assetsPath.getParent();
+
+                // Provjeri da li direktorijum postoji, ako ne, kreiraj ga
+                if (!Files.exists(parentDir)) {
+                    Files.createDirectories(parentDir);  // Kreiraj sve potrebne direktorijume
+                }
                 // Provjeri da li fajl već postoji
                 if (!Files.exists(assetsPath)) {
                     // Kopiraj sliku u assets folder
                     Files.copy(selectedFile.toPath(), assetsPath, StandardCopyOption.REPLACE_EXISTING);
                 }
-
+                
                 // Ako je fajl izabran, postavi sliku u ImageView
                 Image image = new Image(selectedFile.toURI().toString());
                 imageView.setImage(image);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

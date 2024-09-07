@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="sektorContainer" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.SektorController">
+    <!-- Add a title -->
+    <Label text="Popunite informacije o sektorima" />
+    <!-- VBox where TextFields will be dynamically added -->
+    <VBox fx:id="sektorContainer" spacing="10.0" />
+    <!-- Button to submit sector details -->
+    <Button onAction="#potvrdi" text="Potvrdi" />
+</VBox>
