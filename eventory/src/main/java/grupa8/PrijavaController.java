@@ -63,12 +63,15 @@ public class PrijavaController {
                 "SELECT k.tipKorisnika FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Korisnik.TipKorisnika.class);
                     query1.setParameter("korisnickoIme", korisnickoIme);
                     Korisnik.TipKorisnika a = query1.getSingleResult();
-                    if (a.toString().equals("REGULAR"))
+                    primaryController.hideButton(); // or whatever method to show or update primary stage
+                    if (a.toString().equals("REGULAR")){
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(), "KORISNIK" );
+                        primaryController.napraviButton.setVisible(false); // or whatever method to show or update primary stageontroller.napr // or whatever method to show or update primary stag
+                    }
                     else if (a.toString().equals("ORGANIZATOR"))
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(),  "ORGANIZATOR");
-                    primaryController.hideButton(); // or whatever method to show or update primary stage
                 }
+                
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.close();
             } else {

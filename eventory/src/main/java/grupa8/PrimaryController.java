@@ -30,7 +30,9 @@ public class PrimaryController {
     @FXML
     private HBox cijenaContainer;
     @FXML
-    private Button registracijaButton,napraviButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
+    private Button registracijaButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
+    @FXML
+    Button napraviButton;
     @FXML
     private Label tipKorisnika, imeKorisnika;
     @FXML
@@ -42,7 +44,9 @@ public class PrimaryController {
     
 
     private FilterDefinition filterDefinition;
-
+    public String getImeKorisnika(){
+        return imeKorisnika.getText();
+    }
     @FXML
     private void handleSearchAction() {
         System.out.println("Search action called");
@@ -358,7 +362,7 @@ public class PrimaryController {
         button.setStyle("-fx-background-color: white; -fx-text-fill: black;");
     }
 
-    private List<Dogadjaj> getInitDogadjajList() {
+    List<Dogadjaj> getInitDogadjajList() {
     // Kreiraj EntityManager
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
@@ -376,7 +380,7 @@ public class PrimaryController {
         filter();
     }
 
-    private void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
+     void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
         resetka.getChildren().clear();
         int row = 0;
         int col = 0;
