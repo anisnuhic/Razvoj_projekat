@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:id="stek" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.DogadjajController">
@@ -39,22 +40,16 @@
             <Label fx:id="mjestoDogadjaja" alignment="CENTER" layoutX="28.0" layoutY="303.0" prefHeight="46.0" prefWidth="310.0" styleClass="ikone" stylesheets="@css/dogadjaj.css" text="Lokacija" textFill="WHITE" />
             <AnchorPane layoutX="28.0" layoutY="363.0" prefHeight="230.0" prefWidth="386.0" styleClass="dodatno" stylesheets="@css/dogadjaj.css">
                <children>
-                  <ImageView fx:id="slikaLokacije" fitHeight="166.0" fitWidth="215.0" layoutX="86.0" layoutY="27.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@assets/stadion.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="slikaLokacije" fitHeight="166.0" fitWidth="215.0" layoutX="86.0" layoutY="27.0" pickOnBounds="true" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="437.0" layoutY="363.0" prefHeight="139.0" prefWidth="398.0" styleClass="dodatno" stylesheets="@css/dogadjaj.css">
                <children>
-                  <Label layoutX="21.0" layoutY="20.0" prefHeight="16.0" prefWidth="123.0" text="Parter" textFill="WHITE" />
-                  <Label layoutX="21.0" layoutY="48.0" prefHeight="16.0" prefWidth="123.0" text="VIP" textFill="WHITE" />
-                  <Label layoutX="21.0" layoutY="76.0" prefHeight="16.0" prefWidth="123.0" text="VIP Exclusive" textFill="WHITE" />
+                  <VBox fx:id="sektori" layoutX="7.0" layoutY="8.0" prefHeight="127.0" prefWidth="386.0" styleClass="sektori" stylesheets="@css/dogadjaj.css" />
                </children>
             </AnchorPane>
-            <Button layoutX="436.0" layoutY="516.0" mnemonicParsing="false" onAction="#rezervacijaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Rezerviši kartu" textFill="WHITE" />
-            <Button layoutX="436.0" layoutY="560.0" mnemonicParsing="false" onAction="#kupovinaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Kupi kartu" textFill="WHITE" />
+            <Button fx:id="rezervacijaButton" layoutX="436.0" layoutY="516.0" mnemonicParsing="false" onAction="#rezervacijaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Rezerviši kartu" textFill="WHITE" />
+            <Button fx:id="kupovinaButton" layoutX="436.0" layoutY="560.0" mnemonicParsing="false" onAction="#kupovinaClicked" prefHeight="32.0" prefWidth="182.0" styleClass="buttoni" stylesheets="@css/dogadjaj.css" text="Kupi kartu" textFill="WHITE" />
             <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="124.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/map_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />

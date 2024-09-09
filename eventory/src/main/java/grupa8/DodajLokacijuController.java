@@ -103,7 +103,7 @@ public class DodajLokacijuController {
 
                  System.out.println("Putanja:" +assetsPath);
                  System.out.println("Parent dir:" + parentDir);
-                imageUrl = assetsPath.toString();
+                imageUrl = "assets/slikeLokacija/" + selectedFile.getName();
                  // Provjeri da li direktorijum postoji, ako ne, kreiraj ga
                  if (!Files.exists(parentDir)) {
                     System.out.println("Ne postoji direktorij");

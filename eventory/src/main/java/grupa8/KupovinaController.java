@@ -1,9 +1,14 @@
 package grupa8;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class KupovinaController {
 
@@ -12,6 +17,23 @@ public class KupovinaController {
 
     @FXML
     private Button akcijskiButton;
+
+    @FXML
+    private ImageView strelica1, strelica2;
+   
+    @FXML
+    private Label brojKartiLabela, cijenaKartiLabela;
+
+    @FXML
+    private VBox vBox;
+
+    private DogadjajController dogadjajController;
+
+    public void setDogadjajController(DogadjajController x) {
+        this.dogadjajController = x;
+    }
+
+    private int brojKarti = 0; 
 
     @FXML
     private void vratiSeNazad(ActionEvent event) {
@@ -25,4 +47,86 @@ public class KupovinaController {
     public void setAkcijskiButtonText(String text) {
         akcijskiButton.setText(text);
     }
+
+    @FXML
+    private void povecajBrojKarti(ActionEvent event) {
+        brojKarti++;
+        azurirajBrojKartiLabelu();
+        azurirajUkupnuCijenu();
+    }
+
+    @FXML
+    private void smanjiBrojKarti(ActionEvent event) {
+        if (brojKarti > 0) {
+            brojKarti--;
+        }
+        azurirajBrojKartiLabelu();
+        azurirajUkupnuCijenu();
+    }
+
+    private void azurirajBrojKartiLabelu() {
+        brojKartiLabela.setText(String.valueOf(brojKarti));
+    }
+
+    @FXML
+    public void initialize() {
+        Platform.runLater(() -> {
+            vBox.getChildren().clear();
+            strelica1.setMouseTransparent(true);
+            strelica2.setMouseTransparent(true);
+            if (dogadjajController == null) {
+                System.out.println("DogadjajController nije postavljen");
+                return;
+            }
+    
+            for (Sektor s : dogadjajController.lista_sektora) {
+                CheckBox check = new CheckBox();
+                Karta karta = dogadjajController.getKartaBySektor(s);
+                check.setText(s.getNazivSektora() + ": " + karta.getCijena() + "KM");
+                check.setStyle("-fx-text-fill: white;");
+                
+                // Dodaj listener za izbor jednog checkbox-a
+                check.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected) {
+                        // Poništi sve ostale checkboxove
+                        for (var node : vBox.getChildren()) {
+                            if (node instanceof CheckBox && node != check) {
+                                ((CheckBox) node).setSelected(false);
+                            }
+                        }
+                    }
+                    azurirajUkupnuCijenu();
+                });
+    
+                vBox.getChildren().add(check);
+            }
+            
+        });
+    }
+    private void azurirajUkupnuCijenu() {
+        // Pronađi odabrani sektor
+        for (var node : vBox.getChildren()) {
+            if (node instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) node;
+                if (checkBox.isSelected()) {
+                    // Izdvoji cijenu iz naziva CheckBox-a (pretpostavljam da je format: "Naziv sektora: XXKM")
+                    String text = checkBox.getText();
+                    String[] parts = text.split(":");
+                    if (parts.length > 1) {
+                        String cijenaString = parts[1].trim().replace("KM", "");
+                        try {
+                            double cijenaKarte = Double.parseDouble(cijenaString);
+                            // Izračunaj ukupnu cijenu
+                            double ukupnaCijena = brojKarti * cijenaKarte;
+                            // Prikaz ukupne cijene u labeli
+                            cijenaKartiLabela.setText(String.format("%.2f KM", ukupnaCijena));
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
