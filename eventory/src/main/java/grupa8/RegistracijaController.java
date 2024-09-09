@@ -12,134 +12,182 @@ import javafx.stage.Stage;
 
 import java.util.Date;
 
-    public class RegistracijaController {
-        @FXML
-        private PrimaryController primaryController;
-        @FXML
-        private TextField imeField;
+public class RegistracijaController {
+    @FXML
+    private PrimaryController primaryController;
+    @FXML
+    private TextField imeField;
 
-        @FXML
-        private TextField prezimeField;
+    @FXML
+    private TextField prezimeField;
 
-        @FXML
-        private TextField korisnickoImeField;
+    @FXML
+    private TextField korisnickoImeField;
 
-        @FXML
-        private TextField emailField;
+    @FXML
+    private TextField emailField;
 
-        @FXML
-        private PasswordField lozinkaField;
+    @FXML
+    private PasswordField lozinkaField;
 
-        @FXML
-        private PasswordField potvrdaLozinkeField;
+    @FXML
+    private PasswordField potvrdaLozinkeField;
 
-        @FXML
-        private RadioButton korisnikRadioButton;
+    @FXML
+    private RadioButton korisnikRadioButton;
 
-        @FXML
-        private RadioButton organizatorRadioButton;
+    @FXML
+    private RadioButton organizatorRadioButton;
 
-        @FXML
-        private Label warning;
+    @FXML
+    private Label warning, label1, label2, label3, label4;
 
-        private ToggleGroup roleToggleGroup;
+    @FXML
+    private TextField nazivOrg;
 
-        private EntityManagerFactory emf;
-        public void setPrimaryController(PrimaryController primaryController) {
-            this.primaryController = primaryController;
+    @FXML
+    private TextField kontaktOrg;
+
+    @FXML
+    private TextField telefonOrg;
+
+    @FXML
+    private TextField adresaOrg;
+
+    private ToggleGroup roleToggleGroup;
+
+    private EntityManagerFactory emf;
+
+    public void setPrimaryController(PrimaryController primaryController) {
+        this.primaryController = primaryController;
+    }
+
+    @FXML
+    public void initialize() {
+        // Kreirajte ToggleGroup
+        roleToggleGroup = new ToggleGroup();
+
+        // Dodajte RadioButton dugmad u grupu
+        korisnikRadioButton.setToggleGroup(roleToggleGroup);
+        organizatorRadioButton.setToggleGroup(roleToggleGroup);
+
+        roleToggleGroup.selectToggle(korisnikRadioButton);
+        roleToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+        if(korisnikRadioButton.isSelected()) {
+            label1.setVisible(false);
+            label2.setVisible(false);
+            label3.setVisible(false);
+            label4.setVisible(false);
+            nazivOrg.setVisible(false);
+            kontaktOrg.setVisible(false);
+            telefonOrg.setVisible(false);
+            adresaOrg.setVisible(false);
         }
-        @FXML
-        public void initialize() {
-            // Kreirajte ToggleGroup
-            roleToggleGroup = new ToggleGroup();
-        
-            // Dodajte RadioButton dugmad u grupu
-            korisnikRadioButton.setToggleGroup(roleToggleGroup);
-            organizatorRadioButton.setToggleGroup(roleToggleGroup);
-
-            roleToggleGroup.selectToggle(korisnikRadioButton);
+        else{
+            label1.setVisible(true);
+            label2.setVisible(true);
+            label3.setVisible(true);
+            label4.setVisible(true);
+            nazivOrg.setVisible(true);
+            kontaktOrg.setVisible(true);
+            telefonOrg.setVisible(true);
+            adresaOrg.setVisible(true);
         }
+    });
+    }
 
-        // public void RegistracijaController(){
-        //     emf = Persistence.createEntityManagerFactory("eventoryPU");
-        // }
+    // public void RegistracijaController(){
+    // emf = Persistence.createEntityManagerFactory("eventoryPU");
+    // }
 
-        
+    @FXML
+    private void handleRegistracija(ActionEvent event) {
+        emf = Persistence.createEntityManagerFactory("eventoryPU");
+        EntityManager em = emf.createEntityManager();
+        String ime = imeField.getText();
+        String prezime = prezimeField.getText();
+        String korisnickoIme = korisnickoImeField.getText();
+        String email = emailField.getText();
+        String lozinka = lozinkaField.getText();
+        String potvrdaLozinke = potvrdaLozinkeField.getText();
 
-
-        @FXML
-        private void handleRegistracija(ActionEvent event) {
-            emf = Persistence.createEntityManagerFactory("eventoryPU");
-            EntityManager em = emf.createEntityManager();
-            String ime = imeField.getText();
-            String prezime = prezimeField.getText();
-            String korisnickoIme = korisnickoImeField.getText();
-            String email = emailField.getText();
-            String lozinka = lozinkaField.getText();
-            String potvrdaLozinke = potvrdaLozinkeField.getText();
-
-            if (!lozinka.equals(potvrdaLozinke)) {
-                warning.setText("Lozinke nisu iste");
-                return;
-            }
-
-            // Provjera da li korisničko ime već postoji
-    try {
-        TypedQuery<Long> query = em.createQuery(
-            "SELECT COUNT(k) FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Long.class);
-        query.setParameter("korisnickoIme", korisnickoIme);
-        Long count = query.getSingleResult();
-
-        if (count > 0) {
-            warning.setText("Korisničko ime već postoji");
+        if (!lozinka.equals(potvrdaLozinke)) {
+            warning.setText("Lozinke nisu iste");
             return;
         }
-    }   
-    catch (Exception e) {
-        System.out.println("Failed to check username existence");
-        e.printStackTrace();
-        return;
-    }
-            
-            Korisnik.TipKorisnika tipKorisnika;
-            String a = "ADMIN";
-            if (korisnikRadioButton.isSelected()) {
-                tipKorisnika = Korisnik.TipKorisnika.REGULAR;
-                a = "KORISNIK";
-            } else if (organizatorRadioButton.isSelected()) {
-                tipKorisnika = Korisnik.TipKorisnika.ORGANIZATOR;
-                a = "ORGANIZATOR";
-            } else {
-                // Prikazati grešku korisniku - nije odabran tip korisnika
+
+        // Provjera da li korisničko ime već postoji
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(k) FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Long.class);
+            query.setParameter("korisnickoIme", korisnickoIme);
+            Long count = query.getSingleResult();
+
+            if (count > 0) {
+                warning.setText("Korisničko ime već postoji");
                 return;
             }
+        } catch (Exception e) {
+            System.out.println("Failed to check username existence");
+            e.printStackTrace();
+            return;
+        }
 
-            // Kreiranje novog korisnika
-            Korisnik korisnik = new Korisnik();
-            korisnik.setIme(ime);
-            korisnik.setPrezime(prezime);
-            korisnik.setKorisnickoIme(korisnickoIme);
-            korisnik.setEmail(email);
-            korisnik.setLozinka(lozinka);
-            korisnik.setDatumRegistracije(new Date());
-            korisnik.setTipKorisnika(tipKorisnika);
+        Korisnik.TipKorisnika tipKorisnika;
+        String a = "ADMIN";
+        if (korisnikRadioButton.isSelected()) {
+            tipKorisnika = Korisnik.TipKorisnika.REGULAR;
+            a = "KORISNIK";
+        } else if (organizatorRadioButton.isSelected()) {
+            tipKorisnika = Korisnik.TipKorisnika.ORGANIZATOR;
+            a = "ORGANIZATOR";
+        } else {
+            // Prikazati grešku korisniku - nije odabran tip korisnika
+            return;
+        }
 
-            // Spremanje korisnika u bazu
-            try {
+        // Kreiranje novog korisnika
+        Korisnik korisnik = new Korisnik();
+        korisnik.setIme(ime);
+        korisnik.setPrezime(prezime);
+        korisnik.setKorisnickoIme(korisnickoIme);
+        korisnik.setEmail(email);
+        korisnik.setLozinka(lozinka);
+        korisnik.setDatumRegistracije(new Date());
+        korisnik.setTipKorisnika(tipKorisnika);
+
+        // Spremanje korisnika u bazu
+        try {
+            em.getTransaction().begin();
+            em.persist(korisnik);
+            em.getTransaction().commit();
+
+            if (tipKorisnika == Korisnik.TipKorisnika.ORGANIZATOR) {
+                Organizator organizator = new Organizator();
+                organizator.setNazivOrganizacije(nazivOrg.getText());
+                organizator.setOrganizatorId(korisnik.getKorisnikId());
+                organizator.setKontaktOsoba(kontaktOrg.getText());
+                organizator.setTelefon(telefonOrg.getText());
+                organizator.setAdresa(adresaOrg.getText());
+                organizator.setKorisnik(korisnik); // Postavljanje relacije
+    
                 em.getTransaction().begin();
-                em.persist(korisnik);
+                em.persist(organizator);
                 em.getTransaction().commit();
-                if (primaryController != null) {
-                    primaryController.hideButton();
-                    primaryController.setKorisnickoIme(korisnickoImeField.getText(), a );
-                }
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.close();
-            } catch (Exception e) {
-                System.out.println("Failed to persist");
-                // Handle any exceptions that may occur during database interaction
-                // For example, log the exception or display an error message to the user
-                e.printStackTrace();
             }
+            if (primaryController != null) {
+                primaryController.hideButton();
+                primaryController.setKorisnickoIme(korisnickoImeField.getText(), a);
+            }
+            if(korisnikRadioButton.isSelected()) 
+                primaryController.napraviButton.setVisible(false);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            System.out.println("Failed to persist");
+            // Handle any exceptions that may occur during database interaction
+            // For example, log the exception or display an error message to the user
+            e.printStackTrace();
         }
     }
+}

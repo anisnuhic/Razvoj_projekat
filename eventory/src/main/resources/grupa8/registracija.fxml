@@ -25,6 +25,14 @@
                </font>
             </Label>
             <Label layoutX="130.0" layoutY="193.0" prefHeight="26.0" prefWidth="88.0" style="-fx-font-weight: bold;" text="EVENTORY" textFill="#fffdfd" />
+            <TextField fx:id="nazivOrg" layoutX="28.0" layoutY="361.0" prefHeight="24.0" prefWidth="128.0" visible="false" />
+            <TextField fx:id="kontaktOrg" layoutX="186.0" layoutY="361.0" prefHeight="24.0" prefWidth="128.0" visible="false" />
+            <TextField fx:id="telefonOrg" layoutX="28.0" layoutY="432.0" prefHeight="24.0" prefWidth="128.0" visible="false" />
+            <TextField fx:id="adresaOrg" layoutX="186.0" layoutY="432.0" prefHeight="24.0" prefWidth="128.0" visible="false" />
+            <Label fx:id="label1" layoutX="28.0" layoutY="345.0" text="Naziv organizacije" textFill="WHITE" visible="false" />
+            <Label fx:id="label2" layoutX="186.0" layoutY="345.0" text="Kontakt osoba" textFill="WHITE" visible="false" />
+            <Label fx:id="label3" layoutX="32.0" layoutY="418.0" text="Telefon" textFill="WHITE" visible="false" />
+            <Label fx:id="label4" layoutX="186.0" layoutY="418.0" text="Adresa" textFill="WHITE" visible="false" />
          </children>
       </AnchorPane>
       <Label layoutX="358.0" layoutY="39.0" prefHeight="31.0" prefWidth="118.0" text="Odaberi ulogu">

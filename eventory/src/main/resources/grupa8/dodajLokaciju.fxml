@@ -24,21 +24,21 @@
                </font>
             </Label>
             <Label layoutX="157.0" layoutY="164.0" prefHeight="26.0" prefWidth="88.0" style="-fx-font-weight: bold;" text="EVENTORY" textFill="#fffdfd" />
-            <Button layoutX="192.0" layoutY="339.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" styleClass="btn" stylesheets="@css/dodajLokaciju.css" text="Dodaj" />
+            <Button layoutX="192.0" layoutY="339.0" mnemonicParsing="false" onAction="#dodajLokaciju" prefHeight="35.0" prefWidth="118.0" styleClass="btn" stylesheets="@css/dodajLokaciju.css" text="Dodaj" />
          </children>
       </AnchorPane>
-      <TextField layoutX="14.0" layoutY="53.0" prefHeight="24.0" prefWidth="226.0" />
-      <TextField layoutX="14.0" layoutY="110.0" prefHeight="24.0" prefWidth="140.0" />
-      <TextField layoutX="14.0" layoutY="168.0" prefHeight="24.0" prefWidth="213.0" />
+      <TextField fx:id="nazivLokacije" layoutX="14.0" layoutY="53.0" prefHeight="24.0" prefWidth="226.0" />
+      <TextField fx:id="nazivGrada" layoutX="14.0" layoutY="110.0" prefHeight="24.0" prefWidth="140.0" />
+      <TextField fx:id="nazivAdrese" layoutX="14.0" layoutY="168.0" prefHeight="24.0" prefWidth="213.0" />
       <AnchorPane layoutX="13.0" layoutY="262.0" opacity="0.41" prefHeight="110.0" prefWidth="214.0" style="-fx-background-color: #333333;">
          <children>
-            <ImageView fitHeight="110.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="110.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fitHeight="60.0" fitWidth="58.0" layoutX="78.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/photo_library_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
-            <Button layoutX="57.0" layoutY="72.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="105.0" text="Dodaj sliku" />
+            <Button layoutX="57.0" layoutY="72.0" mnemonicParsing="false" onAction="#odaberiSliku" prefHeight="24.0" prefWidth="105.0" text="Dodaj sliku" />
          </children>
       </AnchorPane>
       <Spinner fx:id="spinner" layoutX="14.0" layoutY="216.0" prefHeight="24.0" prefWidth="78.0" />
@@ -46,6 +46,6 @@
       <Label layoutX="14.0" layoutY="152.0" prefHeight="14.0" prefWidth="112.0" text="Adresa" />
       <Label layoutX="16.0" layoutY="94.0" prefHeight="14.0" prefWidth="112.0" text="Grad" />
       <Label layoutX="14.0" layoutY="200.0" prefHeight="14.0" prefWidth="112.0" text="Broj sektora" />
-      <Button fx:id="urediSektoreButton" layoutX="123.0" layoutY="216.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="106.0" styleClass="btn" stylesheets="@css/dodajLokaciju.css" text="Uredi sektore" />
+      <Button fx:id="urediSektoreButton" layoutX="123.0" layoutY="216.0" mnemonicParsing="false" onAction="#urediSektore" prefHeight="24.0" prefWidth="106.0" styleClass="btn" stylesheets="@css/dodajLokaciju.css" text="Uredi sektore" />
    </children>
 </AnchorPane>
