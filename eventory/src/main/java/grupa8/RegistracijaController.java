@@ -114,7 +114,7 @@ public class RegistracijaController {
 
         // Provjera da li u imenu i prezimenu ima nedozvoljenih simbola i brojeva
         try {
-            String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*$";
+            String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
             // Kompajliraj pattern
             Pattern pattern = Pattern.compile(namePattern);
             Matcher matcher1 = pattern.matcher(ime);
@@ -123,10 +123,12 @@ public class RegistracijaController {
             // Provjera da li ime i prezime odgovaraju patternu
             if (!matcher1.matches()) {
                 warning.setText("Nevalidno ime");
+                warning.setStyle("-fx-text-fill: red;");
                 return;
             } 
             if (!matcher2.matches()) {
                 warning.setText("Nevalidno prezime");
+                warning.setStyle("-fx-text-fill: red;");
                 return;
             }
         } catch (PatternSyntaxException e) {
@@ -142,6 +144,7 @@ public class RegistracijaController {
 
             if (count > 0) {
                 warning.setText("Korisničko ime već postoji");
+                warning.setStyle("-fx-text-fill: red;");
                 return;
             }
         } catch (Exception e) {
@@ -158,6 +161,7 @@ public class RegistracijaController {
 
             if (count > 0) {
                 warning.setText("E-mail već u upotrebi");
+                warning.setStyle("-fx-text-fill: red;");
                 return;
             }
         } catch (Exception e) {
@@ -176,6 +180,7 @@ public class RegistracijaController {
             // Provjeri da li mail odgovara patternu
             if (!matcher.matches()) {
                 warning.setText("Nevalidan e-mail");
+                warning.setStyle("-fx-text-fill: red;");
                 return;
             } 
         } catch (PatternSyntaxException e) {
@@ -185,6 +190,7 @@ public class RegistracijaController {
         // Provjera da li su loznike iste
         if (!lozinka.equals(potvrdaLozinke)) {
             warning.setText("Lozinke nisu iste");
+            warning.setStyle("-fx-text-fill: red;");
             return;
         }
 
@@ -213,6 +219,7 @@ public class RegistracijaController {
                 // Provjera da li ime odgovara patternu
                 if (!matcher.matches()) {
                     warning.setText("Nevalidna kontakt osoba");
+                    warning.setStyle("-fx-text-fill: red;");
                     return;
                 }
             } catch (PatternSyntaxException e) {
@@ -229,6 +236,7 @@ public class RegistracijaController {
                 // Provjeri da li broj odgovara patternu
                 if (!matcher.matches()) {
                     warning.setText("Nevalidan telefonski broj"); 
+                    warning.setStyle("-fx-text-fill: red;");
                     return;
                 }
             } catch (PatternSyntaxException e) {

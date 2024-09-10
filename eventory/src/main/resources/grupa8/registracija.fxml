@@ -68,6 +68,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </RadioButton>
-      <Label fx:id="warning" layoutX="511.0" layoutY="31.0" prefHeight="26.0" prefWidth="170.0" />
+      <Label fx:id="warning" layoutX="507.0" layoutY="44.0" prefHeight="26.0" prefWidth="170.0" />
    </children>
 </AnchorPane>

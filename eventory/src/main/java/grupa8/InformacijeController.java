@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -35,6 +36,8 @@ import jakarta.persistence.TypedQuery;
 public class InformacijeController {
     @FXML
     private TextField naziv, datum, vrijeme, opis, uslov;
+    @FXML
+    private Label warning;
     @FXML
     private Spinner<Integer> karte;
     @FXML
@@ -191,6 +194,67 @@ public class InformacijeController {
         // Prikupljanje informacija iz Spinner-a (broj karata)
         int maxKarti = karte.getValue();
 
+        // Provjera da li su datum i vrijeme u pravilnom formatu
+        try {
+            String datePattern = "^\\d{4}-\\d{2}-\\d{2}$";
+            // Kompajliraj pattern
+            Pattern dateRegex = Pattern.compile(datePattern);
+            // Matchiraj datum sa patternom
+            Matcher dateMatcher = dateRegex.matcher(datumDogadjaja);
+        
+            if (!dateMatcher.matches()) {
+                warning.setText("Nevalidan format");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            // Provjera da li je današnji datum veći od unesenog datuma
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                LocalDate enteredDate = LocalDate.parse(datumDogadjaja, dateFormatter);
+                LocalDate today = LocalDate.now();
+                if (today.isAfter(enteredDate)) {
+                    warning.setText("Nevalidan datum");
+                    warning.setStyle("-fx-text-fill: red;");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("Date parsing error: " + e.getMessage());
+            }
+        
+            String timePattern = "^\\d{2}:\\d{2}$";
+            Pattern timeRegex = Pattern.compile(timePattern);
+            Matcher timeMatcher = timeRegex.matcher(vrijemeDogadjaja);
+        
+            if (!timeMatcher.matches()) {
+                warning.setText("Nevalidan format");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            // Provjera da li su sati i minute validni
+            String[] timeParts = vrijemeDogadjaja.split(":");
+            int hour = Integer.parseInt(timeParts[0]);
+            int minute = Integer.parseInt(timeParts[1]);
+
+            if (hour > 23) {
+                warning.setText("Nevalidno vrijeme");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            if (minute > 59) {
+                warning.setText("Nevalidno vrijeme");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+        
+        } catch (PatternSyntaxException e) {
+            System.out.println("Error in the regex pattern: " + e.getMessage());
+        }
+
+        warning.setText("");
+        
         // Konvertovanje datuma i vremena u LocalDateTime
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -217,6 +281,17 @@ public class InformacijeController {
             String sektorNaziv = sektorLabel.getText().split(": ")[1].split("   ")[0]; // Izdvajanje naziva sektora iz
                                                                                        // labela
             BigDecimal cijena = new BigDecimal(cijenaField.getText()); // Cijena iz unosa
+
+            // Cijena ne smije biti negativna
+            try {
+                if (cijena.compareTo(BigDecimal.ZERO) < 0) {
+                    warning.setText("Nevalidna cijena");
+                    warning.setStyle("-fx-text-fill: red;");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("Error in the price entry:" + e.getMessage());
+            }
 
             // Pronađi odgovarajući sektor na osnovu naziva
             Sektor sektor = sektori.stream().filter(s -> s.getNazivSektora().equals(sektorNaziv)).findFirst()

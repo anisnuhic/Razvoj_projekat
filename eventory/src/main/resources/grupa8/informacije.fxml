@@ -15,8 +15,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.InformacijeController">
    <children>
       <TextField fx:id="naziv" layoutX="33.0" layoutY="39.0" prefHeight="21.0" prefWidth="288.0" />
-      <TextField fx:id="datum" layoutX="33.0" layoutY="96.0" prefHeight="24.0" prefWidth="119.0" />
-      <TextField fx:id="vrijeme" layoutX="177.0" layoutY="96.0" prefHeight="24.0" prefWidth="119.0" />
+      <TextField fx:id="datum" layoutX="33.0" layoutY="96.0" prefHeight="24.0" prefWidth="119.0" promptText="YYYY-MM-DD" />
+      <TextField fx:id="vrijeme" layoutX="177.0" layoutY="96.0" prefHeight="24.0" prefWidth="119.0" promptText="HH:MM" />
       <TextField fx:id="opis" alignment="TOP_LEFT" layoutX="33.0" layoutY="269.0" prefHeight="88.0" prefWidth="288.0" />
       <Label layoutX="33.0" layoutY="23.0" prefHeight="16.0" prefWidth="109.0" text="Naziv događaja" />
       <Label layoutX="33.0" layoutY="80.0" prefHeight="16.0" prefWidth="109.0" text="Datum" />
@@ -59,5 +59,6 @@
       <Label layoutX="368.0" layoutY="432.0" prefHeight="16.0" prefWidth="150.0" text="Max. karti" />
       <Label layoutX="34.0" layoutY="367.0" prefHeight="16.0" prefWidth="119.0" text="Uslov otkazivanja" />
       <TextField fx:id="uslov" alignment="TOP_LEFT" layoutX="33.0" layoutY="381.0" prefHeight="88.0" prefWidth="288.0" />
+      <Label fx:id="warning" layoutX="177.0" layoutY="132.0" prefHeight="16.0" prefWidth="135.0" />
    </children>
 </AnchorPane>
