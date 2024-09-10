@@ -6,27 +6,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="860.0" style="-fx-background-color: white;" stylesheets="@css/kupovina.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.KupovinaController">
    <children>
-      <AnchorPane layoutX="469.0" prefHeight="700.0" prefWidth="390.0" style="-fx-background-color: #333333;" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="470.0" prefHeight="700.0" prefWidth="390.0" style="-fx-background-color: #333333;" AnchorPane.rightAnchor="0.0">
          <children>
-            <CheckBox layoutX="52.0" layoutY="341.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="Parter: 15KM" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </CheckBox>
-            <CheckBox layoutX="52.0" layoutY="364.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="VIP: 40KM" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </CheckBox>
-            <CheckBox layoutX="52.0" layoutY="387.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="VIP Exclusive: 70KM" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </CheckBox>
+            <VBox fx:id="vBox" layoutX="52.0" layoutY="341.0">
+               <children>
+                  <CheckBox mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="Parter: 15KM" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="VIP: 40KM" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox mnemonicParsing="false" prefHeight="23.0" prefWidth="179.0" text="VIP Exclusive: 70KM" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </VBox>
             <ImageView fitHeight="269.0" fitWidth="350.0" layoutX="24.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/stadion.png" />
@@ -66,16 +71,16 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="245.0" layoutY="427.0" prefHeight="34.0" prefWidth="96.0" styleClass="slider" stylesheets="@css/kupovina.css" text="160 KM" textFill="WHITE" />
-      <Label alignment="CENTER" layoutX="129.0" layoutY="427.0" prefHeight="34.0" prefWidth="96.0" styleClass="slider" stylesheets="@css/kupovina.css" text="0" textFill="WHITE" />
-      <Button layoutX="202.0" layoutY="427.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="2.0" prefWidth="1.0" styleClass="strelice" stylesheets="@css/kupovina.css" AnchorPane.topAnchor="428.0" />
-      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="202.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="428.0">
+      <Label fx:id="cijenaKartiLabela" alignment="CENTER" layoutX="245.0" layoutY="427.0" prefHeight="34.0" prefWidth="96.0" styleClass="slider" stylesheets="@css/kupovina.css" text="0 KM" textFill="WHITE" />
+      <Label fx:id="brojKartiLabela" alignment="CENTER" layoutX="129.0" layoutY="427.0" prefHeight="34.0" prefWidth="96.0" styleClass="slider" stylesheets="@css/kupovina.css" text="0" textFill="WHITE" />
+      <Button layoutX="202.0" layoutY="427.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#povecajBrojKarti" prefHeight="2.0" prefWidth="1.0" styleClass="strelice" stylesheets="@css/kupovina.css" AnchorPane.topAnchor="428.0" />
+      <ImageView fx:id="strelica1" fitHeight="15.0" fitWidth="15.0" layoutX="202.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="428.0">
          <image>
             <Image url="@assets/icons/keyboard_arrow_up_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
          </image>
       </ImageView>
-      <Button layoutX="202.0" layoutY="444.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="2.0" prefWidth="1.0" styleClass="strelice" stylesheets="@css/kupovina.css" />
-      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="202.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="202.0" layoutY="444.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#smanjiBrojKarti" prefHeight="2.0" prefWidth="1.0" styleClass="strelice" stylesheets="@css/kupovina.css" />
+      <ImageView fx:id="strelica2" fitHeight="15.0" fitWidth="15.0" layoutX="202.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/icons/keyboard_arrow_down_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
          </image>

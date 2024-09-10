@@ -76,7 +76,8 @@ public class PrijavaController {
                 stage.close();
             } else {
                 // Prijava neuspješna
-                warning.setText("Pogrešno korisničko ime ili lozinka");
+                warning.setText("Check credentials");
+                warning.setStyle("-fx-text-fill: red;");
             }
         } catch (Exception e) {
             System.out.println("Failed to check login credentials");

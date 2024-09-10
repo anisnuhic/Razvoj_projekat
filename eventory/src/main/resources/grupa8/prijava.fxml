@@ -35,6 +35,6 @@
             <InnerShadow />
          </effect>
       </ImageView>
-      <Label fx:id="warning" layoutX="218.0" layoutY="440.0" prefHeight="35.0" prefWidth="194.0" text="Label" />
+      <Label fx:id="warning" layoutX="258.0" layoutY="361.0" prefHeight="16.0" prefWidth="137.0" text="Label" />
    </children>
 </AnchorPane>
