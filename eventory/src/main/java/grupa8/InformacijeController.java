@@ -282,7 +282,7 @@ public class InformacijeController {
                                                                                        // labela
             BigDecimal cijena = new BigDecimal(cijenaField.getText()); // Cijena iz unosa
 
-            // Cijena ne smije biti negativna
+            // Provjera da li je cijena negativna
             try {
                 if (cijena.compareTo(BigDecimal.ZERO) < 0) {
                     warning.setText("Nevalidna cijena");
@@ -290,7 +290,7 @@ public class InformacijeController {
                     return;
                 }
             } catch (Exception e) {
-                System.out.println("Error in the price entry:" + e.getMessage());
+                System.out.println("Price entry error:" + e.getMessage());
             }
 
             // Pronađi odgovarajući sektor na osnovu naziva
