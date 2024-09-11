@@ -301,6 +301,18 @@ public class InformacijeController {
             }
         }
 
+        // Provjera broja karti
+        try {
+            if(maxKarti < 1) {
+                warning.setText("Odaberite broj karti");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Number of tickets error: " + e.getMessage());
+        }
+        warning.setText("");
+
         // Kreiraj novi događaj
         Dogadjaj noviDogadjaj = new Dogadjaj();
         noviDogadjaj.setNaziv(nazivDogadjaja);
