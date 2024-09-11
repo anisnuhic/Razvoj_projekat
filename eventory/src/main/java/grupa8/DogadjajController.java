@@ -1,5 +1,6 @@
 package grupa8;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -34,7 +34,7 @@ public class DogadjajController {
 
     @FXML
     private StackPane stek;
-    @FXML
+    
     private KarticaController karticaController;
 
     private PrimaryController primaryController;
@@ -50,6 +50,10 @@ public class DogadjajController {
         kupovinaButton.setDisable(true);
         rezervacijaButton.setDisable(true);
     }
+    public void enableButtons() {
+        kupovinaButton.setDisable(false);
+        rezervacijaButton.setDisable(false);
+    }
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
     List<Sektor> lista_sektora;
     public List<Sektor> getSektoriByLokacija(Lokacija lokacija) {
@@ -58,11 +62,20 @@ public class DogadjajController {
         query.setParameter("lokacija", lokacija);
         return query.getResultList();
     }
-    public Karta getKartaBySektor(Sektor sektor) {
-        String jpql = "SELECT k FROM Karta k WHERE k.sektor = :sektor";
+    public Karta getKartaBySektor(Sektor sektor, Dogadjaj dogadjaj) {
+        if(dogadjaj != null){
+        String jpql = "SELECT k FROM Karta k WHERE k.sektor = :sektor AND k.dogadjaj = :dogadjaj";
         TypedQuery<Karta> query = em.createQuery(jpql, Karta.class);
         query.setParameter("sektor", sektor);
-        return query.getSingleResult(); // Pretpostavimo da ima samo jedna karta po sektoru
+        query.setParameter("dogadjaj", dogadjaj);
+        return query.getSingleResult();
+        }
+        else {
+            String jpql = "SELECT k FROM Karta k WHERE k.sektor = :sektor";
+            TypedQuery<Karta> query = em.createQuery(jpql, Karta.class);
+            query.setParameter("sektor", sektor);
+            return query.getSingleResult();
+        }
     }
 
     public void setDogadjaj(Dogadjaj x) {
@@ -80,7 +93,7 @@ public class DogadjajController {
         lista_sektora = getSektoriByLokacija(lokacija);
         System.out.println(lista_sektora);
         for(Sektor s : lista_sektora){
-            Karta karta = getKartaBySektor(s);
+            Karta karta = getKartaBySektor(s,x);
             if(karta != null){
                 Label sektorLabel = new Label (s.getNazivSektora() + ": "  + karta.getCijena() + "KM");
                 sektorLabel.setStyle("-fx-text-fill: white; -fx-text-weight: bold");
@@ -114,9 +127,9 @@ public class DogadjajController {
 
             KupovinaController kupovinaController = fxmlLoader.getController();
             kupovinaController.setDogadjajController(this);
+            kupovinaController.setKarticaController(karticaController);
             if (this != null)System.out.println("razlicit sam");
-            kupovinaController.stek = this.stek; // Postavi StackPane
-            //kupovinaController.setAkcijskiButtonText("Kupi");
+            kupovinaController.stek = this.stek; 
             kupovinaController.setAkcijskiButtonText("Rezerviši");
             stek.getChildren().add(parent);
         } catch (Exception e) {
@@ -132,10 +145,9 @@ public class DogadjajController {
 
             KupovinaController kupovinaController = fxmlLoader.getController();
             kupovinaController.setDogadjajController(this);
-
-            kupovinaController.stek = this.stek; // Postavi StackPane
+            kupovinaController.setKarticaController(karticaController);
+            kupovinaController.stek = this.stek; 
             kupovinaController.setAkcijskiButtonText("Kupi");
-            // kupovinaController.setAkcijskiButtonText("Rezerviši");
             stek.getChildren().add(parent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,6 +156,12 @@ public class DogadjajController {
 
     @FXML
     public void initialize(){
-        
+        Platform.runLater(() -> {
+        if(KarticaController.dugmad) 
+            disableButtons();
+        else{
+            enableButtons();
+        }
+     });
     }
 }

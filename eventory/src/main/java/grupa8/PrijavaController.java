@@ -39,7 +39,7 @@ public class PrijavaController {
         String lozinka = lozinkaField.getText();
          // Hardkodirane provjere
          if ("anisnuhic".equals(korisnickoIme) && "11111".equals(lozinka)) {
-            // Prijava uspješna, postavi tip korisnika na ORGANIZATOR
+            // Prijava uspješna, postavi tip korisnika na ADMIN
             if (primaryController != null) {
                 primaryController.setKorisnickoIme(korisnickoIme, "ADMIN");
                 primaryController.hideButtonAdmin(); // ili metoda za prikaz ili ažuriranje primarnog prozora
@@ -65,11 +65,14 @@ public class PrijavaController {
                     Korisnik.TipKorisnika a = query1.getSingleResult();
                     primaryController.hideButton(); // or whatever method to show or update primary stage
                     if (a.toString().equals("REGULAR")){
+                    
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(), "KORISNIK" );
                         primaryController.napraviButton.setVisible(false); // or whatever method to show or update primary stageontroller.napr // or whatever method to show or update primary stag
                     }
-                    else if (a.toString().equals("ORGANIZATOR"))
+                    else if (a.toString().equals("ORGANIZATOR")){
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(),  "ORGANIZATOR");
+                       
+                    }
                 }
                 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

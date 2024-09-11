@@ -1,5 +1,7 @@
 package grupa8;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,12 +31,22 @@ public class KupovinaController {
 
     private DogadjajController dogadjajController;
 
+    private KarticaController karticaController;
     public void setDogadjajController(DogadjajController x) {
         this.dogadjajController = x;
     }
+    public void setKarticaController(KarticaController x) {
+        this.karticaController = x;
+    }
 
     private int brojKarti = 0; 
-
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
+    
+    public int maxKarti(Dogadjaj x){
+        TypedQuery<Integer> query = em.createQuery("SELECT k.maksimalanBrojKartiPoKorisniku from Karta k WHERE k.dogadjaj:= x", Integer.class);
+        query.setParameter("x", x);
+        return query.getSingleResult();
+    }
     @FXML
     private void vratiSeNazad(ActionEvent event) {
         try {
@@ -50,7 +62,11 @@ public class KupovinaController {
 
     @FXML
     private void povecajBrojKarti(ActionEvent event) {
+       if(((dogadjajController.getKartaBySektor(dogadjajController.lista_sektora.get(1),karticaController.getDogadjaj())).getMaksimalanBrojKartiPoKorisniku()> brojKarti))
         brojKarti++;
+        else{
+            //printat u labelu neki da je to max broj karti po korisniku
+        }
         azurirajBrojKartiLabelu();
         azurirajUkupnuCijenu();
     }
@@ -81,7 +97,8 @@ public class KupovinaController {
     
             for (Sektor s : dogadjajController.lista_sektora) {
                 CheckBox check = new CheckBox();
-                Karta karta = dogadjajController.getKartaBySektor(s);
+                Karta karta = dogadjajController.getKartaBySektor(s,karticaController.getDogadjaj());
+                System.out.println(karticaController.getDogadjaj());
                 check.setText(s.getNazivSektora() + ": " + karta.getCijena() + "KM");
                 check.setStyle("-fx-text-fill: white;");
                 
