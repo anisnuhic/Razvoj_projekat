@@ -2,6 +2,7 @@
 
 package grupa8;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.util.List;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -27,11 +29,16 @@ public class KarticaController {
     private Dogadjaj dogadjaj;
     @FXML
     private PrimaryController primaryController;
-    @FXML
+    
+    public static boolean dugmad = false;
+
     private DogadjajController dogadjajController;
 
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
+    public Dogadjaj getDogadjaj() {
+        return dogadjaj;
+    }
     public void setPrimaryController(PrimaryController x) {
         this.primaryController = x;
     }
@@ -54,24 +61,26 @@ public class KarticaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dogadjaj.fxml"));
             Parent prijavaRoot = loader.load();
             DogadjajController controller = loader.getController();
-        //     String imeKorisnika = primaryController.getImeKorisnika();
-        //     System.out.println(imeKorisnika);
-        //     TypedQuery<Korisnik.TipKorisnika> korisnikIdQuery = em
-        //         .createQuery("SELECT k.tipKorisnika FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Korisnik.TipKorisnika.class);
-        //     korisnikIdQuery.setParameter("korisnickoIme", imeKorisnika);
-        //     Korisnik.TipKorisnika tipKorisnika = korisnikIdQuery.getSingleResult();
-        //     System.out.println(tipKorisnika);
-        //     if(!(tipKorisnika.equals(Korisnik.TipKorisnika.ADMIN) || tipKorisnika.equals(Korisnik.TipKorisnika.ORGANIZATOR))){
-        //         dogadjajController.disableButtons();
-        //  }   
+            String imeKorisnika = primaryController.getImeKorisnika();
+            System.out.println(imeKorisnika);
+            TypedQuery<Korisnik.TipKorisnika> korisnikIdQuery = em
+                .createQuery("SELECT k.tipKorisnika FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Korisnik.TipKorisnika.class);
+            korisnikIdQuery.setParameter("korisnickoIme", imeKorisnika);
+            List<Korisnik.TipKorisnika> tipKorisnika = korisnikIdQuery.getResultList();
+            System.out.println(tipKorisnika);
+           
         
             controller.setDogadjaj(this.dogadjaj);
             controller.setKarticaController(this);
+            
             Stage stage = new Stage();
             stage.setTitle("Dogadjaj");
             stage.setScene(new Scene(prijavaRoot, 860, 650));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow()));
+            if(tipKorisnika.isEmpty() || tipKorisnika.get(0).equals(Korisnik.TipKorisnika.ADMIN) ){
+                dugmad = true;
+         } 
             stage.showAndWait();
                
         } catch (IOException em) {

@@ -16,7 +16,6 @@ public class FilterUtil {
             // Create main query
             CriteriaQuery<Dogadjaj> cq = cb.createQuery(Dogadjaj.class);
             Root<Dogadjaj> eventRoot = cq.from(Dogadjaj.class);
-
             List<Predicate> predicates = new ArrayList<>();
             if (filterDefinition.filterPriceBetweenOn()) {
                 // Create subquery for filtering events by ticket price
@@ -46,6 +45,7 @@ public class FilterUtil {
             if (filterDefinition.filterLocationsOn()) {
                 predicates.add(getPredicateForLocations(eventRoot, filterDefinition.getLocationNames()));
             }
+            predicates.add(cb.equal(eventRoot.get("odobreno"), true));
             // Combine the predicates
             cq.where(predicates.toArray(new Predicate[0]));
 
@@ -58,7 +58,7 @@ public class FilterUtil {
 
     private static Predicate getPredicateForLocations(Root<Dogadjaj> eventRoot, List<String> locationNames) {
         Join<Dogadjaj, Lokacija> locationJoin = eventRoot.join("lokacija");
-        return locationJoin.get("naziv").in(locationNames);
+        return locationJoin.get("grad").in(locationNames);
     }
 
     private static Predicate getPredicateForPriceBetween(CriteriaBuilder cb, CriteriaQuery<Dogadjaj> cq, Root<Dogadjaj> eventRoot, FilterDefinition filterDefinition) {

@@ -14,15 +14,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+
 
 public class PrimaryController {
     @FXML
@@ -135,11 +130,10 @@ public class PrimaryController {
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         uredi_lokacije.setVisible(false);
         zahtjevi.setVisible(false);
-
+        KarticaController.dugmad = false;
     }
     
-    @FXML
-    private void zahtjeviButton(ActionEvent event){}
+   
     @FXML
     private void lokacijeButton(ActionEvent event){
         try {
@@ -362,14 +356,17 @@ public class PrimaryController {
         button.setStyle("-fx-background-color: white; -fx-text-fill: black;");
     }
 
-    List<Dogadjaj> getInitDogadjajList() {
-    // Kreiraj EntityManager
+    //ovo je inicijalna lista dogadjaja
+    public List<Dogadjaj> getInitDogadjajList() {
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
-
-    // Kreiraj upit za dohvaćanje svih Dogadjaj objekata iz baze podataka
-    List<Dogadjaj> listaDogadjaja = em.createQuery("SELECT d FROM Dogadjaj d", Dogadjaj.class).getResultList();
-
-    // Vrati listu dogadjaja
+    List<Dogadjaj> listaDogadjaja = em.createQuery("SELECT d FROM Dogadjaj d WHERE d.odobreno = true ", Dogadjaj.class).getResultList();
+    return listaDogadjaja;
+}
+    
+    //ovo je za zahtjeve lista dogadjaja
+    public List<Dogadjaj> getfalseDogadjajList() {
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
+    List<Dogadjaj> listaDogadjaja = em.createQuery("SELECT d FROM Dogadjaj d WHERE d.odobreno = false ", Dogadjaj.class).getResultList();
     return listaDogadjaja;
 }
 
@@ -380,7 +377,7 @@ public class PrimaryController {
         filter();
     }
 
-     void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
+     public void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
         resetka.getChildren().clear();
         int row = 0;
         int col = 0;
@@ -401,6 +398,28 @@ public class PrimaryController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML 
+    private void zahtjeviClicked(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("zahtjevi.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+
+            ZahtjeviController zahtjeviController = fxmlLoader.getController();
+            zahtjeviController.setPrimaryController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Zahtjevi za dogadjaje");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+            
+            resetFilters();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

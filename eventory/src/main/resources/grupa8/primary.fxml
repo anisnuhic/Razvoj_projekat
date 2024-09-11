@@ -210,7 +210,7 @@
                   <Insets />
                </opaqueInsets></HBox>
             <Button fx:id="searchButton" layoutX="715.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="24.0" prefWidth="26.0" styleClass="search_button" stylesheets="@css/primary.css" />
-            <Button fx:id="zahtjevi" layoutX="758.0" layoutY="14.0" mnemonicParsing="false" onAction="#zahtjeviButton" prefHeight="38.0" prefWidth="128.0" text="Zahtjevi" textFill="WHITE" visible="false" />
+            <Button fx:id="zahtjevi" layoutX="758.0" layoutY="14.0" mnemonicParsing="false" onAction="#zahtjeviClicked" prefHeight="38.0" prefWidth="128.0" text="Zahtjevi" textFill="WHITE" visible="false" />
             <Button fx:id="uredi_lokacije" layoutX="903.0" layoutY="14.0" mnemonicParsing="false" onAction="#lokacijeButton" prefHeight="38.0" prefWidth="128.0" text="Uredi Lokacije" textFill="WHITE" visible="false" />
          </children></AnchorPane>
    </children>

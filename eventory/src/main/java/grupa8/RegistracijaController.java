@@ -68,7 +68,6 @@ public class RegistracijaController {
         // Kreirajte ToggleGroup
         roleToggleGroup = new ToggleGroup();
 
-        // Dodajte RadioButton dugmad u grupu
         korisnikRadioButton.setToggleGroup(roleToggleGroup);
         organizatorRadioButton.setToggleGroup(roleToggleGroup);
 
@@ -198,9 +197,11 @@ public class RegistracijaController {
         String a = "ADMIN";
         if (korisnikRadioButton.isSelected()) {
             tipKorisnika = Korisnik.TipKorisnika.REGULAR;
+        
             a = "KORISNIK";
         } else if (organizatorRadioButton.isSelected()) {
             tipKorisnika = Korisnik.TipKorisnika.ORGANIZATOR;
+           
             a = "ORGANIZATOR";
         } else {
             // Prikazati grešku korisniku - nije odabran tip korisnika
