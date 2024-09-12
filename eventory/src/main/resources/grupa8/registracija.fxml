@@ -49,7 +49,7 @@
       <TextField fx:id="prezimeField" layoutX="538.0" layoutY="182.0" />
       <Label layoutX="359.0" layoutY="160.0" prefHeight="16.0" prefWidth="82.0" text="Ime" />
       <Label layoutX="538.0" layoutY="160.0" prefHeight="16.0" prefWidth="82.0" text="Prezime" />
-      <TextField fx:id="emailField" layoutX="358.0" layoutY="250.0" prefHeight="24.0" prefWidth="258.0" />
+      <TextField fx:id="emailField" layoutX="358.0" layoutY="250.0" prefHeight="24.0" prefWidth="258.0" promptText="example@mail.com" />
       <Label layoutX="359.0" layoutY="225.0" prefHeight="16.0" prefWidth="82.0" text="E-mail" />
       <TextField fx:id="korisnickoImeField" layoutX="358.0" layoutY="305.0" prefHeight="24.0" prefWidth="234.0" />
       <Label layoutX="359.0" layoutY="283.0" prefHeight="16.0" prefWidth="99.0" text="Korisničko ime" />

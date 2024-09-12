@@ -37,7 +37,7 @@
                   <Image url="@assets/stadion.png" />
                </image>
             </ImageView>
-            <Label layoutX="24.0" layoutY="306.0" prefHeight="23.0" prefWidth="150.0" text="Odaberi sektor:" textFill="WHITE">
+            <Label layoutX="24.0" layoutY="306.0" prefHeight="23.0" prefWidth="150.0" text="Odaberite sektor:" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -55,12 +55,12 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="36.0" layoutY="29.0" prefHeight="34.0" prefWidth="404.0" text="Rezervacija karte">
+      <Label layoutX="36.0" layoutY="29.0" prefHeight="34.0" prefWidth="404.0" text="Rezervacija i kupovina karata">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="Objasnjenje rezervacije karti&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;-&#10;" wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="Objašnjenje rezervacije i kupovine karata&#10;&#10;- Prijavite se prije kupovine ili rezervacije karata&#10;- Odaberite sektor za koji želite kupiti ili rezervisati karte&#10;- Odaberite broj karata za željeni sektor&#10;- Kupite ili rezervišite odabrane karte&#10;- Kupljene karte Vam stižu na mail u PDF formatu&#10;- Registrirani korisnici mogu iskoristiti popuste za vjernost&#10;- Otkazivanjem rezervacije može se primijeniti naknada&#10;- Broj karata za rezervaciju ili kupovinu je ograničen&#10;- Isprintajte kartu ili pokažite digitalnu verziju pri ulazu" wrapText="true" />
       <Label alignment="CENTER" layoutX="129.0" layoutY="398.0" opacity="0.5" prefHeight="23.0" prefWidth="96.0" text="Broj karti" textFill="#333333">
          <font>
             <Font name="System Bold" size="13.0" />
