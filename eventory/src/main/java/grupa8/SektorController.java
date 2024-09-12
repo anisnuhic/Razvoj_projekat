@@ -64,4 +64,5 @@ public class SektorController {
             return Integer.parseInt(kapacitetSektora.getText());
         }
     }
+
 }

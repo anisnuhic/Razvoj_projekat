@@ -78,6 +78,7 @@ public class DodajLokacijuController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Uredi sektore");
+            stage.setResizable(false);
                         stage.showAndWait();
 
             sektorDataList = sektorController.getSektorDataList();
