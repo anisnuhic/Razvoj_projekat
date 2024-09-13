@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 
 public class PrimaryController {
@@ -29,11 +32,11 @@ public class PrimaryController {
     @FXML
     Button napraviButton;
     @FXML
-    private Label tipKorisnika, imeKorisnika;
+    private Label tipKorisnika, imeKorisnika, profil;
     @FXML
-    private ImageView icon1;
+    private ImageView icon1, slicica1, slicica2;
     @FXML
-    private Button muzikaButton, kulturaButton, sportButton, ostaloButton;
+    private Button muzikaButton, kulturaButton, sportButton, ostaloButton, mojeKarte, mojiDogadjaji;
     @FXML
     private TextField searchText;
     
@@ -90,6 +93,11 @@ public class PrimaryController {
         tipKorisnika.setVisible(true);
         urediProfil.setVisible(true);
         icon1.setVisible(true);
+        slicica1.setVisible(true);
+        slicica2.setVisible(true);
+        mojeKarte.setVisible(true);
+        mojiDogadjaji.setVisible(true);
+        profil.setVisible(true);
         resetFilters();
         muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
@@ -106,6 +114,11 @@ public class PrimaryController {
         tipKorisnika.setVisible(true);
         urediProfil.setVisible(false);
         icon1.setVisible(true);
+        slicica1.setVisible(false);
+        slicica2.setVisible(false);
+        mojeKarte.setVisible(false);
+        mojiDogadjaji.setVisible(false);
+        profil.setVisible(false);
         resetFilters();
         muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
@@ -114,12 +127,13 @@ public class PrimaryController {
     }
 
     @FXML
-    private void odjavaAction() {
+    void odjavaAction() {
         registracijaButton.setVisible(true);
         prijavaButton.setVisible(true);
         odjavaButton.setVisible(false);
         napraviButton.setVisible(false);
         imeKorisnika.setVisible(false);
+        imeKorisnika.setText(null);
         tipKorisnika.setVisible(false);
         urediProfil.setVisible(false);
         icon1.setVisible(false);
@@ -130,9 +144,46 @@ public class PrimaryController {
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         uredi_lokacije.setVisible(false);
         zahtjevi.setVisible(false);
-        KarticaController.dugmad = false;
+        slicica1.setVisible(false);
+        slicica2.setVisible(false);
+        mojeKarte.setVisible(false);
+        mojiDogadjaji.setVisible(false);
+        profil.setVisible(false);
+        KarticaController.dugmad = true;
+        System.out.println("dugmad su: " + KarticaController.dugmad); 
     }
-    
+    @FXML
+    private void handleKarte(ActionEvent event){}
+    @FXML
+private void handleDogadjaji(ActionEvent event) {
+    String imeKorisnik = imeKorisnika.getText();
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
+
+        String jpq = "SELECT k.korisnikId FROM Korisnik k WHERE k.korisnickoIme = :imeKorisnik";
+        TypedQuery<Integer> query = em.createQuery(jpq, Integer.class);
+        query.setParameter("imeKorisnik", imeKorisnik);
+        Integer idOrganizatora = query.getSingleResult();
+
+        String jp = "SELECT o FROM Organizator o WHERE o.organizatorId = :idOrganizator";
+        TypedQuery<Organizator> query2 = em.createQuery(jp, Organizator.class);
+        query2.setParameter("idOrganizator", idOrganizatora);
+        Organizator organizator = query2.getSingleResult();
+
+    try {
+        // Kreiraj upit da se pronađu svi događaji koje je kreirao organizator s datim imenom
+        String jpql = "SELECT d FROM Dogadjaj d WHERE d.organizator = :organizator";
+        TypedQuery<Dogadjaj> query1 = em.createQuery(jpql, Dogadjaj.class);
+        query1.setParameter("organizator", organizator);
+        
+        // Dobijemo listu svih događaja koje je organizator kreirao
+        List<Dogadjaj> dogadjaji = query1.getResultList();
+
+        addDogadjajListToResetka(dogadjaji);
+    } finally {
+        em.close();
+        }
+}
+
    
     @FXML
     private void lokacijeButton(ActionEvent event){
@@ -418,6 +469,24 @@ public class PrimaryController {
             stage.showAndWait();
             
             resetFilters();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void urediProfilClicked(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("urediProfil.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            UrediProfilController urediProfilController = fxmlLoader.getController();
+            urediProfilController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Uredi Profil");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

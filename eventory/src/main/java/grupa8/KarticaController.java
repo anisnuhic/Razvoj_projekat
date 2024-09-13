@@ -80,7 +80,12 @@ public class KarticaController {
             stage.initOwner(((Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow()));
             if(tipKorisnika.isEmpty() || tipKorisnika.get(0).equals(Korisnik.TipKorisnika.ADMIN) ){
                 dugmad = true;
+                System.out.println("dugmad su:" + dugmad); 
          } 
+         else {
+            dugmad = false;
+            System.out.println("dugmad su: " + dugmad);
+         }
             stage.showAndWait();
                
         } catch (IOException em) {

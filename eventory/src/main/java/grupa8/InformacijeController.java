@@ -207,54 +207,52 @@ public class InformacijeController {
                 warning.setStyle("-fx-text-fill: red;");
                 return;
             }
-
-            // Provjera da li je današnji datum veći od unesenog datuma
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            try {
-                LocalDate enteredDate = LocalDate.parse(datumDogadjaja, dateFormatter);
-                LocalDate today = LocalDate.now();
-                if (today.isAfter(enteredDate)) {
-                    warning.setText("Nevalidan datum");
-                    warning.setStyle("-fx-text-fill: red;");
-                    return;
-                }
-            } catch (Exception e) {
-                System.out.println("Date parsing error: " + e.getMessage());
-            }
-        
-            String timePattern = "^\\d{2}:\\d{2}$";
-            Pattern timeRegex = Pattern.compile(timePattern);
-            Matcher timeMatcher = timeRegex.matcher(vrijemeDogadjaja);
-        
-            if (!timeMatcher.matches()) {
-                warning.setText("Nevalidan format");
-                warning.setStyle("-fx-text-fill: red;");
-                return;
-            }
-
-            // Provjera da li su sati i minute validni
-            String[] timeParts = vrijemeDogadjaja.split(":");
-            int hour = Integer.parseInt(timeParts[0]);
-            int minute = Integer.parseInt(timeParts[1]);
-
-            if (hour > 23) {
-                warning.setText("Nevalidno vrijeme");
-                warning.setStyle("-fx-text-fill: red;");
-                return;
-            }
-
-            if (minute > 59) {
-                warning.setText("Nevalidno vrijeme");
-                warning.setStyle("-fx-text-fill: red;");
-                return;
-            }
-        
-        } catch (PatternSyntaxException e) {
-            System.out.println("Error in the regex pattern: " + e.getMessage());
-        }
-
-        warning.setText("");
-        
+              // Provjera da li je današnji datum veći od unesenog datuma
+              DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+              try {
+                  LocalDate enteredDate = LocalDate.parse(datumDogadjaja, dateFormatter);
+                  LocalDate today = LocalDate.now();
+                  if (today.isAfter(enteredDate)) {
+                      warning.setText("Nevalidan datum");
+                      warning.setStyle("-fx-text-fill: red;");
+                      return;
+                  }
+              } catch (Exception e) {
+                  System.out.println("Date parsing error: " + e.getMessage());
+              }
+          
+              String timePattern = "^\\d{2}:\\d{2}$";
+              Pattern timeRegex = Pattern.compile(timePattern);
+              Matcher timeMatcher = timeRegex.matcher(vrijemeDogadjaja);
+          
+              if (!timeMatcher.matches()) {
+                  warning.setText("Nevalidan format");
+                  warning.setStyle("-fx-text-fill: red;");
+                  return;
+              }
+  
+              // Provjera da li su sati i minute validni
+              String[] timeParts = vrijemeDogadjaja.split(":");
+              int hour = Integer.parseInt(timeParts[0]);
+              int minute = Integer.parseInt(timeParts[1]);
+  
+              if (hour > 23) {
+                  warning.setText("Nevalidno vrijeme");
+                  warning.setStyle("-fx-text-fill: red;");
+                  return;
+              }
+  
+              if (minute > 59) {
+                  warning.setText("Nevalidno vrijeme");
+                  warning.setStyle("-fx-text-fill: red;");
+                  return;
+              }
+          
+          } catch (PatternSyntaxException e) {
+              System.out.println("Error in the regex pattern: " + e.getMessage());
+          }
+          warning.setText("");
+          
         // Konvertovanje datuma i vremena u LocalDateTime
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -282,7 +280,6 @@ public class InformacijeController {
                                                                                        // labela
             BigDecimal cijena = new BigDecimal(cijenaField.getText()); // Cijena iz unosa
 
-            // Provjera da li je cijena negativna
             try {
                 if (cijena.compareTo(BigDecimal.ZERO) < 0) {
                     warning.setText("Nevalidna cijena");
@@ -300,6 +297,16 @@ public class InformacijeController {
                 sektorCijene.put(sektor, cijena); // Poveži sektor sa unesenom cijenom
             }
         }
+        try {
+            if(maxKarti < 1) {
+                warning.setText("Odaberite broj karti");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Number of tickets error: " + e.getMessage());
+        }
+        warning.setText("");
 
         // Provjera broja karti
         try {

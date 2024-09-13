@@ -111,7 +111,6 @@ public class RegistracijaController {
         String lozinka = lozinkaField.getText();
         String potvrdaLozinke = potvrdaLozinkeField.getText();
 
-        // Provjera da li u imenu i prezimenu ima nedozvoljenih simbola i brojeva
         try {
             String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
             // Kompajliraj pattern
@@ -133,8 +132,13 @@ public class RegistracijaController {
         } catch (PatternSyntaxException e) {
             System.out.println("Error in the regex pattern: " + e.getMessage());
         }
-    
-        // Provjera da li korisničko ime i mail već postoje
+
+        // if (!lozinka.equals(potvrdaLozinke)) {
+        //     warning.setText("Lozinke nisu iste");
+        //     return;
+        // }
+
+        // Provjera da li korisničko ime već postoji
         try {
             TypedQuery<Long> query = em.createQuery(
                     "SELECT COUNT(k) FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Long.class);

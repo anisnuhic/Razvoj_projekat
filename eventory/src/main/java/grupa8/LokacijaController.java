@@ -21,11 +21,10 @@ public class LokacijaController {
     private PrimaryController primaryController; // Referenca na PrimaryController
 
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
-
     @FXML
     private void initialize() {
         List<String> listaMjesta = new ArrayList<>();
-        TypedQuery<String> query = em.createQuery("SELECT DISTINCT l.grad FROM Lokacija l", String.class);
+       TypedQuery<String> query = em.createQuery("SELECT DISTINCT l.grad FROM Lokacija l", String.class);
         listaMjesta = query.getResultList();
         prikaziMjesta(listaMjesta);
     }
