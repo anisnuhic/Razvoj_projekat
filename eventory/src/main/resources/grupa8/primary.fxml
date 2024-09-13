@@ -151,7 +151,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="urediProfil" layoutX="139.0" layoutY="210.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="157.0" styleClass="profil" stylesheets="@css/primary.css" text="Uredi profil" textFill="WHITE" visible="false">
+            <Button fx:id="urediProfil" layoutX="139.0" layoutY="210.0" mnemonicParsing="false" onAction="#urediProfilClicked" prefHeight="24.0" prefWidth="157.0" styleClass="profil" stylesheets="@css/primary.css" text="Uredi profil" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>

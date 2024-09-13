@@ -114,12 +114,13 @@ public class PrimaryController {
     }
 
     @FXML
-    private void odjavaAction() {
+    void odjavaAction() {
         registracijaButton.setVisible(true);
         prijavaButton.setVisible(true);
         odjavaButton.setVisible(false);
         napraviButton.setVisible(false);
         imeKorisnika.setVisible(false);
+        imeKorisnika.setText(null);
         tipKorisnika.setVisible(false);
         urediProfil.setVisible(false);
         icon1.setVisible(false);
@@ -130,7 +131,8 @@ public class PrimaryController {
         kulturaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         uredi_lokacije.setVisible(false);
         zahtjevi.setVisible(false);
-        KarticaController.dugmad = false;
+        KarticaController.dugmad = true;
+        System.out.println("dugmad su: " + KarticaController.dugmad); 
     }
     
    
@@ -418,6 +420,24 @@ public class PrimaryController {
             stage.showAndWait();
             
             resetFilters();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void urediProfilClicked(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("urediProfil.fxml"));
+            Parent registracijaRoot = fxmlLoader.load();
+            UrediProfilController urediProfilController = fxmlLoader.getController();
+            urediProfilController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Uredi Profil");
+            stage.setScene(new Scene(registracijaRoot));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,4 @@
 package grupa8;
-
 import jakarta.persistence.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +9,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import java.util.regex.*;
 
 import java.util.Date;
 
@@ -111,10 +111,32 @@ public class RegistracijaController {
         String lozinka = lozinkaField.getText();
         String potvrdaLozinke = potvrdaLozinkeField.getText();
 
-        if (!lozinka.equals(potvrdaLozinke)) {
-            warning.setText("Lozinke nisu iste");
-            return;
+        try {
+            String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
+            // Kompajliraj pattern
+            Pattern pattern = Pattern.compile(namePattern);
+            Matcher matcher1 = pattern.matcher(ime);
+            Matcher matcher2 = pattern.matcher(prezime);
+
+            // Provjera da li ime i prezime odgovaraju patternu
+            if (!matcher1.matches()) {
+                warning.setText("Nevalidno ime");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            } 
+            if (!matcher2.matches()) {
+                warning.setText("Nevalidno prezime");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+        } catch (PatternSyntaxException e) {
+            System.out.println("Error in the regex pattern: " + e.getMessage());
         }
+
+        // if (!lozinka.equals(potvrdaLozinke)) {
+        //     warning.setText("Lozinke nisu iste");
+        //     return;
+        // }
 
         // Provjera da li korisničko ime već postoji
         try {
@@ -133,6 +155,47 @@ public class RegistracijaController {
             return;
         }
 
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(k) FROM Korisnik k WHERE k.email = :email", Long.class);
+            query.setParameter("email", email);
+            Long count = query.getSingleResult();
+
+            if (count > 0) {
+                warning.setText("E-mail već u upotrebi");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to check email existence");
+            e.printStackTrace();
+            return;
+        }
+
+        // Provjera da li je email u ispravnom formatu
+        try {
+            String emailPattern = "^[\\p{L}0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+            // Kompajliraj pattern
+            Pattern pattern = Pattern.compile(emailPattern);
+            Matcher matcher = pattern.matcher(email);
+
+            // Provjeri da li mail odgovara patternu
+            if (!matcher.matches()) {
+                warning.setText("Nevalidan e-mail");
+                warning.setStyle("-fx-text-fill: red;");
+                return;
+            } 
+        } catch (PatternSyntaxException e) {
+            System.out.println("Error in the regex pattern: " + e.getMessage());
+        }
+
+        // Provjera da li su loznike iste
+        if (!lozinka.equals(potvrdaLozinke)) {
+            warning.setText("Lozinke nisu iste");
+            warning.setStyle("-fx-text-fill: red;");
+            return;
+        }
+
         Korisnik.TipKorisnika tipKorisnika;
         String a = "ADMIN";
         if (korisnikRadioButton.isSelected()) {
@@ -146,6 +209,43 @@ public class RegistracijaController {
         } else {
             // Prikazati grešku korisniku - nije odabran tip korisnika
             return;
+        }
+
+           // Provjera da li su ime kontakt osobe i telefonski broj u ispravnom formatu
+           if(a == "ORGANIZATOR") {
+            try {
+                String fullNamePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
+                String kontaktOsoba = kontaktOrg.getText();
+                // Kompajliraj pattern
+                Pattern pattern = Pattern.compile(fullNamePattern);
+                Matcher matcher = pattern.matcher(kontaktOsoba);
+    
+                // Provjera da li ime odgovara patternu
+                if (!matcher.matches()) {
+                    warning.setText("Nevalidna kontakt osoba");
+                    warning.setStyle("-fx-text-fill: red;");
+                    return;
+                }
+            } catch (PatternSyntaxException e) {
+                System.out.println("Error in the regex pattern: " + e.getMessage());
+            }
+
+            try {
+                String phoneNumberPattern = "^\\+?\\d+$";
+                String telefonskiBroj = telefonOrg.getText();
+                // Kompajliraj pattern
+                Pattern pattern = Pattern.compile(phoneNumberPattern);
+                Matcher matcher = pattern.matcher(telefonskiBroj);
+            
+                // Provjeri da li broj odgovara patternu
+                if (!matcher.matches()) {
+                    warning.setText("Nevalidan telefonski broj"); 
+                    warning.setStyle("-fx-text-fill: red;");
+                    return;
+                }
+            } catch (PatternSyntaxException e) {
+                System.out.println("Error in the regex pattern: " + e.getMessage());
+            }
         }
 
         // Kreiranje novog korisnika

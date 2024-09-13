@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
 public class LokacijaController {
 
     @FXML
@@ -17,12 +20,12 @@ public class LokacijaController {
 
     private PrimaryController primaryController; // Referenca na PrimaryController
 
+    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
     @FXML
     private void initialize() {
         List<String> listaMjesta = new ArrayList<>();
-        listaMjesta.add("Tuzla");
-        listaMjesta.add("Lukavac");
-        listaMjesta.add("Gracanica");
+       TypedQuery<String> query = em.createQuery("SELECT DISTINCT l.grad FROM Lokacija l", String.class);
+        listaMjesta = query.getResultList();
         prikaziMjesta(listaMjesta);
     }
 

@@ -59,5 +59,6 @@
       <Label layoutX="368.0" layoutY="432.0" prefHeight="16.0" prefWidth="150.0" text="Max. karti" />
       <Label layoutX="34.0" layoutY="367.0" prefHeight="16.0" prefWidth="119.0" text="Uslov otkazivanja" />
       <TextField fx:id="uslov" alignment="TOP_LEFT" layoutX="33.0" layoutY="381.0" prefHeight="88.0" prefWidth="288.0" />
+       <Label fx:id="warning" layoutX="177.0" layoutY="132.0" prefHeight="16.0" prefWidth="135.0" />
    </children>
 </AnchorPane>
