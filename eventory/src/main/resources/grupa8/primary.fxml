@@ -141,12 +141,12 @@
                   <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
-            <Button fx:id="napraviButton" layoutX="40.0" layoutY="635.0" mnemonicParsing="false" onAction="#noviDogadjajButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Novi događaj" textFill="WHITE" visible="false">
+            <Button fx:id="napraviButton" layoutX="44.0" layoutY="752.0" mnemonicParsing="false" onAction="#noviDogadjajButtonAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Novi događaj" textFill="WHITE" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="odjavaButton" layoutX="40.0" layoutY="688.0" mnemonicParsing="false" onAction="#odjavaAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Odjava" textFill="WHITE" visible="false">
+            <Button fx:id="odjavaButton" layoutX="44.0" layoutY="813.0" mnemonicParsing="false" onAction="#odjavaAction" prefHeight="37.0" prefWidth="178.0" stylesheets="@css/primary.css" text="Odjava" textFill="WHITE" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -171,11 +171,36 @@
                   <Image url="@assets/icons/person_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
+            <Label fx:id="profil" layoutX="35.0" layoutY="635.0" prefHeight="16.0" prefWidth="88.0" text="Profil" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="mojeKarte" alignment="BASELINE_LEFT" layoutX="35.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleKarte" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" stylesheets="@css/primary.css" text="Moje karte" textFill="WHITE" visible="false">
+               <padding>
+                  <Insets left="25.0" top="5.0" />
+               </padding>
+            </Button>
+            <ImageView fx:id="slicica1" fitHeight="20.0" fitWidth="14.0" layoutX="40.0" layoutY="661.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@assets/icons/local_activity_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="mojiDogadjaji" alignment="BASELINE_LEFT" layoutX="35.0" layoutY="688.0" mnemonicParsing="false" onAction="#handleDogadjaji" prefHeight="20.0" prefWidth="265.0" styleClass="category_butons" stylesheets="@css/primary.css" text="Moji događaji" textFill="WHITE" visible="false">
+               <padding>
+                  <Insets left="25.0" top="5.0" />
+               </padding>
+            </Button>
+            <ImageView fx:id="slicica2" fitHeight="20.0" fitWidth="14.0" layoutX="40.0" layoutY="691.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="388.0" prefHeight="760.0" prefWidth="1060.0" styleClass="menu" stylesheets="@css/primary.css" AnchorPane.leftAnchor="291.0">
          <children>
-            <TextField fx:id="searchText" layoutX="274.0" layoutY="63.0" prefHeight="38.0" prefWidth="484.0" promptText="Pretraži događaje" styleClass="search_field" stylesheets="@css/primary.css">
+            <TextField fx:id="searchText" layoutX="274.0" layoutY="63.0" onAction="#handleSearchAction" prefHeight="38.0" prefWidth="484.0" promptText="Pretraži događaje" styleClass="search_field" stylesheets="@css/primary.css">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
