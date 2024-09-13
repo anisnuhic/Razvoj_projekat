@@ -46,21 +46,14 @@
             <Font size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="novoIme16" layoutX="421.0" layoutY="63.0" prefHeight="24.0" prefWidth="104.0" promptText="naziv organizacije">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="novoIme17" layoutX="421.0" layoutY="101.0" prefHeight="24.0" prefWidth="104.0" promptText="kontakt osoba">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </TextField>
+      <TextField fx:id="novoIme16" layoutX="421.0" layoutY="63.0" prefHeight="24.0" prefWidth="104.0" promptText="naziv organizacije" />
+      <TextField fx:id="novoIme17" layoutX="421.0" layoutY="101.0" prefHeight="24.0" prefWidth="104.0" promptText="kontakt osoba" />
       <TextField fx:id="novoIme18" layoutX="421.0" layoutY="141.0" prefHeight="24.0" prefWidth="104.0" promptText="telefon" />
       <TextField fx:id="novoIme19" layoutX="421.0" layoutY="183.0" prefHeight="24.0" prefWidth="104.0" promptText="adresa" />
       <Label alignment="CENTER" layoutX="24.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Trenutno" />
       <Label alignment="CENTER" layoutX="143.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Novo" />
       <Label fx:id="label3" alignment="CENTER" layoutX="300.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Trenutno" />
       <Label fx:id="label4" alignment="CENTER" layoutX="421.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Novo" />
+      <Label fx:id="warning" layoutX="24.0" layoutY="354.0" prefHeight="16.0" prefWidth="258.0" />
    </children>
 </AnchorPane>

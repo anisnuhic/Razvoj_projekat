@@ -156,6 +156,8 @@ public class RegistracijaController {
             return;
         }
 
+
+        //provjera da li mail vec postoji
         try {
             TypedQuery<Long> query = em.createQuery(
                     "SELECT COUNT(k) FROM Korisnik k WHERE k.email = :email", Long.class);
