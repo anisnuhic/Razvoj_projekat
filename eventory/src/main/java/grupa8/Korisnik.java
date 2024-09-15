@@ -1,6 +1,8 @@
 package grupa8;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -35,6 +37,8 @@ public class Korisnik {
     @Column(name = "tip_korisnika", nullable = false)
     private TipKorisnika tipKorisnika;
 
+    @Column(name = "novcanik")
+    private BigDecimal novcanik;
     // Getteri i setteri
 
     public int getKorisnikId() {
@@ -99,6 +103,14 @@ public class Korisnik {
 
     public void setTipKorisnika(TipKorisnika tipKorisnika) {
         this.tipKorisnika = tipKorisnika;
+    }
+
+    public BigDecimal getNovcanik(){
+        return novcanik;
+    }
+
+    public void setNovcanik(BigDecimal novcanik){
+        this.novcanik = novcanik;
     }
 
     // Enum za tip korisnika

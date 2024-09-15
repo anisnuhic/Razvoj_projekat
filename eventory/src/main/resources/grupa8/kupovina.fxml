@@ -42,7 +42,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="akcijskiButton" layoutX="185.0" layoutY="628.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="150.0" styleClass="buttoni" stylesheets="@css/kupovina.css" textFill="WHITE">
+            <Button fx:id="akcijskiButton" layoutX="185.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleStanjeKarti" prefHeight="34.0" prefWidth="150.0" styleClass="buttoni" stylesheets="@css/kupovina.css" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -55,12 +55,12 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="36.0" layoutY="29.0" prefHeight="34.0" prefWidth="404.0" text="Rezervacija i kupovina karata">
+      <Label layoutX="36.0" layoutY="29.0" prefHeight="34.0" prefWidth="404.0" text="Rezervacija i kupovina karti">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="Objašnjenje rezervacije i kupovine karata&#10;&#10;- Prijavite se prije kupovine ili rezervacije karata&#10;- Odaberite sektor za koji želite kupiti ili rezervisati karte&#10;- Odaberite broj karata za željeni sektor&#10;- Kupite ili rezervišite odabrane karte&#10;- Kupljene karte Vam stižu na mail u PDF formatu&#10;- Registrirani korisnici mogu iskoristiti popuste za vjernost&#10;- Otkazivanjem rezervacije može se primijeniti naknada&#10;- Broj karata za rezervaciju ili kupovinu je ograničen&#10;- Isprintajte kartu ili pokažite digitalnu verziju pri ulazu" wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="DOBRODOŠLI NA EVENTORY&#10;Da bi ste rezervisali karte na našoj stranici potrebno je:&#10;Da izaberete sektor/e za koji/e želite da rezervišete&#10;Da izaberete broj karti za taj sektor&#10;Da provjerite da li vam odgovara ukupna cijena vaših karti&#10;Klikenete na rezerviši&#10;Vaše karte vas čekaju spremne za kupovinu&#10;&#10;Ukoliko želite izvršiti kupovinu karti potrebno je da:&#10;Izaberete sektor/e&#10;Izaberete broj karti za taj sektor&#10;Provjerite da li vam cijena odgovara&#10;Kliknete na Kupi&#10;Vaše karte dolaze vam u pdf formatu&#10;&#10;" wrapText="true" />
       <Label alignment="CENTER" layoutX="129.0" layoutY="398.0" opacity="0.5" prefHeight="23.0" prefWidth="96.0" text="Broj karti" textFill="#333333">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -85,5 +85,16 @@
             <Image url="@assets/icons/keyboard_arrow_down_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
          </image>
       </ImageView>
+      <Label fx:id="ispis" alignment="CENTER" layoutX="155.0" layoutY="526.0" prefHeight="24.0" prefWidth="162.0" text="Uspješna transakcija" textAlignment="CENTER" textFill="#4596dc" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="640.0" prefHeight="23.0" prefWidth="74.0" text="Novcanik:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="novcanik" layoutX="93.0" layoutY="644.0" />
    </children>
 </AnchorPane>

@@ -283,9 +283,13 @@ public class RegistracijaController {
             if (primaryController != null) {
                 primaryController.hideButton();
                 primaryController.setKorisnickoIme(korisnickoImeField.getText(), a);
+                primaryController.mojiDogadjaji.setVisible(true);
+                primaryController.slicica2.setVisible(true);
             }
             if(korisnikRadioButton.isSelected()) 
                 primaryController.napraviButton.setVisible(false);
+                primaryController.mojiDogadjaji.setVisible(false);
+                primaryController.slicica2.setVisible(false);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         } catch (Exception e) {

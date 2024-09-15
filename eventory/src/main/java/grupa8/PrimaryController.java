@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+//import jakarta.persistence.EntityManagerFactory;
+//import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 
@@ -30,16 +30,20 @@ public class PrimaryController {
     @FXML
     private Button registracijaButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
     @FXML
-    Button napraviButton;
+    Button napraviButton, mojiDogadjaji;
     @FXML
     private Label tipKorisnika, imeKorisnika, profil;
     @FXML
-    private ImageView icon1, slicica1, slicica2;
+    private ImageView icon1, slicica1;
     @FXML
-    private Button muzikaButton, kulturaButton, sportButton, ostaloButton, mojeKarte, mojiDogadjaji;
+    ImageView slicica2, crveno;
+    @FXML
+    private Button muzikaButton, kulturaButton, sportButton, ostaloButton, mojeKarte, nextButton, prevButton;
     @FXML
     private TextField searchText;
     
+    private int currentPage = 0;
+    private static final int ITEMS_PER_PAGE = 6;
 
     private FilterDefinition filterDefinition;
     public String getImeKorisnika(){
@@ -47,40 +51,60 @@ public class PrimaryController {
     }
     @FXML
     private void handleSearchAction() {
+        currentPage = 0;
+        addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+        updateButtonVisibility();
         System.out.println("Search action called");
         deselectCategoryButtons(kulturaButton, sportButton, ostaloButton, muzikaButton);
         cijenaContainer.getChildren().clear();
         filterDefinition.resetFilters();
         filterDefinition.setSearchText(searchText.getText());
         filter();
+     
     }
 
     @FXML
     private void muzikaClicked(ActionEvent event) {
+        currentPage = 0;
+        addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+        updateButtonVisibility();
         selectCategoryButton(muzikaButton);
         deselectCategoryButtons(kulturaButton, sportButton, ostaloButton);
         handleCategoryChanged(CategoryEnum.MUZIKA);
+        
     }
 
     @FXML
     private void kulturaClicked(ActionEvent event) {
+        currentPage = 0;
+        addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+        updateButtonVisibility();
         selectCategoryButton(kulturaButton);
         deselectCategoryButtons(sportButton, ostaloButton, muzikaButton);
         handleCategoryChanged(CategoryEnum.KULTURA);
+        
     }
 
     @FXML
     private void sportClicked(ActionEvent event) {
+        currentPage = 0;
+        addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+        updateButtonVisibility();
         selectCategoryButton(sportButton);
         deselectCategoryButtons(kulturaButton, ostaloButton, muzikaButton);
         handleCategoryChanged(CategoryEnum.SPORT);
+       
     }
 
     @FXML
     private void ostaloClicked(ActionEvent event) {
+        currentPage = 0;
+        addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+        updateButtonVisibility();
         selectCategoryButton(ostaloButton);
         deselectCategoryButtons(kulturaButton, sportButton, muzikaButton);
         handleCategoryChanged(CategoryEnum.OSTALO);
+        
     }
 
     @FXML
@@ -94,9 +118,7 @@ public class PrimaryController {
         urediProfil.setVisible(true);
         icon1.setVisible(true);
         slicica1.setVisible(true);
-        slicica2.setVisible(true);
         mojeKarte.setVisible(true);
-        mojiDogadjaji.setVisible(true);
         profil.setVisible(true);
         resetFilters();
         muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
@@ -119,6 +141,8 @@ public class PrimaryController {
         mojeKarte.setVisible(false);
         mojiDogadjaji.setVisible(false);
         profil.setVisible(false);
+        if(!getfalseDogadjajList().isEmpty())crveno.setVisible(true);
+        else crveno.setVisible(false);
         resetFilters();
         muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
         sportButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
@@ -258,6 +282,7 @@ private void handleDogadjaji(ActionEvent event) {
     @FXML
     public void initialize() {
         addDogadjajListToResetka(getInitDogadjajList());
+        if(getfalseDogadjajList().isEmpty()) System.out.println("prazan sam");
         EntityManagerFactoryInstance.init();
         this.filterDefinition = FilterDefinition.getInstance();
     }
@@ -427,13 +452,39 @@ private void handleDogadjaji(ActionEvent event) {
         this.filterDefinition.resetFilters();
         filter();
     }
+    @FXML
+    private void handleNextButtonAction(ActionEvent event) {
+        currentPage++; // Povećanje broja stranice
+        addDogadjajListToResetka(getInitDogadjajList());
+        updateButtonVisibility(); // Ažuriranje prikaza za sljedećih 6 događaja
+    }
+
+    @FXML
+    private void handlePrevButtonAction(ActionEvent event) {
+        if (currentPage > 0) {
+            currentPage--;  // Smanjenje broja stranice
+            addDogadjajListToResetka(getInitDogadjajList());  // Ažuriranje prikaza za prethodnih 6 događaja
+            updateButtonVisibility();    // Ažuriranje vidljivosti dugmadi
+        }
+    }
+
+    private void updateButtonVisibility() {
+        // Dugme za povratak je vidljivo ako nismo na prvoj stranici
+        prevButton.setVisible(currentPage > 0);
+        
+        // Dugme za sljedeću stranicu je vidljivo ako ima više događaja za prikaz
+        nextButton.setVisible((currentPage + 1) * ITEMS_PER_PAGE < getInitDogadjajList().size());
+    }
 
      public void addDogadjajListToResetka(List<Dogadjaj> listaDogadjaja) {
         resetka.getChildren().clear();
+        int start = currentPage * ITEMS_PER_PAGE;
+        int end = Math.min(start + ITEMS_PER_PAGE, listaDogadjaja.size());
         int row = 0;
         int col = 0;
         // Ispis liste Dogadjaj objekata
-        for (Dogadjaj d : listaDogadjaja) {
+        for (int i = start; i < end; i++) {
+            Dogadjaj d = listaDogadjaja.get(i);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("kartica.fxml"));
                 AnchorPane eventCard = loader.load();

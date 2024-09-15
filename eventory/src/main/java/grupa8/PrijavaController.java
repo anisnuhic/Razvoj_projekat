@@ -67,11 +67,14 @@ public class PrijavaController {
                     if (a.toString().equals("REGULAR")){
                     
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(), "KORISNIK" );
-                        primaryController.napraviButton.setVisible(false); // or whatever method to show or update primary stageontroller.napr // or whatever method to show or update primary stag
+                        primaryController.napraviButton.setVisible(false); 
+                        primaryController.mojiDogadjaji.setVisible(false);
+                        primaryController.slicica2.setVisible(false);// or whatever method to show or update primary stageontroller.napr // or whatever method to show or update primary stag
                     }
                     else if (a.toString().equals("ORGANIZATOR")){
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(),  "ORGANIZATOR");
-                       
+                       primaryController.mojiDogadjaji.setVisible(true);
+                       primaryController.slicica2.setVisible(true);
                     }
                 }
                 

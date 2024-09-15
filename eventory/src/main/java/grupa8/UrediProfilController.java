@@ -14,7 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+//import java.util.regex.*;
 
 public class UrediProfilController {
     @FXML
@@ -118,10 +121,7 @@ public class UrediProfilController {
                 String korisnickoIme2 = novoIme12.getText();
                 String email2 = novoIme11.getText();
                 // Ažuriraj informacije o korisniku
-
-                // ime
-                if (novoIme.getText() != null && !novoIme.getText().isEmpty()) {
-                    // Provjera da li ime odgovara patternu
+                if (novoIme.getText() != null && !novoIme.getText().isEmpty()){
                     try {
                         String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
                         // Kompajliraj pattern
@@ -139,10 +139,7 @@ public class UrediProfilController {
                     warning.setText("");
                     korisnik.setIme(novoIme.getText());
                 }
-
-                // prezime
-                if (novoIme1.getText() != null && !novoIme1.getText().isEmpty()) {
-                    // Provjera da li prezime odgovara patternu
+                if (novoIme1.getText() != null && !novoIme1.getText().isEmpty()){
                     try {
                         String namePattern = "^[\\p{L}]+([ '-][\\p{L}]+)*([\\s][\\p{L}]+([ '-][\\p{L}]+)*)*$";
                         // Kompajliraj pattern
@@ -160,10 +157,7 @@ public class UrediProfilController {
                     warning.setText("");
                     korisnik.setPrezime(novoIme1.getText());
                 }
-
-                // email
-                if (novoIme11.getText() != null && !novoIme11.getText().isEmpty()) {
-                    //provjera da li mail vec postoji
+                if (novoIme11.getText() != null && !novoIme11.getText().isEmpty()){
                     try {
                         TypedQuery<Long> query = em.createQuery(
                     "SELECT COUNT(k) FROM Korisnik k WHERE k.email = :email", Long.class);
@@ -200,10 +194,7 @@ public class UrediProfilController {
                     warning.setText("");
                     korisnik.setEmail(novoIme11.getText());
                 }
-
-                // korisnicko ime
-                if (novoIme12.getText() != null && !novoIme12.getText().isEmpty()) {
-                    //provjera da li korisnicko ime vec postoji
+                if (novoIme12.getText() != null && !novoIme12.getText().isEmpty()){
                     try {
                         TypedQuery<Long> query = em.createQuery(
                     "SELECT COUNT(k) FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Long.class);
@@ -232,6 +223,7 @@ public class UrediProfilController {
                     return;
                 }
                 warning.setText("");
+    
                 // Ako je korisnik organizator, ažuriraj podatke o organizatoru
                 if (korisnik.getTipKorisnika().toString().equals("ORGANIZATOR")) {
                     Organizator organizator = findOrganizatorById(korisnik.getKorisnikId());
@@ -246,7 +238,6 @@ public class UrediProfilController {
                                 // Kompajliraj pattern
                                 Pattern pattern = Pattern.compile(fullNamePattern);
                                 Matcher matcher = pattern.matcher(kontakt2);
-                    
                                 // Provjera da li ime odgovara patternu
                                 if (!matcher.matches()) {
                                     warning.setText("Nevalidna kontakt osoba");
@@ -259,13 +250,12 @@ public class UrediProfilController {
                             warning.setText("");
                             organizator.setKontaktOsoba(novoIme17.getText());
                         }
-                        if (novoIme18.getText() != null && !novoIme18.getText().isEmpty()) {
+                        if (novoIme18.getText() != null && !novoIme18.getText().isEmpty()){
                             try {
                                 String phoneNumberPattern = "^\\+?\\d+$";
                                 // Kompajliraj pattern
                                 Pattern pattern = Pattern.compile(phoneNumberPattern);
                                 Matcher matcher = pattern.matcher(telefon2);
-                            
                                 // Provjeri da li broj odgovara patternu
                                 if (!matcher.matches()) {
                                     warning.setText("Nevalidan telefonski broj"); 

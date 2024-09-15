@@ -36,8 +36,15 @@ public class DogadjajController {
     private StackPane stek;
     
     private KarticaController karticaController;
+    
 
     private PrimaryController primaryController;
+    
+    private String imeKorisnika;
+
+    public String getImeKorisnika() {
+        return imeKorisnika;
+    }
     public void setPrimaryController(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
@@ -128,6 +135,7 @@ public class DogadjajController {
             KupovinaController kupovinaController = fxmlLoader.getController();
             kupovinaController.setDogadjajController(this);
             kupovinaController.setKarticaController(karticaController);
+            kupovinaController.setPrimaryController(primaryController);
             if (this != null)System.out.println("razlicit sam");
             kupovinaController.stek = this.stek; 
             kupovinaController.setAkcijskiButtonText("Rezerviši");
@@ -146,6 +154,7 @@ public class DogadjajController {
             KupovinaController kupovinaController = fxmlLoader.getController();
             kupovinaController.setDogadjajController(this);
             kupovinaController.setKarticaController(karticaController);
+            kupovinaController.setPrimaryController(primaryController);
             kupovinaController.stek = this.stek; 
             kupovinaController.setAkcijskiButtonText("Kupi");
             stek.getChildren().add(parent);
@@ -157,6 +166,9 @@ public class DogadjajController {
     @FXML
     public void initialize(){
         Platform.runLater(() -> {
+            if(primaryController != null)System.out.println(primaryController.getImeKorisnika());
+            imeKorisnika = primaryController.getImeKorisnika();
+            System.out.println(imeKorisnika);
         if(KarticaController.dugmad) 
             disableButtons();
         else{
@@ -164,4 +176,11 @@ public class DogadjajController {
         }
      });
     }
+
+    //metoda koju cu koristiti tamo u kupoviniControlleru
+    String getNazivDogadjaja(){
+        return nazivDogadjaja.getText();
+    }
+
+  
 }
