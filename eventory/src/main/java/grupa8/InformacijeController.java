@@ -203,7 +203,7 @@ public class InformacijeController {
             Matcher dateMatcher = dateRegex.matcher(datumDogadjaja);
         
             if (!dateMatcher.matches()) {
-                warning.setText("Nevalidan format");
+                warning.setText("Nevalidan format datuma");
                 warning.setStyle("-fx-text-fill: red;");
                 return;
             }
@@ -226,7 +226,7 @@ public class InformacijeController {
               Matcher timeMatcher = timeRegex.matcher(vrijemeDogadjaja);
           
               if (!timeMatcher.matches()) {
-                  warning.setText("Nevalidan format");
+                  warning.setText("Nevalidan format vremena");
                   warning.setStyle("-fx-text-fill: red;");
                   return;
               }

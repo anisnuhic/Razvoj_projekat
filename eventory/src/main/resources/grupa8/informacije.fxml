@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.InformacijeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupa8.InformacijeController">
    <children>
       <TextField fx:id="naziv" layoutX="33.0" layoutY="39.0" prefHeight="21.0" prefWidth="288.0" />
       <TextField fx:id="datum" layoutX="33.0" layoutY="96.0" prefHeight="24.0" prefWidth="119.0" promptText="YYYY-MM-DD" />
@@ -50,7 +50,7 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <Button layoutX="537.0" layoutY="440.0" mnemonicParsing="false" onAction="#organizuj" prefHeight="33.0" prefWidth="130.0" styleClass="organizuj_button" stylesheets="@css/informacije.css" text="Organizuj" />
+      <Button layoutX="534.0" layoutY="457.0" mnemonicParsing="false" onAction="#organizuj" prefHeight="33.0" prefWidth="130.0" styleClass="organizuj_button" stylesheets="@css/informacije.css" text="Organizuj" />
       <ComboBox fx:id="vrsta" layoutX="33.0" layoutY="156.0" opacity="0.5" prefHeight="24.0" prefWidth="202.0" promptText="Odaberi vrstu" />
       <ComboBox fx:id="podvrsta" layoutX="33.0" layoutY="211.0" opacity="0.5" prefHeight="24.0" prefWidth="202.0" promptText="Odaberi podvrstu" />
       <ComboBox fx:id="gradComboBox" layoutX="368.0" layoutY="39.0" opacity="0.5" prefHeight="24.0" prefWidth="119.0" promptText="..." />
@@ -59,6 +59,6 @@
       <Label layoutX="368.0" layoutY="432.0" prefHeight="16.0" prefWidth="150.0" text="Max. karti" />
       <Label layoutX="34.0" layoutY="367.0" prefHeight="16.0" prefWidth="119.0" text="Uslov otkazivanja" />
       <TextField fx:id="uslov" alignment="TOP_LEFT" layoutX="33.0" layoutY="381.0" prefHeight="88.0" prefWidth="288.0" />
-       <Label fx:id="warning" layoutX="177.0" layoutY="132.0" prefHeight="16.0" prefWidth="135.0" />
+       <Label fx:id="warning" layoutX="34.0" layoutY="482.0" prefHeight="16.0" prefWidth="288.0" />
    </children>
 </AnchorPane>
