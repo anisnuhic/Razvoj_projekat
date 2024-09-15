@@ -72,6 +72,7 @@ public class KarticaController {
         
             controller.setDogadjaj(this.dogadjaj);
             controller.setKarticaController(this);
+            controller.setPrimaryController(primaryController);
             
             Stage stage = new Stage();
             stage.setTitle("Dogadjaj");

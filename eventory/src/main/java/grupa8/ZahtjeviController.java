@@ -39,6 +39,15 @@ public class ZahtjeviController {
                 controller.setDogadjaj(d);
                 controller.setPrimaryController(primaryController);
                 Button actionButton = new Button("Dodaj");
+                Button odbijButton = new Button("Odbij");
+                odbijButton.setId("btn");
+                odbijButton.setOnAction(event -> {
+                    //ako ostane vremena i ovo napravit
+                    //obrisiDogadjajIzBaze(d);
+                    listaDogadjaja.remove(d);
+                    addDogadjajListToResetka(listaDogadjaja);
+
+                });
                 actionButton.setId("btn");
                 actionButton.setOnAction(event -> {
                     updateDogadjajStatus(d);
@@ -47,6 +56,9 @@ public class ZahtjeviController {
                 
             });
                 eventCard.getChildren().add(actionButton);
+                eventCard.getChildren().add(odbijButton);
+                AnchorPane.setTopAnchor(odbijButton, 150.0);
+                AnchorPane.setLeftAnchor(odbijButton, 250.0);
                 AnchorPane.setTopAnchor(actionButton, 120.0); 
                 AnchorPane.setLeftAnchor(actionButton, 250.0);
                 resetka.add(eventCard, col, row);
@@ -86,4 +98,29 @@ public class ZahtjeviController {
             em.close();
         }
     }
+    public void obrisiDogadjajIzBaze(Dogadjaj dogadjaj) {
+        EntityManager entityManager = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        
+        try {
+            transaction.begin();
+            
+            // Moraš spojiti entitet sa trenutnom sesijom ako nije vezan
+            Dogadjaj dogadjajToDelete = entityManager.find(Dogadjaj.class, dogadjaj.getDogadjajId());
+            
+            if (dogadjajToDelete != null) {
+                entityManager.remove(dogadjajToDelete);
+            }
+            
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();  
+        }
+    }
+    
 }

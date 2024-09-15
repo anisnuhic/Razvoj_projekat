@@ -188,7 +188,7 @@ public class InformacijeController {
         // Prikupljanje informacija iz ComboBox-ova
         String vrstaDogadjaja = vrsta.getValue();
         String podvrstaDogadjaja = podvrsta.getValue();
-        String grad = gradComboBox.getValue();
+        //String grad = gradComboBox.getValue();
         String lokacijaNaziv = lokacijaComboBox.getValue();
 
         // Prikupljanje informacija iz Spinner-a (broj karata)

@@ -62,5 +62,6 @@
       <Label alignment="CENTER" layoutX="143.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Novo" />
       <Label fx:id="label3" alignment="CENTER" layoutX="300.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Trenutno" />
       <Label fx:id="label4" alignment="CENTER" layoutX="421.0" layoutY="6.0" prefHeight="16.0" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="Novo" />
+      <Label fx:id="warning" layoutX="24.0" layoutY="354.0" prefHeight="16.0" prefWidth="258.0" />
    </children>
 </AnchorPane>
