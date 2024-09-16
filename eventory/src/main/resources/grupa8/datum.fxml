@@ -12,7 +12,7 @@
    <children>
       <TextField fx:id="odDatumTextField" layoutX="76.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" promptText="DD-MM-YYYY" />
       <TextField fx:id="doDatumTextField" layoutX="346.0" layoutY="167.0" prefHeight="50.0" prefWidth="190.0" promptText="DD-MM-YYYY" />
-      <Label alignment="CENTER" layoutX="242.0" layoutY="54.0" prefHeight="50.0" prefWidth="116.0" text="DATUM">
+      <Label alignment="CENTER" layoutX="242.0" layoutY="54.0" prefHeight="50.0" prefWidth="116.0" text="Datum">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>

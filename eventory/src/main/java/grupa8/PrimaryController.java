@@ -221,6 +221,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -238,6 +239,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -256,6 +258,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -269,10 +272,11 @@ private void handleDogadjaji(ActionEvent event) {
             InformacijeController informacijaController = fxmlLoader.getController();
             informacijaController.setPrimaryController(this);
             Stage stage = new Stage();
-            stage.setTitle("Napravi dogadjaj");
+            stage.setTitle("Napravi događaj");
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -319,6 +323,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -358,6 +363,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -379,6 +385,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -513,10 +520,11 @@ private void handleDogadjaji(ActionEvent event) {
             zahtjeviController.setPrimaryController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Zahtjevi za dogadjaje");
+            stage.setTitle("Zahtjevi za događaje");
             stage.setScene(new Scene(prijavaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
             
             resetFilters();
@@ -537,6 +545,7 @@ private void handleDogadjaji(ActionEvent event) {
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

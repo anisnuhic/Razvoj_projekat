@@ -90,7 +90,7 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="640.0" prefHeight="23.0" prefWidth="74.0" text="Novcanik:">
+      <Label layoutX="18.0" layoutY="640.0" prefHeight="23.0" prefWidth="74.0" text="Novčanik:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

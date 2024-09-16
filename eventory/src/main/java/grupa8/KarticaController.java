@@ -75,9 +75,10 @@ public class KarticaController {
             controller.setPrimaryController(primaryController);
             
             Stage stage = new Stage();
-            stage.setTitle("Dogadjaj");
+            stage.setTitle("Događaj");
             stage.setScene(new Scene(prijavaRoot, 860, 650));
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
             stage.initOwner(((Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow()));
             if(tipKorisnika.isEmpty() || tipKorisnika.get(0).equals(Korisnik.TipKorisnika.ADMIN) ){
                 dugmad = true;

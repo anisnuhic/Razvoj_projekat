@@ -62,6 +62,7 @@ public class AdminLokacijaController {
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.setResizable(false);
             stage.showAndWait();
 
         } catch (IOException e) {
