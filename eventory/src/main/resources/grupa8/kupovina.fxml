@@ -60,7 +60,7 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="DOBRODOŠLI NA EVENTORY&#10;Da bi ste rezervisali karte na našoj stranici potrebno je:&#10;Da izaberete sektor/e za koji/e želite da rezervišete&#10;Da izaberete broj karti za taj sektor&#10;Da provjerite da li vam odgovara ukupna cijena vaših karti&#10;Klikenete na rezerviši&#10;Vaše karte vas čekaju spremne za kupovinu&#10;&#10;Ukoliko želite izvršiti kupovinu karti potrebno je da:&#10;Izaberete sektor/e&#10;Izaberete broj karti za taj sektor&#10;Provjerite da li vam cijena odgovara&#10;Kliknete na Kupi&#10;Vaše karte dolaze vam u pdf formatu&#10;&#10;" wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="36.0" layoutY="78.0" prefHeight="231.0" prefWidth="404.0" text="DOBRODOŠLI NA EVENTORY&#10;Da biste rezervisali karte na našoj stranici potrebno je:&#10;Da izaberete sektor/e za koji/e želite da rezervišete&#10;Da izaberete broj karti za taj sektor&#10;Da provjerite da li vam odgovara ukupna cijena vaših karti&#10;Klikenete na rezerviši&#10;Vaše karte vas čekaju spremne za kupovinu&#10;&#10;Ukoliko želite izvršiti kupovinu karti potrebno je da:&#10;Izaberete sektor/e&#10;Izaberete broj karti za taj sektor&#10;Provjerite da li vam cijena odgovara&#10;Kliknete na Kupi&#10;Vaše karte dolaze vam u pdf formatu&#10;&#10;" wrapText="true" />
       <Label alignment="CENTER" layoutX="129.0" layoutY="398.0" opacity="0.5" prefHeight="23.0" prefWidth="96.0" text="Broj karti" textFill="#333333">
          <font>
             <Font name="System Bold" size="13.0" />
