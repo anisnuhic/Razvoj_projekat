@@ -112,8 +112,9 @@ public class KupovinaController {
     public void initialize() {
         Platform.runLater(() -> {
             String imeKorisnika = dogadjajController.getImeKorisnika();
-            TypedQuery<BigDecimal> query1 = em.createQuery("SELECT k.novcanik from Korisnik k WHERE k.korisnickoIme = :imeKorisnika",
-                BigDecimal.class);
+            TypedQuery<BigDecimal> query1 = em.createQuery(
+                    "SELECT k.novcanik from Korisnik k WHERE k.korisnickoIme = :imeKorisnika",
+                    BigDecimal.class);
             query1.setParameter("imeKorisnika", imeKorisnika);
             novcanik.setText(query1.getSingleResult().toString());
             ispis.setVisible(false);
@@ -182,12 +183,15 @@ public class KupovinaController {
         EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
         Rezervacija rezervacija = new Rezervacija();
-        
-        //kod za postavljanje statusa rezervacije
+
+        // kod za postavljanje statusa rezervacije
         Rezervacija.Status status;
-        if(akcijskiButton.getText().equals("Kupi")) status = Rezervacija.Status.KUPLJENO;
-        else if (akcijskiButton.getText().equals("Rezerviši"))status = Rezervacija.Status.REZERVISANO;
-        else status = Rezervacija.Status.OTKAZANO;
+        if (akcijskiButton.getText().equals("Kupi"))
+            status = Rezervacija.Status.KUPLJENO;
+        else if (akcijskiButton.getText().equals("Rezerviši"))
+            status = Rezervacija.Status.REZERVISANO;
+        else
+            status = Rezervacija.Status.OTKAZANO;
         // kod za dohvatanje dogadjaja
         String nazivDogadjaja = dogadjajController.getNazivDogadjaja();
         TypedQuery<Dogadjaj> query = em.createQuery("SELECT d from Dogadjaj d WHERE d.naziv = :nazivDogadjaja",
@@ -209,7 +213,7 @@ public class KupovinaController {
         query1.setParameter("imeKorisnika", imeKorisnika);
         Korisnik korisnik = query1.getSingleResult();
 
-        //kod za dohvatanje sektora
+        // kod za dohvatanje sektora
         String nazivSektora = "";
         for (var node : vBox.getChildren()) {
             if (node instanceof CheckBox) {
@@ -223,38 +227,56 @@ public class KupovinaController {
                 }
             }
         }
-        //dohvatanje sektora na osnovu naziva i lokacije
-        TypedQuery<Sektor> query2 = em.createQuery("SELECT s from Sektor s WHERE s.nazivSektora = :nazivSektora AND s.lokacija = :lokacija", Sektor.class);
+        // dohvatanje sektora na osnovu naziva i lokacije
+        TypedQuery<Sektor> query2 = em.createQuery(
+                "SELECT s from Sektor s WHERE s.nazivSektora = :nazivSektora AND s.lokacija = :lokacija", Sektor.class);
         query2.setParameter("nazivSektora", nazivSektora);
         query2.setParameter("lokacija", lokacija);
         Sektor sektor = query2.getSingleResult();
 
-        TypedQuery<Karta> query3 = em.createQuery("SELECT k FROM Karta k WHERE k.sektor = :sektor AND k.dogadjaj = :dogadjaj", Karta.class);
+        TypedQuery<Karta> query3 = em
+                .createQuery("SELECT k FROM Karta k WHERE k.sektor = :sektor AND k.dogadjaj = :dogadjaj", Karta.class);
         query3.setParameter("sektor", sektor);
         query3.setParameter("dogadjaj", dogadjaj);
         Karta karta = query3.getSingleResult();
         // popunjavanje objekta Rezervacija
-        rezervacija.setKorisnik(korisnik);
-        rezervacija.setKarta(karta);
-        rezervacija.setDatumRezervacije(LocalDateTime.now());
-        rezervacija.setStatus(status);
-        rezervacija.setKolicina(brojKarti);
-        rezervacija.setUkupnaCijena(d);
-        korisnik.setNovcanik(korisnik.getNovcanik().subtract(d));
-        try{
-            em.getTransaction().begin();
-            em.persist(rezervacija); 
-            em.merge(korisnik);
-            em.getTransaction().commit();
-            ispis.setVisible(true);
+        if (korisnik.getNovcanik().compareTo(d) >= 0) {
+            rezervacija.setKorisnik(korisnik);
+            rezervacija.setKarta(karta);
+            rezervacija.setDatumRezervacije(LocalDateTime.now());
+            rezervacija.setStatus(status);
+            rezervacija.setKolicina(brojKarti);
+            rezervacija.setUkupnaCijena(d);
+            korisnik.setNovcanik(korisnik.getNovcanik().subtract(d));
+            TypedQuery<Integer> query4 = em.createQuery("SELECT SUM(kolicina) FROM rezervacije WHERE karta =: karta",
+                    Integer.class);
+            query4.setParameter("karta", karta);
+            int kupljeneKarte = query4.getSingleResult();
+            if (kupljeneKarte + brojKarti <= karta.getSektor().getKapacitet()) {
+                try {
+                    em.getTransaction().begin();
+                    em.persist(rezervacija);
+                    em.merge(korisnik);
+                    em.getTransaction().commit();
+                    ispis.setText("Uspješna transakcija");
+                    ispis.setVisible(true);
 
+                } catch (Exception e) {
+                    if (em.getTransaction().isActive())
+                        em.getTransaction().rollback();
+                    e.printStackTrace();
+                }
+                if (akcijskiButton.getText().equals("Kupi")) {
+                    // logika za download pdf-a
+                }
+            } else{
+                ispis.setVisible(true);
+                ispis.setText("Nema toliko karti!");
+            }
         }
-        catch (Exception e){
-            if (em.getTransaction().isActive()) em.getTransaction().rollback();
-            e.printStackTrace();
+        else {
+            ispis.setVisible(true);
+            ispis.setText("Provjerite novčanik!");
         }
-        if(akcijskiButton.getText().equals("Kupi")){
-            //logika za download pdf-a
-    }
     }
 }
