@@ -205,7 +205,7 @@ private void handleDogadjaji(ActionEvent event) {
         addDogadjajListToResetka(dogadjaji);
     } finally {
         em.close();
-        }
+    }
 }
 
    

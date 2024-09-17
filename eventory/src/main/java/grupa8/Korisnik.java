@@ -39,6 +39,7 @@ public class Korisnik {
 
     @Column(name = "novcanik")
     private BigDecimal novcanik;
+
     // Getteri i setteri
 
     public int getKorisnikId() {

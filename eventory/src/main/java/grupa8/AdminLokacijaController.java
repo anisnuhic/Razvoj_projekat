@@ -29,7 +29,6 @@ public class AdminLokacijaController {
          try {
             // Load locations from database
             List<Lokacija> lokacije = em.createQuery("SELECT l FROM Lokacija l ORDER BY l.grad ASC", Lokacija.class).getResultList();
-
             // Create a VBox to hold labels
             VBox vbox = new VBox(5);  // 5 is the spacing between labels
             
