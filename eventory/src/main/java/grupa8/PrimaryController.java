@@ -177,7 +177,24 @@ public class PrimaryController {
         System.out.println("dugmad su: " + KarticaController.dugmad); 
     }
     @FXML
-    private void handleKarte(ActionEvent event){}
+    private void handleKarte(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listaKarti.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+            ListaKartiController listaController = fxmlLoader.getController();
+            listaController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Vase karte");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.setWidth(960);  // širina u pikselima
+            stage.setHeight(720);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
 private void handleDogadjaji(ActionEvent event) {
     String imeKorisnik = imeKorisnika.getText();
