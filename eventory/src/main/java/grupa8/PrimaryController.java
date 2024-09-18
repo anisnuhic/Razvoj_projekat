@@ -30,13 +30,13 @@ public class PrimaryController {
     @FXML
     private Button registracijaButton, odjavaButton, prijavaButton, urediProfil, zahtjevi, uredi_lokacije;
     @FXML
-    Button napraviButton, mojiDogadjaji;
+    Button napraviButton, mojiDogadjaji, urediDogadjaje;
     @FXML
     private Label tipKorisnika, imeKorisnika, profil;
     @FXML
     private ImageView icon1, slicica1;
     @FXML
-    ImageView slicica2, crveno;
+    ImageView slicica2, crveno, urediDogSlicica;
     @FXML
     private Button muzikaButton, kulturaButton, sportButton, ostaloButton, mojeKarte, nextButton, prevButton;
     @FXML
@@ -140,6 +140,7 @@ public class PrimaryController {
         slicica2.setVisible(false);
         mojeKarte.setVisible(false);
         mojiDogadjaji.setVisible(false);
+        urediDogadjaje.setVisible(false);
         profil.setVisible(false);
         if(!getfalseDogadjajList().isEmpty())crveno.setVisible(true);
         else crveno.setVisible(false);
@@ -172,6 +173,7 @@ public class PrimaryController {
         slicica2.setVisible(false);
         mojeKarte.setVisible(false);
         mojiDogadjaji.setVisible(false);
+        urediDogadjaje.setVisible(false);
         profil.setVisible(false);
         KarticaController.dugmad = true;
         System.out.println("dugmad su: " + KarticaController.dugmad); 
@@ -184,10 +186,11 @@ public class PrimaryController {
             ListaKartiController listaController = fxmlLoader.getController();
             listaController.setPrimaryController(this);
             Stage stage = new Stage();
-            stage.setTitle("Vase karte");
+            stage.setTitle("Vaše karte");
             stage.setScene(new Scene(prijavaRoot));
             stage.setWidth(960);  // širina u pikselima
             stage.setHeight(720);
+            stage.setResizable(false);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
             stage.showAndWait();
@@ -196,9 +199,9 @@ public class PrimaryController {
         }
     }
     @FXML
-private void handleDogadjaji(ActionEvent event) {
-    String imeKorisnik = imeKorisnika.getText();
-    EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
+    private void handleDogadjaji(ActionEvent event) {
+        String imeKorisnik = imeKorisnika.getText();
+        EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
         String jpq = "SELECT k.korisnikId FROM Korisnik k WHERE k.korisnickoIme = :imeKorisnik";
         TypedQuery<Integer> query = em.createQuery(jpq, Integer.class);
@@ -558,11 +561,30 @@ private void handleDogadjaji(ActionEvent event) {
             UrediProfilController urediProfilController = fxmlLoader.getController();
             urediProfilController.setPrimaryController(this);
             Stage stage = new Stage();
-            stage.setTitle("Uredi Profil");
+            stage.setTitle("Uredite Profil");
             stage.setScene(new Scene(registracijaRoot));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
             stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void urediDogadjajeClicked(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("urediDogadjaj.fxml"));
+            Parent prijavaRoot = fxmlLoader.load();
+            UrediDogadjajController urediController = fxmlLoader.getController();
+            urediController.setPrimaryController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Uredite događaje");
+            stage.setScene(new Scene(prijavaRoot));
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow()));
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

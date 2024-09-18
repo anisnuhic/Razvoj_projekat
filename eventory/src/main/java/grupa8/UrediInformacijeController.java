@@ -29,11 +29,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
+import java.util.ArrayList;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-public class InformacijeController {
+public class UrediInformacijeController {
     @FXML
     private TextField naziv, datum, vrijeme, opis, uslov;
     @FXML
@@ -50,9 +51,6 @@ public class InformacijeController {
     private ComboBox<String> lokacijaComboBox, gradComboBox;
 
     @FXML
-    private PrimaryController primaryController;
-
-    @FXML
     private VBox vbox;
     @FXML
     private ImageView imageView;
@@ -60,20 +58,60 @@ public class InformacijeController {
     @FXML
     private Button dodajSlikuButton;
 
+    @FXML
+    private UrediDogadjajController primaryController;
+
     private final Map<String, String[]> podvrstaOptions = new HashMap<>();
 
-    public void setPrimaryController(PrimaryController primaryController) {
+    
+
+    public void setPrimaryController(UrediDogadjajController primaryController) {
         this.primaryController = primaryController;
     }
 
+    public int urediDogadjajID;
+
+
     EntityManager em = EntityManagerFactoryInstance.getInstance().getEntityManagerFactory().createEntityManager();
 
+    public Dogadjaj getDogadjajByID(Integer Id) {
+        return em.find(Dogadjaj.class, Id);
+    }
+
+    public Dogadjaj dogadjaj = getDogadjajByID(urediDogadjajID);
+
     public void initialize() {
+        urediDogadjajID = UrediDogadjajController.urediID;
+
+        //Dogadjaj dogadjaj = getDogadjajByID(urediDogadjajID);
+        Lokacija lokacija = dogadjaj.getLokacija();
+        List<Karta> listaKarti = new ArrayList<>();
+
+        TypedQuery<Karta> karteQuery = em
+                .createQuery("SELECT k FROM Karta k WHERE k.dogadjaj = :dogadjaj", Karta.class);
+        karteQuery.setParameter("dogadjaj", dogadjaj);
+        listaKarti = karteQuery.getResultList();
+        
+
+        final LocalDateTime datumVrijeme = dogadjaj.getDatumVrijeme();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        naziv.setText(dogadjaj.getNaziv());
+        opis.setText(dogadjaj.getOpis());
+        datum.setText(datumVrijeme.format(dateFormatter));
+        vrijeme.setText(datumVrijeme.format(timeFormatter));
+        vrsta.setValue(dogadjaj.getVrstaDogadjaja());
+        podvrsta.setValue(dogadjaj.getPodvrstaDogadjaja());
+        gradComboBox.setValue(lokacija.getGrad());
+        lokacijaComboBox.setValue(lokacija.getNaziv());
+        uslov.setText(listaKarti.get(0).getUslovOtkazivanja());
+        
         // Definiraj opcije za podvrstu na osnovu vrste
         // Postavi Spinner da ide od 0, maksimalno 1000 (npr.), inkrement za 1
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0, 1);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, listaKarti.get(0).getMaksimalanBrojKartiPoKorisniku(), 1);
         karte.setValueFactory(valueFactory);
-        podvrstaOptions.put("sport", new String[] { "utakmica", "meč" });
+        podvrstaOptions.put("sport", new String[] { "utakmica", "meč"});
         podvrstaOptions.put("muzika", new String[] { "festival", "koncert" });
         podvrstaOptions.put("kultura", new String[] { "predstava", "izložba" });
         podvrstaOptions.put("ostalo", new String[] {});
@@ -120,7 +158,7 @@ public class InformacijeController {
             for (Sektor sektor : sektori) {
                 Label nazivSektora = new Label(
                         "Sektor: " + sektor.getNazivSektora());
-                Label kapacitet = new Label("Kapacitet: " + sektor.getKapacitet());
+                Label kapacitet = new Label ("Kapacitet: " + sektor.getKapacitet());
                 nazivSektora.setStyle("-fx-text-weight: bold;");
                 TextField textField = new TextField();
                 textField.setPromptText("unesi cijenu");
@@ -137,6 +175,7 @@ public class InformacijeController {
             podvrsta.setValue(null); // Resetuj odabranu podvrstu
         }
     }
+
     String imageUrl;
     @FXML
     private void dodajSliku() {
@@ -177,8 +216,30 @@ public class InformacijeController {
         }
     }
 
+    public Sektor findSektorByLokacija(Lokacija lokacija) {
+        TypedQuery<Sektor> query = em.createQuery("SELECT s FROM Sektor s WHERE s.lokacija = :lokacija", Sektor.class);
+        query.setParameter("lokacija", lokacija);
+        return query.getSingleResult();
+    }
+
+    public void updateTicketsForEvent(Dogadjaj dogadjaj, Lokacija novaLokacija) {
+        List<Karta> listaKarti = getTicketsForEvent(dogadjaj);
+        for (Karta karta : listaKarti) {
+            // Update sector and location for the ticket if necessary
+            Sektor sektor = findSektorByLokacija(novaLokacija); // Fetch the new sector based on the location
+            karta.setSektor(sektor);
+            em.merge(karta);
+        }
+    }
+    
+    public List<Karta> getTicketsForEvent(Dogadjaj dogadjaj) {
+        TypedQuery<Karta> query = em.createQuery("SELECT k FROM Karta k WHERE k.dogadjaj = :dogadjaj", Karta.class);
+        query.setParameter("dogadjaj", dogadjaj);
+        return query.getResultList();
+    }
+
     @FXML
-    private void organizuj(ActionEvent event) {
+    private void uredi(ActionEvent event) {
         // Prikupimo podatke sa forme
         String nazivDogadjaja = naziv.getText();
         String datumDogadjaja = datum.getText();
@@ -249,10 +310,10 @@ public class InformacijeController {
                   return;
               }
           
-          } catch (PatternSyntaxException e) {
+        } catch (PatternSyntaxException e) {
               System.out.println("Error in the regex pattern: " + e.getMessage());
-          }
-          warning.setText("");
+        }
+        warning.setText("");
           
         // Konvertovanje datuma i vremena u LocalDateTime
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -321,55 +382,61 @@ public class InformacijeController {
         }
         warning.setText("");
 
-        // Kreiraj novi događaj
-        Dogadjaj noviDogadjaj = new Dogadjaj();
-        noviDogadjaj.setNaziv(nazivDogadjaja);
-        noviDogadjaj.setOpis(opisDogadjaja);
-        noviDogadjaj.setLokacija(lokacija);
-        noviDogadjaj.setDatumVrijeme(datumVrijeme);
-        noviDogadjaj.setVrstaDogadjaja(vrstaDogadjaja);
-        noviDogadjaj.setPodvrstaDogadjaja(podvrstaDogadjaja);
-        noviDogadjaj.setOdobreno(false); // Pretpostavka da događaj mora biti odobren
-        noviDogadjaj.setSlikaUrl(imageUrl);
-        String imeKorisnika = primaryController.getImeKorisnika();
-        TypedQuery<Integer> korisnikIdQuery = em
-                .createQuery("SELECT k.korisnikId FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme", Integer.class);
-        korisnikIdQuery.setParameter("korisnickoIme", imeKorisnika);
-        Integer korisnikId = korisnikIdQuery.getSingleResult();
+        Organizator organizator = new Organizator();
+        organizator = dogadjaj.getOrganizator();
 
-        TypedQuery<Organizator> organizatorQuery = em
-                .createQuery("SELECT o FROM Organizator o WHERE o.organizatorId = :korisnikId", Organizator.class);
-        organizatorQuery.setParameter("korisnikId", korisnikId);
-        Organizator organizator = organizatorQuery.getSingleResult();
+        String selectedGrad = gradComboBox.getValue(); 
+        
+        try {
+            em.getTransaction().begin();
+        
+            // Dohvati trenutni dogadjaj
+            Dogadjaj dogadjaj = getDogadjajByID(urediDogadjajID);
+        
+            // Azuriraj podatke o dogadjaju
+            dogadjaj.setNaziv(nazivDogadjaja);
+            dogadjaj.setOpis(opisDogadjaja);
+            dogadjaj.setDatumVrijeme(datumVrijeme);
+            dogadjaj.setVrstaDogadjaja(vrstaDogadjaja);
+            dogadjaj.setPodvrstaDogadjaja(podvrstaDogadjaja);
+            dogadjaj.setSlikaUrl(imageUrl);
+            dogadjaj.setLokacija(lokacija);
+            dogadjaj.setOdobreno(null);
+        
+                // Update associated tickets (if location or sector changed)
+                //updateTicketsForEvent(dogadjaj, lokacija);
 
-        noviDogadjaj.setOrganizator(organizator);
-        // Sačuvaj događaj u bazi podataka
-        em.getTransaction().begin();
-        em.persist(noviDogadjaj);
+                // Kreiraj nove karte za svaki sektor
+            for (Map.Entry<Sektor, BigDecimal> entry : sektorCijene.entrySet()) {
+                Sektor sektor = entry.getKey();
+                BigDecimal cijena = entry.getValue();
 
-        // Kreiraj karte za svaki sektor
-        for (Map.Entry<Sektor, BigDecimal> entry : sektorCijene.entrySet()) {
-            Sektor sektor = entry.getKey();
-            BigDecimal cijena = entry.getValue();
+                Karta karta = new Karta();
+                karta.setDogadjaj(dogadjaj);
+                karta.setSektor(sektor);
+                karta.setCijena(cijena);
+                karta.setDatumPocetkaProdaje(LocalDate.now()); // Postavi trenutni datum kao početak prodaje
+                karta.setDatumZavrsetkaProdaje(datumVrijemeKarta.minusDays(1)); // Završi prodaju dan prije događaja
+                karta.setMaksimalanBrojKartiPoKorisniku(maxKarti);
+                karta.setUslovOtkazivanja(uslovOtkazivanja);
 
-            Karta karta = new Karta();
-            karta.setDogadjaj(noviDogadjaj);
-            karta.setSektor(sektor);
-            karta.setCijena(cijena);
-            karta.setDatumPocetkaProdaje(LocalDate.now()); // Postavi trenutni datum kao početak prodaje
-            karta.setDatumZavrsetkaProdaje(datumVrijemeKarta.minusDays(1)); // Završi prodaju dan prije događaja
-            karta.setMaksimalanBrojKartiPoKorisniku(maxKarti);
-            karta.setUslovOtkazivanja(uslovOtkazivanja);
-
-            // Sačuvaj kartu u bazi podataka
-            em.persist(karta);
+                    // Sačuvaj kartu u bazi podataka
+                em.persist(karta);
+            }
+        
+            em.getTransaction().commit();
+            warning.setText("Event updated successfully!");
+            warning.setStyle("-fx-text-fill: green;");
+        
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            warning.setText("Error updating event: " + e.getMessage());
+            warning.setStyle("-fx-text-fill: red;");
         }
-
-        em.getTransaction().commit();
-        primaryController.addDogadjajListToResetka(primaryController.getInitDogadjajList());
-        System.out.println("Događaj uspješno organizovan i karte kreirane.");
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
+        
+        
+        
+        
+    } 
 
 }

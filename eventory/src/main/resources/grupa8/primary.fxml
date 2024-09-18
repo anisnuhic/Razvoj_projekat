@@ -196,6 +196,16 @@
                   <Image url="@assets/icons/calendar_month_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
                </image>
             </ImageView>
+            <Button fx:id="urediDogadjaje" alignment="BASELINE_LEFT" layoutX="35.0" layoutY="718.0" mnemonicParsing="false" onAction="#urediDogadjajeClicked" prefHeight="20.0" prefWidth="265.0" styleClass="urediDog_button" stylesheets="@css/urediDogadjaj.css" text="Uredi događaje" textFill="WHITE" visible="false">
+               <padding>
+                  <Insets left="25.0" top="5.0" />
+               </padding>
+            </Button>
+            <ImageView fx:id="urediDogSlicica" fitHeight="20.0" fitWidth="14.0" layoutX="40.0" layoutY="723.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@assets/icons/storefront_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="388.0" prefHeight="760.0" prefWidth="1060.0" styleClass="menu" stylesheets="@css/primary.css" AnchorPane.leftAnchor="291.0" AnchorPane.topAnchor="0.0">

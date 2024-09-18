@@ -290,6 +290,8 @@ public class RegistracijaController {
                 primaryController.napraviButton.setVisible(false);
                 primaryController.mojiDogadjaji.setVisible(false);
                 primaryController.slicica2.setVisible(false);
+                primaryController.urediDogadjaje.setVisible(false);
+                primaryController.urediDogSlicica.setVisible(false);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         } catch (Exception e) {

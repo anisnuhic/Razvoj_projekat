@@ -1,0 +1,8 @@
+.urediDog_button{
+    -fx-background-color: #333333;
+    -fx-font-size: 12px;
+}
+
+.urediDog_button:hover{
+    -fx-background-color: linear-gradient(to right, #333333, #ffffff) !important;
+}

@@ -69,12 +69,15 @@ public class PrijavaController {
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(), "KORISNIK" );
                         primaryController.napraviButton.setVisible(false); 
                         primaryController.mojiDogadjaji.setVisible(false);
+                        primaryController.urediDogadjaje.setVisible(false); 
                         primaryController.slicica2.setVisible(false);// or whatever method to show or update primary stageontroller.napr // or whatever method to show or update primary stag
                     }
                     else if (a.toString().equals("ORGANIZATOR")){
                         primaryController.setKorisnickoIme(korisnickoImeField.getText(),  "ORGANIZATOR");
-                       primaryController.mojiDogadjaji.setVisible(true);
-                       primaryController.slicica2.setVisible(true);
+                        primaryController.mojiDogadjaji.setVisible(true);
+                        primaryController.urediDogadjaje.setVisible(true);
+                        primaryController.slicica2.setVisible(true);
+                        primaryController.urediDogSlicica.setVisible(true);
                     }
                 }
                 
