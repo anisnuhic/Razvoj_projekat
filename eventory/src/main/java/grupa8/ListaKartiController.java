@@ -78,7 +78,10 @@ public class ListaKartiController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("mojeKarte.fxml"));
                 AnchorPane eventCard = loader.load();
                 MojeKarteController controller = loader.getController();
+                controller.inicijaliziraj(karta, korisnik);
                 controller.postaviIzgledKarte(karta.getDogadjaj().getNaziv(), karta.getCijena().toString() + "KM", karta.getDogadjaj().getSlikaUrl(), karta.getSektor().getNazivSektora(), "KUPLJENO", brojKupljenihKartirespektivno.get(i));
+                System.out.println("karte: " + karta  );
+                System.out.println("Korisnik: " + korisnik);
                 resetka.getChildren().add(eventCard);
             } catch (IOException e) {
                 e.printStackTrace();

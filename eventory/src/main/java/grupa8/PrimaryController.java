@@ -59,6 +59,8 @@ public class PrimaryController {
         cijenaContainer.getChildren().clear();
         filterDefinition.resetFilters();
         filterDefinition.setSearchText(searchText.getText());
+        if(searchText.getText().equals(""))nextButton.setVisible(true);
+        else nextButton.setVisible(false);
         filter();
      
     }
@@ -71,7 +73,8 @@ public class PrimaryController {
         selectCategoryButton(muzikaButton);
         deselectCategoryButtons(kulturaButton, sportButton, ostaloButton);
         handleCategoryChanged(CategoryEnum.MUZIKA);
-        
+        nextButton.setVisible(false);
+
     }
 
     @FXML
@@ -82,7 +85,7 @@ public class PrimaryController {
         selectCategoryButton(kulturaButton);
         deselectCategoryButtons(sportButton, ostaloButton, muzikaButton);
         handleCategoryChanged(CategoryEnum.KULTURA);
-        
+        nextButton.setVisible(false);
     }
 
     @FXML
@@ -93,7 +96,7 @@ public class PrimaryController {
         selectCategoryButton(sportButton);
         deselectCategoryButtons(kulturaButton, ostaloButton, muzikaButton);
         handleCategoryChanged(CategoryEnum.SPORT);
-       
+        nextButton.setVisible(false);
     }
 
     @FXML
