@@ -122,6 +122,8 @@ public class PrimaryController {
         icon1.setVisible(true);
         slicica1.setVisible(true);
         mojeKarte.setVisible(true);
+        urediDogadjaje.setVisible(true);
+        urediDogSlicica.setVisible(true);
         profil.setVisible(true);
         resetFilters();
         muzikaButton.setStyle("-fx-background-color: #333333; -fx-text-fill: white;");
